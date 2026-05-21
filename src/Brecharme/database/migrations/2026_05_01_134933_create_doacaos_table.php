@@ -11,8 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doacaos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('doacao', function (Blueprint $table) {
+            $table->increments('id_doacao');
+            $table->enum('categoria', ['Roupas', 'Calçados', 'Acessórios', 'Eletrônicos', 'Móveis', 'Brinquedos', 'Outros'])->default('Outros');
+            $table->text('descricao');
+            $table->string('caminho_img');
+            $table->string('localizacao');
+            $table->enum('status', ['Analise', 'Aprovada', 'Rejeitada', 'Retirada'])->default('Analise');
+            $table->timestamp('data_doacao')->useCurrent();
+
+            $table->foreignId('fk_doacao_id_usuario')->references('id_usuario')->on('usuario')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -11,8 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produtos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('produto', function (Blueprint $table) {
+            $table->increments('id_produto'); 
+            $table->string('nome');
+            $table->text('descricao');
+            $table->decimal('valor', 8, 2);
+            $table->string('caminho_img');
+            $table->enum('categoria', ['Roupas', 'Calçados', 'Acessórios', 'Eletrônicos', 'Móveis', 'Brinquedos', 'Outros'])->default('Outros');
+            $table->timestamp('data_exclusao')->nullable();
+            $table-> boolean('excluido')->default(false);
+            $table->enum('status', ['Disponível', 'Carrinho', 'Vendido', 'Reservado'])->default('Disponível');
+
+            $table->foreignId('fk_doacao_id_doacao')->references('id_doacao')->on('doacao')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -22,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produtos');
+        Schema::dropIfExists('produto');
     }
 };

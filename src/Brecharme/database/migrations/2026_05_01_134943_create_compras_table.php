@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('compras', function (Blueprint $table) {
-            $table->id();
+        Schema::create('compra', function (Blueprint $table) {
+            $table->increments('id_compra');
+            $table->enum('status', ['Carrinho', 'Reservado', 'Concluída', 'Cancelada'])->default('Carrinho');
+            $table->string('sessao');
+            $table->timestamp('data_compra')->useCurrent();
+
+            $table->foreignId('fk_doacao_id_usuario')->references('id_usuario')->on('usuario')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('compras');
+        Schema::dropIfExists('compra');
     }
 };

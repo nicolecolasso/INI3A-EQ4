@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comunicados', function (Blueprint $table) {
-            $table->id();
+        Schema::create('comunicado', function (Blueprint $table) {
+            $table->increments('id_comunicado');
+            $table->string('assunto');
+            $table->text('mensagem');
+            $table->timestamp('data_envio')->useCurrent();
+            $table->foreignId('fk_doacao_id_usuario')->references('id_usuario')->on('usuario')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comunicados');
+        Schema::dropIfExists('comunicado');
     }
 };
