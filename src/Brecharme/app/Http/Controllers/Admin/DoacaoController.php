@@ -7,59 +7,62 @@ use Illuminate\Http\Request;
 
 class DoacaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function doacoes()
     {
-        //
+        return view('admin.doacoes.doacoes');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function novaDoacao()
     {
-        //
+        return view('admin.doacoes.novaDoacao');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    private function ajusteDados(Request $req)
     {
-        //
+        $dados = $req->all();
+
+        if ($req->hasFile('arquivo')) {
+            $imagem = $req->file('arquivo');
+            $num = rand(1111, 9999);
+            $dir = "img/doacoes/";
+            $ex = $imagem->guessClientExtension();
+            $nomeImagem = "imagem_" . $num . "." . $ex;
+            $imagem->move($dir, $nomeImagem);
+            
+            $dados['caminho_img'] = $dir . $nomeImagem;
+        }
+
+        return $dados;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+ 
+    public function salvar(Request $req)
     {
-        //
+        $dados = $this->ajusteDados($req);
+        $dados['fk_doacao_id_usuario'] = $dados['id_usuario'];
+        $dados['data_doacao'] = now();
+
+        Doacao::create($dados);
+
+        return redirect()->route('admin.doacoes');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+ 
+    public function editarDoacao($id)
     {
-        //
+        $linha = Doacao::find($id);
+        return view('admin.doacoes.editarDoacao', compact('linha'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function atualizar(Request $req, $id)
     {
-        //
+        $dados = $this->ajusteDados($req);
+        
+        Doacao::find($id)->update($dados);
+
+        return redirect()->route('admin.doacoes');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

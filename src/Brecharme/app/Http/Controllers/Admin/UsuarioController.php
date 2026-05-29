@@ -4,62 +4,54 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Usuario;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function usuarios()
     {
-        //
+        return view('admin.usuarios.usuarios');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function novoUsuario()
     {
-        //
+        return view('admin.usuarios.novoUsuario');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function salvar(Request $req)
     {
-        //
+        $dados = $req->all();
+        
+        if (isset($dados['senha'])) {
+            $dados['senha'] = bcrypt($dados['senha']); 
+        }
+
+        Usuario::create($dados);
+        return redirect()->route('admin.usuarios');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+    public function editarUsuario($id)
     {
-        //
+        $linha = Usuario::find($id);
+        return view('admin.usuarios.editarUsuario', compact('linha'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function atualizar(Request $req, $id)
     {
-        //
+        $dados = $req->all();
+        Usuario::find($id)->update($dados);
+
+        return redirect()->route('admin.usuarios');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+   
+    public function excluir($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Usuario::find($id)->update(['excluido' => true]);
+        Usuario::find($id)->update(['data_exclusao' => now()]);
+        return redirect()->route('admin.usuarios');
     }
 }
+

@@ -4,62 +4,73 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Produto;
+use App\Models\Doacao;
 
 class ProdutoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function produtos()
     {
-        //
+        return view('admin.produtos.produtos');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function novoProduto()
     {
-        //
+        $doacoes = Doacao::all(); 
+        return view('admin.produtos.novoProduto', compact('doacoes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    private function ajusteDados(Request $req)
     {
-        //
+        $dados = $req->all();
+
+        if ($req->hasFile('arquivo')) {
+            $imagem = $req->file('arquivo');
+            $num = rand(1111, 9999);
+            $dir = "img/produtos/";
+            $ex = $imagem->guessClientExtension();
+            $nomeImagem = "imagem_" . $num . "." . $ex;
+            $imagem->move($dir, $nomeImagem);
+            
+            $dados['caminho_img'] = $dir . $nomeImagem;
+        }
+
+        if (!isset($dados['excluido'])) {
+            $dados['excluido'] = false;
+        }
+
+        return $dados;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function salvar(Request $req)
     {
-        //
+        $dados = $this->ajusteDados($req);
+        Produto::create($dados);
+
+        return redirect()->route('admin.produtos');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function editarProduto($id)
     {
-        //
+        $linha = Produto::find($id);
+        $doacoes = Doacao::all(); 
+        
+        return view('admin.produtos.editarProduto', compact('linha', 'doacoes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function atualizar(Request $req, $id)
     {
-        //
+        $dados = $this->ajusteDados($req);
+        Produto::find($id)->update($dados);
+
+        return redirect()->route('admin.produtos');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function excluir($id)
     {
-        //
+        Produto::find($id)->update(['excluido' => true]);
+        Produto::find($id)->update(['data_exclusao' => now()]);
+        return redirect()->route('admin.produtos');
     }
 }

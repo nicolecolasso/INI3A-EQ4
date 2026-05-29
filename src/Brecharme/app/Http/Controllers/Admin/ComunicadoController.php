@@ -7,59 +7,30 @@ use Illuminate\Http\Request;
 
 class ComunicadoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function comunicados()
     {
-        //
+        return view('admin.comunicados.comunicados');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+   public function novoComunicado()
     {
-        //
+        return view('admin.comunicados.novoComunicado');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function salvar(Request $req)
     {
-        //
+        $dados = $req->all();
+        
+        $dados['data_envio'] = now();       
+
+        Comunicado::create($dados);
+        
+        return redirect()->route('admin.comunicados');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function reenviarComunicado($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $linha = Comunicado::find($id);
+        return view('admin.comunicados.reenviarComunicado', compact('linha'));
     }
 }
