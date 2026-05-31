@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Usuario;
+use App\Models\User;
 
 class UsuarioController extends Controller
 {
@@ -26,14 +26,14 @@ class UsuarioController extends Controller
             $dados['senha'] = bcrypt($dados['senha']); 
         }
 
-        Usuario::create($dados);
+        User::create($dados);
         return redirect()->route('admin.usuarios');
     }
 
 
     public function editarUsuario($id)
     {
-        $linha = Usuario::find($id);
+        $linha = User::find($id);
         return view('admin.usuarios.editarUsuario', compact('linha'));
     }
 
@@ -41,7 +41,7 @@ class UsuarioController extends Controller
     public function atualizar(Request $req, $id)
     {
         $dados = $req->all();
-        Usuario::find($id)->update($dados);
+        User::find($id)->update($dados);
 
         return redirect()->route('admin.usuarios');
     }
@@ -49,8 +49,8 @@ class UsuarioController extends Controller
    
     public function excluir($id)
     {
-        Usuario::find($id)->update(['excluido' => true]);
-        Usuario::find($id)->update(['data_exclusao' => now()]);
+        User::find($id)->update(['excluido' => true]);
+        User::find($id)->update(['data_exclusao' => now()]);
         return redirect()->route('admin.usuarios');
     }
 }

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->enum('status', ['Analise', 'Aprovada', 'Rejeitada', 'Retirada'])->default('Analise');
             $table->timestamp('data_doacao')->useCurrent();
 
-            $table->foreignId('fk_doacao_id_usuario')->references('id_usuario')->on('usuario')->onDelete('cascade');
-
+            $table->foreignId('fk_doacao_id_usuario')->references('id')->on('users')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

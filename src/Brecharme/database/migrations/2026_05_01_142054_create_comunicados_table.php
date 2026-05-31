@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('assunto');
             $table->text('mensagem');
             $table->timestamp('data_envio')->useCurrent();
-            $table->foreignId('fk_doacao_id_usuario')->references('id_usuario')->on('usuario')->onDelete('cascade');
 
+            $table->foreignId('fk_doacao_id_usuario')->references('id')->on('users')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

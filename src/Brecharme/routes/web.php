@@ -147,3 +147,88 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\ComunicadoController@reenviarComunicado'
     ]);
 });
+
+Route::group(['prefix' => 'login'], function () {
+    Route::get('/', [
+        'as' => 'login',
+        'uses'=>'App\Http\Controllers\loginController@index'
+    ]);
+
+    Route::post('/entrar',[
+        'as'=>'login.entrar',
+        'uses'=>'App\Http\Controllers\loginController@entrar'
+    ]);
+
+    Route::get('/sair',[
+        'as'=>'login.sair',
+        'uses'=>'App\Http\Controllers\loginController@sair'
+    ]);
+});
+
+Route(['prefix' => 'produtos'], function () {
+    Route::get('/vitrine', [
+        'as' => 'produtos.vitrine',
+        'uses' => 'App\Http\Controllers\VitrineController@vitrine'
+    ]);
+
+    Route::get('/detalheProduto/{id}', [
+        'as' => 'produtos.detalheProduto',
+        'uses' => 'App\Http\Controllers\VitrineController@detalheProduto'
+    ]);
+
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/novaDoacao', [
+            'as' => 'produtos.novaDoacao',
+            'uses' => 'App\Http\Controllers\VitrineController@novaDoacao'
+        ]);
+        Route::post('/salvarDoacao', [
+            'as' => 'produtos.salvarDoacao',
+            'uses' => 'App\Http\Controllers\VitrineController@salvarDoacao'
+        ]);
+    });
+});
+
+Route::group(['prefix' => 'carrinho', 'middleware' => ['auth']], function () {
+    Route::get('/', [
+        'as' => 'carrinho',
+        'uses' => 'App\Http\Controllers\CarrinhoController@index'
+    ]);
+
+    Route::get('/conclusao/{id_compra}', [
+        'as' => 'carrinho.conclusao',
+        'uses' => 'App\Http\Controllers\CarrinhoController@conclusao'
+    ]);
+});
+
+Route::group(['prefix' => 'perfil', 'middleware' => ['auth']], function () {
+    Route::get('/meuPerfil', [
+        'as' => 'perfil.meuPerfil',
+        'uses' => 'App\Http\Controllers\PerfilController@meuPerfil'
+    ]);
+
+    Route::get('/meusDados', [
+        'as' => 'perfil.meusDados',
+        'uses' => 'App\Http\Controllers\PerfilController@meusDados'
+    ]);
+
+    Route::get('/minhasDoacoes', [
+        'as' => 'perfil.minhasDoacoes',
+        'uses' => 'App\Http\Controllers\PerfilController@minhasDoacoes'
+    ]);
+
+    Route::get('/minhasReservas', [
+        'as' => 'perfil.minhasReservas',
+        'uses' => 'App\Http\Controllers\PerfilController@minhasReservas'
+    ]);
+
+    Route::get('/minhasDoacoes/cancelar/{id}', [
+        'as'   => 'perfil.minhasDoacoes.cancelar',
+        'uses' => 'App\Http\Controllers\PerfilController@cancelarDoacao'
+    ]);
+
+    Route::get('/minhasReservas/cancelar/{id}', [
+        'as'   => 'perfil.minhasReservas.cancelar',
+        'uses' => 'App\Http\Controllers\PerfilController@cancelarReserva'
+    ]);
+});
+

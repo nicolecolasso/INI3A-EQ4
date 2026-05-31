@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('sessao');
             $table->timestamp('data_compra')->useCurrent();
 
-            $table->foreignId('fk_doacao_id_usuario')->references('id_usuario')->on('usuario')->onDelete('cascade');
+            $table->foreignId('fk_doacao_id_usuario')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });
