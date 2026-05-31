@@ -29,8 +29,4 @@ class Doacao extends Model
         return $this->belongsTo(User::class, 'fk_doacao_id_usuario', 'id');
     }
 
-    public function produtos()
-    {
-        return $this->hasMany(Produto::class, 'fk_doacao_id_doacao', 'id_doacao');
-    }
 }

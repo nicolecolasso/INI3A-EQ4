@@ -54,7 +54,7 @@ class VitrineController extends Controller
         $dados['fk_doacao_id_usuario'] = Auth::id();
 
         $dados['data_doacao'] = now();
-        $dados['status']      = 'Analise'; // Inicia em análise até o Admin aprovar
+        $dados['status']      = 'Analise'; 
 
         Doacao::create($dados);
 

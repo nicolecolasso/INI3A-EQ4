@@ -14,7 +14,7 @@ class Compra extends Model
         'status',
         'sessao',
         'data_compra',
-        'fk_doacao_id_usuario',
+        'fk_compra_id_usuario',
     ];
 
     protected $casts = [
@@ -23,6 +23,6 @@ class Compra extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'fk_doacao_id_usuario', 'id');
+        return $this->belongsTo(User::class, 'fk_compra_id_usuario', 'id');
     }
 }

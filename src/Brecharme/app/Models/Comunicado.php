@@ -14,7 +14,7 @@ class Comunicado extends Model
         'assunto',
         'mensagem',
         'data_envio',
-        'fk_doacao_id_usuario',
+        'fk_comunicado_id_usuario',
     ];
 
     protected $casts = [
@@ -23,6 +23,6 @@ class Comunicado extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'fk_doacao_id_usuario', 'id');
+        return $this->belongsTo(User::class, 'fk_comunicado_id_usuario', 'id');
     }
 }

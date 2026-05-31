@@ -163,9 +163,19 @@ Route::group(['prefix' => 'login'], function () {
         'as'=>'login.sair',
         'uses'=>'App\Http\Controllers\loginController@sair'
     ]);
+
+    Route::get('/novoCadastro', [
+        'as'   => 'login.novoCadastro',
+        'uses' => 'App\Http\Controllers\loginController@registrar'
+    ]);
+
+    Route::post('/salvarCadastro', [
+        'as'   => 'login.salvarCadastro',
+        'uses' => 'App\Http\Controllers\loginController@salvar'
+    ]);
 });
 
-Route(['prefix' => 'produtos'], function () {
+Route::group(['prefix' => 'produtos'], function () {
     Route::get('/vitrine', [
         'as' => 'produtos.vitrine',
         'uses' => 'App\Http\Controllers\VitrineController@vitrine'
@@ -194,9 +204,19 @@ Route::group(['prefix' => 'carrinho', 'middleware' => ['auth']], function () {
         'uses' => 'App\Http\Controllers\CarrinhoController@index'
     ]);
 
-    Route::get('/conclusao/{id_compra}', [
-        'as' => 'carrinho.conclusao',
-        'uses' => 'App\Http\Controllers\CarrinhoController@conclusao'
+    Route::post('/adicionar/{id}', [
+        'as' => 'carrinho.adicionar',
+        'uses' => 'App\Http\Controllers\CarrinhoController@adicionar'
+    ]);
+
+    Route::post('/finalizar/{id_compra}', [
+        'as' => 'carrinho.finalizar',
+        'uses' => 'App\Http\Controllers\CarrinhoController@finalizar'
+    ]);
+
+    Route::get('/conclusaoReserva/{id_usuario}', [
+        'as' => 'carrinho.conclusaoReserva',
+        'uses' => 'App\Http\Controllers\CarrinhoController@conclusaoReserva'
     ]);
 });
 

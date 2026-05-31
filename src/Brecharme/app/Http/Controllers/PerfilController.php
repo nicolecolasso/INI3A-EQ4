@@ -55,7 +55,7 @@ class PerfilController extends Controller
     public function cancelarReserva($id)
     {
         $reserva = ProdutoReserva::find($id);
-        if ($reserva->compra->fk_doacao_id_usuario !== Auth::id()) {
+        if ($reserva->compra->fk_compra_id_usuario !== Auth::id()) {
             abort(403, 'Acesso não autorizado.');
         }
         if ($reserva->status === 'Reservado' || $reserva->status === 'Carrinho') {

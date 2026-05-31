@@ -19,7 +19,7 @@ class Produto extends Model
         'data_exclusao',
         'excluido',
         'status',
-        'fk_doacao_id_doacao',
+        'fk_produto_id_doacao',
     ];
 
     protected $casts = [
@@ -30,6 +30,6 @@ class Produto extends Model
 
     public function doacao()
     {
-        return $this->belongsTo(Doacao::class, 'fk_doacao_id_doacao', 'id_doacao');
+        return $this->belongsTo(Doacao::class, 'fk_produto_id_doacao', 'id_doacao');
     }
 }

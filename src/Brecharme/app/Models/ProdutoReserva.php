@@ -12,17 +12,18 @@ class ProdutoReserva extends Model
     protected $primaryKey = 'id_produto_reserva';
 
     protected $fillable = [
-        'fk_doacao_id_produto',
-        'fk_doacao_id_compra',
+        'fk_id_produto',
+        'fk_id_compra',
+        'status',
     ];
 
     public function produto()
     {
-        return $this->belongsTo(Produto::class, 'fk_doacao_id_produto', 'id_produto');
+        return $this->belongsTo(Produto::class, 'fk_id_produto', 'id_produto');
     }
 
     public function compra()
     {
-        return $this->belongsTo(Compra::class, 'fk_doacao_id_compra', 'id_compra');
+        return $this->belongsTo(Compra::class, 'fk_id_compra', 'id_compra');
     }
 }
