@@ -1,0 +1,212 @@
+/* 1. Registar a tua fonte The Season local */
+@font-face {
+    font-family: 'The Season';
+    src: url('../fonts/TheSeason.ttf') format('truetype'); /* Ajusta para .otf se for o caso */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 2. Importar a Montserrat para os textos comuns */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+/* 3. Variáveis com a paleta exata do teu protótipo */
+:root {
+    --amarelo-brecho: #EFB810;
+    --branco-fundo: #F0F0F0;
+    --cinza-detalhe: #B3B3B3;
+    --fonte-titulo: 'The Season', serif;
+    --fonte-texto: 'Montserrat', sans-serif;
+}
+
+/* Configurações Gerais */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--fonte-texto);
+}
+
+/* ==================================================================
+   💻 ESTILOS PARA VERSÃO WEB (DESKTOP)
+   ================================================================== */
+.brecharme-navbar {
+    background-color: var(--branco-fundo);
+    border-bottom: 2px solid var(--cinza-detalhe);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo (Usa a tua fonte baixada) */
+.brecharme-navbar .brand-logo {
+    font-family: var(--fonte-titulo);
+    font-size: 28px;
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Lista de Links da Direita */
+.brecharme-navbar ul.right {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.brecharme-navbar ul.right li {
+    margin-left: 15px;
+}
+
+/* Botões com contorno preto e cantos arredondados (Sobre Nós, Vitrine, Doe Já) */
+.brecharme-navbar ul.right li a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    border: 1.5px solid #000000;
+    border-radius: 12px;
+    padding: 8px 20px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.brecharme-navbar ul.right li a:hover {
+    background-color: var(--amarelo-brecho);
+    border-color: var(--amarelo-brecho);
+    color: #FFFFFF;
+}
+
+/* Ícones circulares cinzentos (Perfil e Carrinho) */
+.brecharme-navbar ul.right li a .material-icons {
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+/* Estilo especial para os links que são apenas ícones */
+.brecharme-navbar ul.right li a.icon-circle {
+    background-color: var(--cinza-detalhe);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+}
+
+.brecharme-navbar ul.right li a.icon-circle:hover {
+    background-color: var(--amarelo-brecho);
+}
+
+/* Botão Sair mais discreto */
+.brecharme-navbar ul.right li a.btn-sair {
+    border: none;
+    color: #777777;
+    font-size: 13px;
+    padding: 5px;
+}
+.brecharme-navbar ul.right li a.btn-sair:hover {
+    background: transparent;
+    color: #000000;
+}
+
+/* Esconder classes utilitárias no Desktop */
+.sidenav-trigger {
+    display: none;
+}
+
+/* ==================================================================
+   📱 ESTILOS PARA VERSÃO MOBILE (RESPONSIVIDADE NATIVA)
+   ================================================================== */
+@media (max-width: 992px) {
+    /* Esconde a barra e os links do desktop */
+    .hide-on-med-and-down {
+        display: none !important;
+    }
+    
+    /* Cria a barra mobile cinzenta conforme o teu desenho */
+    .brecharme-navbar {
+        background-color: var(--cinza-detalhe);
+        padding: 12px 20px;
+    }
+    
+    .brecharme-navbar .brand-logo {
+        font-size: 22px;
+        color: #FFFFFF;
+    }
+
+    /* Mostra o botão hambúrguer amarelo */
+    .sidenav-trigger {
+        display: block;
+        background-color: var(--amarelo-brecho);
+        color: #FFFFFF;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* ==================================================================
+   🟡 MENU LATERAL MOBILE (SIDENAV ACIONADO PELO JS)
+   ================================================================== */
+.sidenav {
+    position: fixed;
+    top: 0;
+    left: -280px; /* Começa escondido à esquerda */
+    width: 260px;
+    height: 100%;
+    background-color: var(--amarelo-brecho);
+    box-shadow: 3px 0 10px rgba(0,0,0,0.15);
+    z-index: 9999;
+    transition: left 0.3s ease;
+    padding: 40px 20px;
+    list-style: none;
+    margin: 0;
+}
+
+/* Quando o JS ativa o menu */
+.sidenav.active {
+    left: 0;
+}
+
+/* Botões Brancos em formato de Pílula (idênticos ao teu desenho mobile) */
+.sidenav li {
+    margin-bottom: 15px;
+}
+
+.sidenav li a {
+    display: block;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    border: 2px solid #FFFFFF;
+    border-radius: 25px; /* Formato pílula */
+    padding: 12px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.sidenav li a:hover {
+    background-color: #FFFFFF;
+    color: var(--amarelo-brecho);
+}
+
+/* Fundo escuro atrás do menu mobile quando ele abre */
+.sidenav-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9998;
+    display: none;
+}
+.sidenav-overlay.active {
+    display: block;
+}
