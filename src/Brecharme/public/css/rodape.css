@@ -1,0 +1,80 @@
+/* ==================================================================
+   🧦 ESTILIZAÇÃO DO RODAPÉ (PALETA DE CORES DO PROTÓTIPO)
+   ================================================================== */
+.brecharme-footer {
+    background-color: var(--cinza-detalhe); /* Cor cinza B3B3B3 */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Container que distribui as colunas */
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Permite quebrar linha se a tela for pequena */
+}
+
+/* Cada uma das 4 colunas */
+.footer-column {
+    flex: 1;
+    min-width: 200px; /* Impede que fiquem espremidas */
+    margin: 10px;
+    text-align: center; /* Centraliza o conteúdo como no print */
+}
+
+/* Títulos (Localização, Horário, etc.) usando a fonte The Season */
+.footer-column h5 {
+    font-family: var(--fonte-titulo); /* The Season */
+    color: #F0F0F0;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+/* Textos e Links do rodapé usando Montserrat */
+.footer-column p, 
+.footer-column a {
+    font-family: var(--fonte-texto); /* Montserrat */
+    color: #F0F0F0; /* Cor branca F0F0F0 suave para leitura */
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-block;
+}
+
+/* Efeito sutil ao passar o mouse nos links clicáveis */
+.footer-column a:hover {
+    color: var(--amarelo-brecho); /* Destaca em EFB810 ao interagir */
+}
+
+/* ==================================================================
+   📱 RESPONSIVIDADE DO RODAPÉ (MOBILE SUPER OTIMIZADO)
+   ================================================================== */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* Transforma linhas em colunas no celular */
+        align-items: center;
+    }
+
+    .footer-column {
+        width: 100%;
+        margin: 15px 0;
+        border-bottom: 1px solid rgba(240, 240, 240, 0.15); /* Divisor discreto entre colunas */
+        padding-bottom: 15px;
+    }
+
+    /* Remove a borda da última coluna mobile */
+    .footer-column:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+}
