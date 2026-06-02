@@ -1,12 +1,12 @@
 <header class="brecharme-navbar">
     
-    <a href="{{ route('produtos.vitrine') }}" class="brand-logo-container">
+    <a href="{{ route('institucional.index') }}" class="brand-logo-container">
         <img src="{{ asset('img/logo.png') }}" alt="Brecharme" class="logo-img">
         <span class="brand-logo-text">Brecharme</span>
     </a>
     
     <ul class="navbar-links">
-        <li><a href="#">Sobre Nós</a></li>
+        <li><a href="{{ route('institucional.quemSomos') }}">Sobre Nós</a></li>
         <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
 
         @guest
@@ -56,8 +56,8 @@
 
 <div class="sidenav-overlay" id="overlay" onclick="toggleMenu()"></div>
 <ul class="sidenav" id="mobile-menu">
-    <li><a href="{{ route('produtos.vitrine') }}">Home</a></li>
-    <li><a href="#">Sobre Nós</a></li>
+    <li><a href="{{ route('institucional.index') }}">Home</a></li>
+    <li><a href="{{ route('institucional.quemSomos') }}">Sobre Nós</a></li>
     <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
     
     @guest

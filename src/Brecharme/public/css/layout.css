@@ -144,17 +144,38 @@ main {
     background: transparent;
     border: none;
     cursor: pointer;
-    color: var(--preto-puro);
+    color: #F0F0F0;
 }
 
 .sidenav-trigger .material-icons {
     font-size: 32px;
+    color: inherit;
 }
 
 /* ==================================================================
    📱 RESPONSIVIDADE DO MENU (SÓ APARECE NO CELULAR)
    ================================================================== */
 @media (max-width: 992px) {
+    .brecharme-navbar {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .brand-logo-container {
+        flex-shrink: 0;
+        gap: 10px;
+    }
+
+    .logo-img {
+        height: 50px;
+    }
+
+    .brand-logo-text {
+        font-size: 28px;
+        white-space: nowrap;
+    }
+
     .navbar-links {
         display: none; /* Esconde os links horizontais no celular */
     }
@@ -189,11 +210,11 @@ main {
 
 .sidenav li a {
     display: block;
-    color: #FFFFFF;
+    color: #F0F0F0;
     text-decoration: none;
     font-weight: 500;
     font-size: 16px;
-    border: 2px solid #FFFFFF;
+    border: 2px solid #F0F0F0;
     border-radius: 25px; /* Formato Pílula */
     padding: 12px 20px;
     text-align: center;
@@ -201,7 +222,7 @@ main {
 }
 
 .sidenav li a:hover {
-    background-color: #FFFFFF;
+    background-color: #F0F0F0;
     color: var(--amarelo-brecho);
 }
 
@@ -257,10 +278,13 @@ main {
     font-size: 13px;
     line-height: 1.6;
     text-decoration: none;
+    transition: color 0.2s ease, opacity 0.2s ease;
 }
 
-.footer-column a:hover {
-    color: var(--amarelo-brecho);
+.footer-column a:hover,
+.footer-column a:hover p {
+    color: var(--amarelo-brecho) !important;
+    opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -273,3 +297,67 @@ main {
         margin: 15px 0; 
     }
 }
+
+.quem-somos-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.quem-somos-section {
+    width: 100%;
+}
+
+.quem-somos-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 42px;
+    color: var(--preto-puro);
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.quem-somos-subtitulo {
+    font-family: var(--fonte-titulo);
+    font-size: 36px;
+    color: var(--preto-puro);
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+.quem-somos-card {
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    padding: 25px 30px;
+    width: 100%;
+}
+
+.quem-somos-card p {
+    font-family: var(--fonte-texto);
+    font-size: 16px;
+    color: var(--preto-puro);
+    line-height: 1.5;
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .quem-somos-titulo {
+        font-size: 32px;
+    }
+    
+    .quem-somos-subtitulo {
+        font-size: 28px;
+    }
+
+    .quem-somos-card {
+        padding: 20px;
+    }
+
+    .quem-somos-card p {
+        font-size: 14px;
+    }
+}
+

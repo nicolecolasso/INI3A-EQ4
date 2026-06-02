@@ -1,168 +1,290 @@
-:root {
-    --amarelo-brecho: #EFB810;
-    --branco-fundo: #F0F0F0;
-    --cinza-detalhe: #B3B3B3;
-    --vermelho-caritas: #E30613;
+/* ==================================================================
+   🏠 ESTILIZAÇÃO DA HOME (index.css) - COM OVERLAY DE INFORMAÇÕES
+   ================================================================== */
+.home-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 25px 20px 60px 20px;
+    background-color: #FFFFFF;
 }
 
-.home-container {
-    background-color: var(--branco-fundo);
-    padding-bottom: 40px;
-    font-family: 'Montserrat', sans-serif;
-}
-
-/* 1. Hero Carousel */
+/* ==================================================================
+   👑 1. HERO CAROUSEL
+   ================================================================== */
 .hero-carousel {
     width: 100%;
-    position: relative;
+    margin-bottom: 40px;
 }
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
 .hero-image {
     width: 100%;
-    display: block;
-    height: 250px;
+    height: 320px;
     object-fit: cover;
-    border-bottom: 2px solid var(--cinza-detalhe);
+    display: block;
 }
+
 .carousel-dots {
     position: absolute;
     bottom: 15px;
     width: 100%;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
 }
-.dot {
-    height: 8px;
-    width: 8px;
-    background-color: var(--cinza-detalhe);
+
+.carousel-dots .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #FFFFFF;
     border-radius: 50%;
     display: inline-block;
-    margin: 0 4px;
-    opacity: 0.7;
+    opacity: 0.5;
+    cursor: pointer;
 }
-.dot.active {
-    background-color: #fff;
+
+.carousel-dots .dot.active {
     opacity: 1;
 }
 
-/* 2. Featured Items */
+/* ==================================================================
+   👑 2. ITENS EM DESTAQUE (CARROSSEL HORIZONTAL COM MOLDURA)
+   ================================================================== */
 .featured-items {
-    padding: 30px 15px;
+    width: 100%;
+    margin-bottom: 50px;
     text-align: center;
 }
+
 .section-title {
-    font-family: 'The Season', serif;
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-    color: #000;
+    font-family: var(--fonte-titulo);
+    font-size: 36px;
+    color: var(--preto-puro);
+    font-weight: normal;
+    margin-bottom: 30px;
 }
+
 .items-slider {
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
 }
+
+.slider-arrow {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--amarelo-brecho);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: transform 0.2s ease;
+}
+
+.slider-arrow:hover {
+    transform: scale(1.15);
+}
+
+.slider-arrow .material-icons {
+    font-size: 56px;
+    font-weight: bold;
+}
+
 .items-grid {
     display: flex;
-    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
     overflow-x: auto;
-    padding: 10px 0;
     scrollbar-width: none;
 }
+
 .items-grid::-webkit-scrollbar {
     display: none;
 }
+
+/* Molduras dos Cards Adaptadas para os Links */
 .item-card {
-    flex: 0 0 110px;
-    height: 110px;
-    background: #fff;
-    border: 1px solid var(--cinza-detalhe);
-    border-radius: 8px;
+    flex: 0 0 150px;
+    height: 150px;
+    background-color: #FFFFFF;
+    position: relative;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.item-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    position: relative;
+}
+
+/* Carrega a imagem dinâmica preenchendo o fundo por completo */
 .item-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-.slider-arrow {
-    background: transparent;
-    border: none;
-    color: var(--amarelo-brecho);
-    cursor: pointer;
-    padding: 0 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
-/* 3. Banner Sections (Sobre e Encontre-nos) */
-.about-caritas, .find-us {
-    padding: 10px 15px;
+/* Camada de texto por cima da imagem (Visível em hover/foco se desejar) */
+.item-info-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.65); /* Fundo escuro semitransparente para ler o texto */
+    padding: 8px;
+    z-index: 2;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
+
+.item-name {
+    font-family: var(--fonte-texto);
+    font-size: 12px;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-description {
+    font-family: var(--fonte-texto);
+    font-size: 10px;
+    color: #E0E0E0;
+    margin: 0;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==================================================================
+   👑 3 & 4. BANNERS DUPLOS LADO A LADO
+   ================================================================== */
+.banners-double-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+}
+
+.banner-box {
+    flex: 1;
+    min-width: 0;
+}
+
 .banner-link {
     text-decoration: none;
     display: block;
+    width: 100%;
 }
-.about-banner, .find-banner {
+
+.banner-bg-img {
+    width: 100%;
     height: 180px;
     background-size: cover;
     background-position: center;
-    border-radius: 12px;
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--cinza-detalhe);
 }
-.about-overlay, .find-overlay {
+
+.banner-ui-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.15);
+    background-color: rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s;
-}
-.banner-link:hover .about-overlay, 
-.banner-link:hover .find-overlay {
-    background: rgba(0,0,0,0.25);
+    gap: 15px;
+    padding: 20px;
 }
 
-/* Labels */
-.about-label, .find-label {
-    background: #fff;
-    padding: 10px 30px;
-    border-radius: 25px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.banner-pill-label {
+    background-color: #FFFFFF;
+    font-family: var(--fonte-texto);
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 45px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    font-size: 0.9rem;
 }
-.about-label { color: var(--vermelho-caritas); }
-.find-label { color: var(--amarelo-brecho); }
 
-/* Buttons */
-.btn-saiba-mais {
-    background: var(--vermelho-caritas);
-    color: #fff;
-    padding: 8px 22px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: bold;
+.label-caritas {
+    color: #E30613;
+}
+
+.label-find {
+    color: var(--amarelo-brecho);
+}
+
+.label-find .material-icons {
+    font-size: 20px;
+    color: var(--amarelo-brecho);
+}
+
+.btn-action-trigger {
+    font-family: var(--fonte-texto);
+    font-size: 11px;
+    font-weight: 700;
+    color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* Find Us Specific */
-.find-logo img {
-    width: 90px;
-    margin-top: 10px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+.red-trigger {
+    background-color: #FF0000;
 }
 
-
-@media (min-width: 992px) {
-    .hero-image { height: 450px; }
-    .item-card { flex: 0 0 220px; height: 220px; }
-    .about-banner, .find-banner { height: 320px; }
-    .section-title { font-size: 2rem; }
+/* ==================================================================
+   📱 RESPONSIVIDADE (MOBILE)
+   ================================================================== */
+@media (max-width: 992px) {
+    .hero-image { height: 220px; }
+    .section-title { font-size: 26px; }
+    .slider-arrow .material-icons { font-size: 40px; }
+    
+    .item-card { 
+        flex: 0 0 120px; 
+        height: 120px; 
+    }
+    
+    .banners-double-row { 
+        flex-direction: column; 
+        gap: 20px; 
+    }
+    
+    .banner-bg-img { height: 150px; }
 }
