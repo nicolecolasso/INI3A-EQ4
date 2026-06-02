@@ -10,7 +10,9 @@ class UsuarioController extends Controller
 {
     public function usuarios()
     {
-        return view('admin.usuarios.usuarios');
+        $linhas = User::orderBy('id', 'desc')->get();
+
+        return view('admin.usuarios.usuarios', compact('linhas'));
     }
 
     public function novoUsuario()
@@ -41,6 +43,13 @@ class UsuarioController extends Controller
     public function atualizar(Request $req, $id)
     {
         $dados = $req->all();
+
+        if (!empty($dados['senha'])) {
+            $dados['senha'] = bcrypt($dados['senha']); 
+        } else {
+            unset($dados['senha']); 
+        }
+
         User::find($id)->update($dados);
 
         return redirect()->route('admin.usuarios');

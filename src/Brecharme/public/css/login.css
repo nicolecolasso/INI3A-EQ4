@@ -192,3 +192,42 @@
     margin-left: 2px;
     border-bottom: 1px dashed var(--amarelo-brecho);
 }
+
+/* ⚠️ Alerta de Erro para Credenciais Inválidas */
+.alert-error-login {
+    width: 100%;
+    background-color: #FFE5E5;
+    border: 1.5px solid #EF5350;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--fonte-texto), 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #C62828;
+    margin-bottom: 20px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.alert-error-login i {
+    font-size: 20px;
+    color: #EF5350;
+    flex-shrink: 0;
+}
+
+.alert-error-login span {
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

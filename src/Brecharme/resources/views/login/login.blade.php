@@ -19,7 +19,21 @@
 
         <h4 class="login-main-title">Entrar</h4>
 
-        <form action="{{ route('login') }}" method="POST" class="login-native-form">
+        @if ($errors->any())
+            <div class="alert-error-login">
+                <i class="material-icons">error_outline</i>
+                <span>{{ $errors->first() ?? session('erro') }}</span>
+            </div>
+        @endif
+
+        @if (session('erro'))
+            <div class="alert-error-login">
+                <i class="material-icons">error_outline</i>
+                <span>{{ session('erro') }}</span>
+            </div>
+        @endif
+
+        <form action="{{ route('login.entrar') }}" method="POST" class="login-native-form">
             {{ csrf_field() }}
 
             <div class="native-input-group">

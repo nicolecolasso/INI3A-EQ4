@@ -11,7 +11,9 @@ class ProdutoController extends Controller
 {
     public function produtos()
     {
-        return view('admin.produtos.produtos');
+        $linhas = Produto::orderBy('id_produto', 'desc')->get();
+
+        return view('admin.produtos.produtos', compact('linhas'));
     }
 
     public function novoProduto()

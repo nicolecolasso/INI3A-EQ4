@@ -1,25 +1,26 @@
 @extends('layout.site')
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endpush
 
 @section('titulo', 'Editar Usuário')
 
 @section('conteudo')
 <div class="form-container-admin">
-    <h3 class="form-titulo">Editando o Usuário</h3>
+    <h3 class="form-titulo">Editar Usuário: {{ $linha->name }}</h3>
     
     <div class="row-form">
         <form action="{{ route('admin.usuarios.atualizar', $linha->id) }}" method="post">
             {{ csrf_field() }}
-            <input type="hidden" name="_method" value="put">
+            
+            {{ method_field('put') }}
             
             @include('admin.usuarios._form')
             
             <div class="form-actions">
                 <button class="btn-submit dark-style">Atualizar Dados</button>
-                <a href="{{ route('admin.usuarios') }}" class="btn-cancel">Cancelar</a>
+                <a href="{{ route('admin.usuarios') }}" class="btn-cancel">Voltar</a>
             </div>
         </form>
     </div>

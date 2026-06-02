@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], function () {
     Route::get('gerenciar', [
@@ -14,6 +15,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@doacoes'
     ]);
 
+    
     Route::get('doacoes/novaDoacao', [
         'as'   => 'admin.doacoes.novaDoacao',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@novaDoacao'
@@ -32,6 +34,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
     Route::put('doacoes/atualizar/{id}', [
         'as'   => 'admin.doacoes.atualizar',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@atualizar'
+    ]);
+
+    Route::get('doacoes/aprovar/{id}', [
+        'as'   => 'admin.doacoes.aprovar',
+        'uses' => 'App\Http\Controllers\Admin\DoacaoController@aprovar'
+    ]);
+
+    Route::get('doacoes/rejeitar/{id}', [
+        'as'   => 'admin.doacoes.rejeitar',
+        'uses' => 'App\Http\Controllers\Admin\DoacaoController@rejeitar'
     ]);
 
 
@@ -69,27 +81,27 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
     //Reserva - Painel Administrativo
     Route::get('reservas/reservas', [
         'as'   => 'admin.reservas',
-        'uses' => 'App\Http\Controllers\Admin\ReservaController@reservas'
+        'uses' => 'App\Http\Controllers\Admin\CompraController@reservas'
     ]);
 
     Route::get('reservas/novaReserva', [
         'as'   => 'admin.reservas.novaReserva',
-        'uses' => 'App\Http\Controllers\Admin\ReservaController@novaReserva'
+        'uses' => 'App\Http\Controllers\Admin\CompraController@novaReserva'
     ]);
 
     Route::post('reservas/salvar', [
         'as'   => 'admin.reservas.salvar',
-        'uses' => 'App\Http\Controllers\Admin\ReservaController@salvar'
+        'uses' => 'App\Http\Controllers\Admin\CompraController@salvar'
     ]);
 
     Route::get('reservas/editarReserva/{id}', [
         'as'   => 'admin.reservas.editarReserva',
-        'uses' => 'App\Http\Controllers\Admin\ReservaController@editarReserva'
+        'uses' => 'App\Http\Controllers\Admin\CompraController@editarReserva'
     ]);
 
     Route::put('reservas/atualizar/{id}', [
         'as'   => 'admin.reservas.atualizar',
-        'uses' => 'App\Http\Controllers\Admin\ReservaController@atualizar'
+        'uses' => 'App\Http\Controllers\Admin\CompraController@atualizar'
     ]);
 
 
@@ -149,20 +161,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
 });
 
 Route::group(['prefix' => 'login'], function () {
-    Route::get('/', [
-        'as' => 'login',
-        'uses'=>'App\Http\Controllers\LoginController@index'
-    ]);
+    // 1. Tela de Login (GET /login) -> Nomeada como 'login'
+    Route::get('/', [LoginController::class, 'index'])->name('login');
 
-    Route::post('/entrar',[
-        'as'=>'login.entrar',
-        'uses'=>'App\Http\Controllers\LoginController@entrar'
-    ]);
+    // 2. Processar o Login (POST /login) -> Alterada a URL para '/' para bater com o formulário!
+    Route::post('/', [LoginController::class, 'entrar'])->name('login.entrar');
 
-    Route::get('/sair',[
-        'as'=>'login.sair',
-        'uses'=>'App\Http\Controllers\LoginController@sair'
-    ]);
+    // 3. Deslogar do sistema (GET /login/sair)
+    Route::get('/sair', [LoginController::class, 'sair'])->name('login.sair');
 
     Route::get('/novoCadastro', [
         'as'   => 'login.novoCadastro',

@@ -1,6 +1,6 @@
 @extends('layout.site')
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('css/institucional.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endpush
 @section('titulo', 'Quem Somos')
 @section('conteudo')

@@ -27,7 +27,7 @@
             @if(Auth::user()->admin)
                 <li><a href="{{ route('admin.gerenciar') }}" class="text-admin">Painel Admin</a></li>
                 <li>
-                    <a href="{{ route('admin.gerenciar') }}" class="icon-circle" title="Configurações Admin">
+                    <a href="{{ route('perfil.meuPerfil') }}" class="icon-circle" title="Configurações Admin">
                         <i class="material-icons">admin_panel_settings</i>
                     </a>
                 </li>

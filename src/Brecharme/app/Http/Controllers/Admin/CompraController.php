@@ -10,7 +10,20 @@ class CompraController extends Controller
 {
     public function reservas()
     {
-        return view('admin.reservas.reservas');
+        $linhas = Compra::with(['produto', 'usuario'])
+            ->orderByRaw("
+                CASE status
+                    WHEN 'Reservado' THEN 1
+                    WHEN 'Carrinho' THEN 2
+                    WHEN 'Concluída' THEN 3
+                    WHEN 'Cancelada' THEN 4
+                    ELSE 5
+                END ASC
+            ")
+            ->orderBy('data_compra', 'desc') // Desempata pelas movimentações mais recentes
+            ->get();
+
+        return view('admin.reservas.reservas', compact('linhas'));
     }
 
     public function listaReservas()

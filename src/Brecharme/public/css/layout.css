@@ -129,13 +129,23 @@ main {
 }
 
 .navbar-links li a.btn-sair {
-    border: none;
-    color: #666666;
+    /* Segue o mesmo estilo dos outros links do header */
+    border: 1.5px solid var(--amarelo-brecho);
+    border-radius: 12px;
+    padding: 8px 20px;
+    display: inline-block;
+    background-color: var(--amarelo-brecho);
+    color: #F0F0F0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
 .navbar-links li a.btn-sair:hover {
-    background: transparent;
-    color: var(--preto-puro);
+    background-color: #F0F0F0;
+    border-color: var(--amarelo-brecho);
+    color: var(--amarelo-brecho);
 }
 
 /* Botão Hambúrguer escondido por padrão no PC */
@@ -297,67 +307,3 @@ main {
         margin: 15px 0; 
     }
 }
-
-.quem-somos-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-.quem-somos-section {
-    width: 100%;
-}
-
-.quem-somos-titulo {
-    font-family: var(--fonte-titulo);
-    font-size: 42px;
-    color: var(--preto-puro);
-    margin-bottom: 20px;
-    font-weight: normal;
-}
-
-.quem-somos-subtitulo {
-    font-family: var(--fonte-titulo);
-    font-size: 36px;
-    color: var(--preto-puro);
-    margin-bottom: 15px;
-    font-weight: normal;
-}
-
-.quem-somos-card {
-    background-color: #D9D9D9;
-    border-radius: 20px;
-    padding: 25px 30px;
-    width: 100%;
-}
-
-.quem-somos-card p {
-    font-family: var(--fonte-texto);
-    font-size: 16px;
-    color: var(--preto-puro);
-    line-height: 1.5;
-    text-align: justify;
-}
-
-@media (max-width: 768px) {
-    .quem-somos-titulo {
-        font-size: 32px;
-    }
-    
-    .quem-somos-subtitulo {
-        font-size: 28px;
-    }
-
-    .quem-somos-card {
-        padding: 20px;
-    }
-
-    .quem-somos-card p {
-        font-size: 14px;
-    }
-}
-

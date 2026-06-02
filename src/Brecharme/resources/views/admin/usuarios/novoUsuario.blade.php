@@ -1,7 +1,7 @@
 @extends('layout.site')
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endpush
 
 @section('titulo', 'Cadastrar Usuário')

@@ -57,6 +57,7 @@
 /* Variação 2: Botões de Comunicado com borda amarela do Brecharme */
 .btn-pill-admin.yellow-border {
     border: 1.8px solid var(--amarelo-brecho); /* #EFB810 */
+    color: var(--amarelo-brecho);
 }
 
 .btn-pill-admin.yellow-border:hover {
@@ -74,102 +75,242 @@
 }
 
 /* ==================================================================
-   📝 FORMULÁRIOS E TABELAS ADMINISTRATIVAS
+   👑 PAINEL ADMINISTRATIVO - GERENCIAMENTO DE USUÁRIOS (BRECHARME)
    ================================================================== */
-.admin-table-container, .form-container-admin {
-    max-width: 1000px;
-    margin: 50px auto;
+
+/* Contêiner principal da área administrativa */
+.admin-table-container {
+    max-width: 1200px;
+    margin: 40px auto;
     padding: 0 20px;
-    font-family: var(--fonte-texto);
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
 }
 
+/* 🏷️ Cabeçalho da Tabela (Título + Botão Alinhados) */
 .table-header-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #F5F5F5;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
+.table-header-box h2 {
+    font-family: var(--fonte-titulo), 'Times New Roman', serif;
+    font-size: 28px;
+    color: #1A1A1A;
+    margin: 0;
+    font-weight: normal;
+}
+
+/* ➕ Botão "Novo Usuário" Customizado */
 .btn-add-table {
-    background-color: #000000;
-    color: #F0F0F0;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 14px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-}
-
-/* Campos de entrada dos formulários */
-.input-field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.input-field label {
-    font-weight: 600;
-    margin-bottom: 6px;
+    background-color: #1A1A1A;
+    color: var(--amarelo-brecho, #EFB810);
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 30px;
     font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
 }
 
-.input-field input {
-    padding: 12px;
-    border: 1.5px solid #CCCCCC;
-    border-radius: 8px;
-    font-size: 15px;
+.btn-add-table:hover {
+    background-color: #EFB810;
+    color: #1A1A1A;
+    box-shadow: 0 6px 18px rgba(239, 184, 16, 0.25);
 }
 
-.input-field input:focus {
-    border-color: var(--amarelo-brecho);
-    outline: none;
+.btn-add-table i {
+    font-size: 18px;
 }
 
-/* Checkbox estilizado básico */
-.input-field-checkbox {
-    margin: 20px 0;
+/* 📊 Caixa de rolagem responsiva para a Tabela */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* 💻 A Tabela Admin */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
     text-align: left;
+    background-color: #FFFFFF;
+    min-width: 700px; /* Impede que os dados quebrem linha em telas menores */
 }
 
-/* Badges de Status na Tabela */
+/* Estilização do Topo (Th) */
+.admin-table th {
+    background-color: #FAFAFA;
+    color: #666666;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 18px 24px;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+/* Estilização das Linhas de Dados (Td) */
+.admin-table td {
+    padding: 18px 24px;
+    border-bottom: 1px solid #F5F5F5;
+    color: #444444;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+/* Efeito de destaque ao passar o mouse na linha */
+.admin-table tbody tr:hover {
+    background-color: #FAFAFA;
+}
+
+/* Formatação do ID */
+.admin-table td:first-child {
+    color: #999999;
+    font-weight: 500;
+}
+
+/* 🏷️ Estilização dos Badges de Status (Tipo) */
 .badge {
-    padding: 4px 10px;
-    border-radius: 12px;
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 600;
+    text-align: center;
 }
-.badge-admin { background-color: #E3F2FD; color: #0D47A1; }
-.badge-user { background-color: #E8F5E9; color: #1B5E20; }
 
-/* Flex de Ações */
+.badge.badge-admin {
+    background-color: #E3F2FD;
+    color: #0D47A1;
+}
+
+.badge.badge-user {
+    background-color: #E8F5E9;
+    color: #1B5E20;
+}
+
+.badge.badge-inactive {
+    background-color: #EEEEEE;
+    color: #616161;
+}
+
+/* ⚙️ Alinhamento dos Botões de Ação */
 .action-buttons-flex {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 10px;
 }
 
-.form-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.btn-submit {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: bold;
-}
-.btn-submit.dark-style { background-color: #000000; color: #F0f0f0; }
-.btn-cancel {
-    padding: 12px 30px;
+/* Botões de Ação Circulares (Lápis e Bloqueio) */
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     text-decoration: none;
-    color: #555555;
-    border: 1.5px solid #CCCCCC;
+    transition: all 0.2s ease;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn-action i {
+    font-size: 18px;
+}
+
+/* Botão Editar (Azul discreto) */
+.btn-action.edit {
+    background-color: #F4F4F4;
+    color: #444444;
+}
+
+.btn-action.edit:hover {
+    background-color: #000000;
+    color: var(--amarelo-brecho, #EFB810);
+}
+
+/* Botão Excluir/Desativar (Vermelho Suave) */
+.btn-action.delete {
+    background-color: #FFEAEA;
+    color: #D32F2F;
+}
+
+.btn-action.delete:hover {
+    background-color: #D32F2F;
+    color: #FFFFFF;
+}
+
+/* Linha desativada */
+.row-user-inactive {
+    background-color: #FCFCFC !important;
+    opacity: 0.6;
+}
+
+/* Mensagem de tabela vazia */
+.empty-table {
+    text-align: center !important;
+    padding: 40px !important;
+    color: #999999;
+    font-style: italic;
+}
+
+/* Estilização da Miniatura da Imagem do Produto */
+.product-img-thumbnail {
+    width: 50px;
+    height: 50px;
     border-radius: 8px;
-    display: inline-block;
+    overflow: hidden;
+    border: 1px solid #EAEAEA;
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-img-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a foto se adaptar ao quadradinho sem distorcer */
+}
+
+/* Formatação do Preço do produto */
+.product-price {
+    font-weight: 600;
+    color: #1A1A1A;
+}
+
+/* Modificação rápida no badge para Produtos Ativos na Loja (Dourado sutil ou verde) */
+.badge.badge-user {
+    background-color: #E8F5E9; /* Verde leve para ativo */
+    color: #1B5E20;
+}
+
+.badge-reserva-pendente {
+    background-color: #FFF9E6 !important;
+    color: #B38F00 !important;
+}
+
+/* Deixa as linhas concluídas ou canceladas ligeiramente em segundo plano */
+.row-user-inactive {
+    background-color: #FAFAFA !important;
+    opacity: 0.75;
 }

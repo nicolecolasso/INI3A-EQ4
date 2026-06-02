@@ -22,7 +22,8 @@ return new class extends Migration
             $table-> boolean('excluido')->default(false);
             $table->enum('status', ['Disponível', 'Carrinho', 'Vendido', 'Reservado'])->default('Disponível');
 
-            $table->foreignId('fk_produto_id_doacao')->references('id_doacao')->on('doacao')->onDelete('cascade');
+            $table->unsignedInteger('fk_produto_id_doacao')->nullable();
+            $table->foreign('fk_produto_id_doacao')->references('id_doacao')->on('doacao')->onDelete('cascade');
 
             $table->timestamps();
         });

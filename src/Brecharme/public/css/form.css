@@ -1,0 +1,134 @@
+/* ==================================================================
+   📝 ESTILIZAÇÃO DOS FORMULÁRIOS ADMINISTRATIVOS
+   ================================================================== */
+
+/* Contêiner principal do formulário */
+.form-container-admin {
+    max-width: 700px; /* Tamanho ideal para leitura e preenchimento */
+    margin: 40px auto;
+    padding: 40px;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+
+/* 🏷️ Título do Formulário */
+.form-titulo {
+    font-family: var(--fonte-titulo), 'Times New Roman', serif;
+    font-size: 26px;
+    color: #1A1A1A;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: normal;
+    border-bottom: 1px solid #F5F5F5;
+    padding-bottom: 15px;
+}
+
+/* Estrutura das linhas do formulário */
+.row-form {
+    width: 100%;
+}
+
+/* 🧱 Estilização dos campos vindos do arquivo _form.blade.php */
+/* Caso você use divs englobando cada campo (ex: class="input-field" ou similar) */
+.form-container-admin .input-field,
+.form-container-admin .form-group {
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Labels (Nomes dos campos) */
+.form-container-admin label {
+    font-size: 13px;
+    color: #666666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Inputs de texto, senhas, e-mails e selects */
+.form-container-admin input[type="text"],
+.form-container-admin input[type="email"],
+.form-container-admin input[type="password"],
+.form-container-admin input[type="tel"],
+.form-container-admin select,
+.form-container-admin textarea {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #333333;
+    background-color: #FAFAFA;
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Efeito de foco ao clicar no campo */
+.form-container-admin input:focus,
+.form-container-admin select:focus,
+.form-container-admin textarea:focus {
+    outline: none;
+    background-color: #FFFFFF;
+    border-color: #1A1A1A;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 🕹️ Rodapé de Ações (Botões) */
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #F5F5F5;
+}
+
+/* Botão Salvar (Estilo Premium Escuro) */
+.btn-submit.dark-style {
+    background-color: #1A1A1A;
+    color: var(--amarelo-brecho, #EFB810);
+    border: none;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.btn-submit.dark-style:hover {
+    background-color: #EFB810;
+    color: #1A1A1A;
+    box-shadow: 0 6px 18px rgba(239, 184, 16, 0.25);
+}
+
+/* Botão Voltar / Cancelar */
+.btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666666;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 30px;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #F5F5F5;
+    color: #1A1A1A;
+}

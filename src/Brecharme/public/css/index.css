@@ -288,3 +288,67 @@
     
     .banner-bg-img { height: 150px; }
 }
+
+
+.quem-somos-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.quem-somos-section {
+    width: 100%;
+}
+
+.quem-somos-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 42px;
+    color: var(--preto-puro);
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.quem-somos-subtitulo {
+    font-family: var(--fonte-titulo);
+    font-size: 36px;
+    color: var(--preto-puro);
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+.quem-somos-card {
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    padding: 25px 30px;
+    width: 100%;
+}
+
+.quem-somos-card p {
+    font-family: var(--fonte-texto);
+    font-size: 16px;
+    color: var(--preto-puro);
+    line-height: 1.5;
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .quem-somos-titulo {
+        font-size: 32px;
+    }
+    
+    .quem-somos-subtitulo {
+        font-size: 28px;
+    }
+
+    .quem-somos-card {
+        padding: 20px;
+    }
+
+    .quem-somos-card p {
+        font-size: 14px;
+    }
+}

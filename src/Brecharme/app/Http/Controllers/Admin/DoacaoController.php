@@ -10,7 +10,20 @@ class DoacaoController extends Controller
 {
     public function doacoes()
     {
-        return view('admin.doacoes.doacoes');
+        $linhas = Doacao::with('usuario')
+            ->orderByRaw("
+                CASE status
+                    WHEN 'Analise' THEN 1
+                    WHEN 'Aprovada' THEN 2
+                    WHEN 'Retirada' THEN 3
+                    WHEN 'Rejeitada' THEN 4
+                    ELSE 5
+                END ASC
+            ")
+            ->orderBy('data_doacao', 'desc')
+            ->get();
+
+        return view('admin.doacoes.doacoes', compact('linhas'));
     }
 
 
@@ -64,6 +77,18 @@ class DoacaoController extends Controller
         Doacao::find($id)->update($dados);
 
         return redirect()->route('admin.doacoes');
+    }
+
+    public function aprovar($id)
+    {
+        Doacao::where('id_doacao', $id)->update(['status' => 'Aprovada']);
+        return redirect()->route('admin.doacoes')->with('sucesso', 'Doação aprovada com sucesso!');
+    }
+
+    public function rejeitar($id)
+    {
+        Doacao::where('id_doacao', $id)->update(['status' => 'Rejeitada']);
+        return redirect()->route('admin.doacoes')->with('aviso', 'Doação rejeitada.');
     }
 
 }
