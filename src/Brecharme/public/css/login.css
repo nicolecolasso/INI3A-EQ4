@@ -1,95 +1,194 @@
 /* ==================================================================
-   🔒 TELA DE LOGIN - BRECHARME
+   🔒 TELA DE LOGIN PREMIUM - CUSTOMIZAÇÕES DE CORES E HOVER
    ================================================================== */
-:root {
-    --amarelo-brecho:   #EFB810;
-    --cinza-suporte:    #B3B3B3;
-    --branco-fundo:     #F0F0F0;
-    --preto-puro:       #000000;
+
+.login-screen-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 70vh;
+    padding: 60px 20px;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
 }
 
-/* Centralização e ajuste do Card */
-.container .card {
-    background-color: #FFFFFF;
-    border: 1.5px solid var(--branco-fundo);
-    border-radius: 20px; /* Bordas arredondadas elegantes */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05) !important;
-    padding: 20px 10px;
+.login-card-box {
+    width: 100%;
+    max-width: 400px;
+    background-color: #f0f0f0;
+    border: 1px solid #b3b3b3;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+    padding: 40px 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Título "Entrar" com a fonte do projeto */
-.card-title h4 {
-    font-family: var(--fonte-titulo); /* 'The Season' */
-    color: var(--preto-puro);
-    font-weight: normal;
-    margin-bottom: 30px;
-    letter-spacing: 0.5px;
+.login-avatar-header {
+    margin-bottom: 12px;
 }
 
-/* Campos de Input (Sobrescrevendo efeitos do Materialize) */
-.input-field {
-    margin-bottom: 25px !important;
-}
-
-.input-field input[type=email], 
-.input-field input[type=password] {
-    border-bottom: 1.5px solid var(--cinza-suporte) !important;
-    font-family: var(--fonte-texto) !important; /* Montserrat */
-    font-size: 16px !important;
-    transition: all 0.2s ease-in-out !important;
-}
-
-/* Cor da label e do input focados */
-.input-field input[type=email]:focus + label, 
-.input-field input[type=password]:focus + label {
-    color: var(--amarelo-brecho) !important;
-}
-
-.input-field input[type=email]:focus, 
-.input-field input[type=password]:focus {
-    border-bottom: 1.5px solid var(--amarelo-brecho) !important;
-    box-shadow: 0 1px 0 0 var(--amarelo-brecho) !important;
-}
-
-/* 🔘 Botão customizado "Entrar" (Substituindo o deep-orange padrão) */
-.btn.deep-orange {
-    background-color: var(--preto-puro) !important;
-    color: var(--branco-fundo) !important;
-    font-family: var(--fonte-texto);
-    font-weight: 600;
-    font-size: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 0 35px !important;
-    height: 45px !important;
-    line-height: 45px !important;
-    border-radius: 25px !important; /* Estilo pílula sutil */
-    box-shadow: none !important;
-    transition: all 0.2s ease-in-out;
-}
-
-.btn.deep-orange:hover {
+/* 👤 Ajuste do círculo superior para a paleta amarela */
+.login-avatar-header .avatar-circle.icon-highlight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
     background-color: var(--amarelo-brecho) !important;
-    color: #FFFFFF !important;
+    color: #f0f0f0; /* Ícone interno em branco para contraste */
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(239, 184, 16, 0.2);
 }
 
-/* 🔗 Links de navegação inferiores */
-.card-content a {
-    color: var(--preto-puro);
-    font-family: var(--fonte-texto);
-    font-size: 14px;
-    text-decoration: none;
+.login-avatar-header .avatar-circle.icon-highlight i {
+    font-size: 48px;
+}
+
+.login-main-title {
+    font-family: var(--fonte-titulo), 'Times New Roman', serif;
+    color: #000000;
+    font-size: 30px;
+    font-weight: normal;
+    margin: 0 0 35px 0;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.login-native-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.native-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 6px;
+}
+
+.native-label {
+    font-family: var(--fonte-texto), 'Montserrat', sans-serif;
+    font-size: 13px;
     font-weight: 500;
-    transition: color 0.2s;
+    color: #000000;
 }
 
-.card-content a:hover {
+.input-with-icon {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon .input-icon {
+    position: absolute;
+    left: 12px;
+    color: #B3B3B3;
+    font-size: 20px;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.input-with-icon input {
+    width: 100%;
+    height: 46px;
+    padding: 0 15px 0 42px;
+    background-color: #f0f0f0;
+    border: none;
+    border-bottom: 1.5px solid #B3B3B3;
+    font-family: var(--fonte-texto), 'Montserrat', sans-serif;
+    font-size: 15px;
+    color: #000000;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.input-with-icon input:focus {
+    border-bottom-color: var(--amarelo-brecho);
+}
+
+.input-with-icon input:focus ~ .input-icon {
     color: var(--amarelo-brecho);
 }
 
-/* Texto simples auxiliar */
-.card-content .center {
-    font-family: var(--fonte-texto);
-    color: #666666;
+.input-with-icon input::placeholder {
+    color: #B3b3b3;
     font-size: 14px;
+}
+
+/* 🔘 Botão Padrão: Amarelo com escrita clara */
+.btn-login-premium {
+    width: 100%;
+    height: 48px;
+    background-color: var(--amarelo-brecho);
+    color: #F0F0F0;
+    border: 1.5px solid var(--amarelo-brecho);
+    border-radius: 30px;
+    font-family: var(--fonte-texto), 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-top: 10px;
+}
+
+/* ✨ Hover: fundo cinza e texto amarelo */
+.btn-login-premium:hover {
+    background-color: #f0f0f0 !important;
+    border-color: #000000 !important;
+    color: var(--amarelo-brecho) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.login-footer-navigation {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--fonte-texto), 'Montserrat', sans-serif;
+    font-size: 13.5px;
+}
+
+.signup-text-wrapper {
+    margin: 0;
+    color: #b3b3b3;
+}
+
+.footer-nav-link {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.footer-nav-link:hover {
+    color: var(--amarelo-brecho);
+}
+
+.forgot-password {
+    opacity: 0.75;
+}
+
+.forgot-password:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.registration-link {
+    font-weight: 600;
+    margin-left: 2px;
+    border-bottom: 1px dashed var(--amarelo-brecho);
 }

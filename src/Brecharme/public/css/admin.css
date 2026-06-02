@@ -51,7 +51,7 @@
 
 .btn-pill-admin.dark-border:hover {
     background-color: #4A4A4A;
-    color: #FFFFFF;
+    color: #F0F0F0;
 }
 
 /* Variação 2: Botões de Comunicado com borda amarela do Brecharme */
@@ -61,7 +61,7 @@
 
 .btn-pill-admin.yellow-border:hover {
     background-color: var(--amarelo-brecho);
-    color: #FFFFFF;
+    color: #F0F0F0;
 }
 
 /* Ajuste fino para telas muito pequenas */
@@ -92,7 +92,7 @@
 
 .btn-add-table {
     background-color: #000000;
-    color: #FFFFFF;
+    color: #F0F0F0;
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 8px;

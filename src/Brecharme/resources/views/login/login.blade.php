@@ -8,63 +8,62 @@
 
 @section('conteudo')
 
-<div class="container">
-    <div class="row" style="margin-top:50px; margin-bottom:50px;">
+<div class="login-screen-wrapper">
+    <div class="login-card-box">
+        
+        <div class="login-avatar-header">
+            <div class="avatar-circle icon-highlight">
+                <i class="material-icons">account_circle</i>
+            </div>
+        </div>
 
-        <div class="col s12 m8 offset-m2 l6 offset-l3">
-            <div class="card">
-                <div class="card-content">
+        <h4 class="login-main-title">Entrar</h4>
 
-                    <span class="card-title center">
-                        <h4>Entrar</h4>
-                    </span>
+        <form action="{{ route('login') }}" method="POST" class="login-native-form">
+            {{ csrf_field() }}
 
-                    <form action="{{ route('login') }}" method="POST">
-                        {{ csrf_field() }}
-
-                        <div class="input-field">
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                required>
-                            <label for="email">E-mail</label>
-                        </div>
-
-                        <div class="input-field">
-                            <input
-                                type="password"
-                                id="senha"
-                                name="senha"
-                                required>
-                            <label for="senha">Senha</label>
-                        </div>
-
-                        <div class="center">
-                            <button
-                                type="submit"
-                                class="btn deep-orange">
-                                Entrar
-                            </button>
-                        </div>
-
-                    </form>
-
-                    <div class="center" style="margin-top:20px;">
-                        <a href="{{ url('/recuperar-senha') }}">
-                            Esqueci minha senha
-                        </a>
-                    </div>
-
-                    <div class="center" style="margin-top:10px;">
-                        Não possui cadastro?
-                        <a href="{{ url('/novo-cadastro') }}">
-                            Cadastre-se
-                        </a>
-                    </div>
-
+            <div class="native-input-group">
+                <label for="email" class="native-label">E-mail</label>
+                <div class="input-with-icon">
+                    <i class="material-icons input-icon">email</i>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="Digite seu e-mail" 
+                        required>
                 </div>
             </div>
+
+            <div class="native-input-group">
+                <label for="senha" class="native-label">Senha</label>
+                <div class="input-with-icon">
+                    <i class="material-icons input-icon">lock</i>
+                    <input 
+                        type="password" 
+                        id="senha" 
+                        name="senha" 
+                        placeholder="Digite sua senha" 
+                        required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login-premium">
+                Entrar
+            </button>
+        </form>
+
+        <div class="login-footer-navigation">
+            <a href="{{ url('/recuperar-senha') }}" class="footer-nav-link forgot-password">
+                Esqueci minha senha
+            </a>
+            
+            <p class="signup-text-wrapper">
+                Não possui cadastro? 
+                <a href="{{ url('/novo-cadastro') }}" class="footer-nav-link registration-link">
+                    Cadastre-se
+                </a>
+            </p>
         </div>
 
     </div>
