@@ -32,7 +32,12 @@
                 {{-- Loop dinâmico usando os atributos reais do seu Model Produto --}}
                 @forelse($produtos as $produto)
                     <div class="item-card">
-                        <a href="{{ route('produto.detalhes', $produto->id) }}" class="item-link">
+                        <a href="{{ route('produtos.detalheProduto', $produto->id_produto) }}" class="item-link">
+                            
+                            <div class="item-card-image">
+                                <img src="{{ asset($produto->caminho_img ?? 'img/produto-placeholder.png') }}" alt="{{ $produto->nome }}">
+                            </div>
+
                             <div class="item-info-overlay">
                                 <h3 class="item-name">{{ $produto->nome }}</h3>
                                 <p class="item-description">{{ Str::limit($produto->descricao, 100) }}</p>
