@@ -1,0 +1,95 @@
+/* ==================================================================
+   🔒 TELA DE LOGIN - BRECHARME
+   ================================================================== */
+:root {
+    --amarelo-brecho:   #EFB810;
+    --cinza-suporte:    #B3B3B3;
+    --branco-fundo:     #F0F0F0;
+    --preto-puro:       #000000;
+}
+
+/* Centralização e ajuste do Card */
+.container .card {
+    background-color: #FFFFFF;
+    border: 1.5px solid var(--branco-fundo);
+    border-radius: 20px; /* Bordas arredondadas elegantes */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05) !important;
+    padding: 20px 10px;
+}
+
+/* Título "Entrar" com a fonte do projeto */
+.card-title h4 {
+    font-family: var(--fonte-titulo); /* 'The Season' */
+    color: var(--preto-puro);
+    font-weight: normal;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+/* Campos de Input (Sobrescrevendo efeitos do Materialize) */
+.input-field {
+    margin-bottom: 25px !important;
+}
+
+.input-field input[type=email], 
+.input-field input[type=password] {
+    border-bottom: 1.5px solid var(--cinza-suporte) !important;
+    font-family: var(--fonte-texto) !important; /* Montserrat */
+    font-size: 16px !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+/* Cor da label e do input focados */
+.input-field input[type=email]:focus + label, 
+.input-field input[type=password]:focus + label {
+    color: var(--amarelo-brecho) !important;
+}
+
+.input-field input[type=email]:focus, 
+.input-field input[type=password]:focus {
+    border-bottom: 1.5px solid var(--amarelo-brecho) !important;
+    box-shadow: 0 1px 0 0 var(--amarelo-brecho) !important;
+}
+
+/* 🔘 Botão customizado "Entrar" (Substituindo o deep-orange padrão) */
+.btn.deep-orange {
+    background-color: var(--preto-puro) !important;
+    color: var(--branco-fundo) !important;
+    font-family: var(--fonte-texto);
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 35px !important;
+    height: 45px !important;
+    line-height: 45px !important;
+    border-radius: 25px !important; /* Estilo pílula sutil */
+    box-shadow: none !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn.deep-orange:hover {
+    background-color: var(--amarelo-brecho) !important;
+    color: #FFFFFF !important;
+}
+
+/* 🔗 Links de navegação inferiores */
+.card-content a {
+    color: var(--preto-puro);
+    font-family: var(--fonte-texto);
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.card-content a:hover {
+    color: var(--amarelo-brecho);
+}
+
+/* Texto simples auxiliar */
+.card-content .center {
+    font-family: var(--fonte-texto);
+    color: #666666;
+    font-size: 14px;
+}

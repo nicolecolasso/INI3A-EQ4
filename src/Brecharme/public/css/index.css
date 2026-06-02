@@ -1,0 +1,168 @@
+:root {
+    --amarelo-brecho: #EFB810;
+    --branco-fundo: #F0F0F0;
+    --cinza-detalhe: #B3B3B3;
+    --vermelho-caritas: #E30613;
+}
+
+.home-container {
+    background-color: var(--branco-fundo);
+    padding-bottom: 40px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* 1. Hero Carousel */
+.hero-carousel {
+    width: 100%;
+    position: relative;
+}
+.hero-image {
+    width: 100%;
+    display: block;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--cinza-detalhe);
+}
+.carousel-dots {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+}
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: var(--cinza-detalhe);
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 4px;
+    opacity: 0.7;
+}
+.dot.active {
+    background-color: #fff;
+    opacity: 1;
+}
+
+/* 2. Featured Items */
+.featured-items {
+    padding: 30px 15px;
+    text-align: center;
+}
+.section-title {
+    font-family: 'The Season', serif;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: #000;
+}
+.items-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.items-grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scrollbar-width: none;
+}
+.items-grid::-webkit-scrollbar {
+    display: none;
+}
+.item-card {
+    flex: 0 0 110px;
+    height: 110px;
+    background: #fff;
+    border: 1px solid var(--cinza-detalhe);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.item-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.slider-arrow {
+    background: transparent;
+    border: none;
+    color: var(--amarelo-brecho);
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+/* 3. Banner Sections (Sobre e Encontre-nos) */
+.about-caritas, .find-us {
+    padding: 10px 15px;
+}
+.banner-link {
+    text-decoration: none;
+    display: block;
+}
+.about-banner, .find-banner {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--cinza-detalhe);
+}
+.about-overlay, .find-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.banner-link:hover .about-overlay, 
+.banner-link:hover .find-overlay {
+    background: rgba(0,0,0,0.25);
+}
+
+/* Labels */
+.about-label, .find-label {
+    background: #fff;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+.about-label { color: var(--vermelho-caritas); }
+.find-label { color: var(--amarelo-brecho); }
+
+/* Buttons */
+.btn-saiba-mais {
+    background: var(--vermelho-caritas);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Find Us Specific */
+.find-logo img {
+    width: 90px;
+    margin-top: 10px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+
+@media (min-width: 992px) {
+    .hero-image { height: 450px; }
+    .item-card { flex: 0 0 220px; height: 220px; }
+    .about-banner, .find-banner { height: 320px; }
+    .section-title { font-size: 2rem; }
+}

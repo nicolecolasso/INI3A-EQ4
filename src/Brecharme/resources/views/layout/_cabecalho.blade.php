@@ -1,77 +1,89 @@
-<html>
-    <head>
-        <title>Brecharme - @yield('titulo')</title>
+<header class="brecharme-navbar">
+    
+    <a href="{{ route('produtos.vitrine') }}" class="brand-logo-container">
+        <img src="{{ asset('img/logo.png') }}" alt="Brecharme" class="logo-img">
+        <span class="brand-logo-text">Brecharme</span>
+    </a>
+    
+    <ul class="navbar-links">
+        <li><a href="#">Sobre Nós</a></li>
+        <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
 
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        
-        <link rel="stylesheet" href="{{ asset('css/cabecalho.css') }}">
-        @stack('estilos')
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-
-    <body>
-
-        <nav class="brecharme-navbar">
-            <div class="nav-wrapper">
-                
-                <a href="{{ route('produtos.vitrine') }}" class="brand-logo-container">
-                    <img src="{{ asset('img/logo.png') }}" alt="Brecharme" class="logo-img">
-                    <span class="brand-logo-text">Brecharme</span>
+        @guest
+            <li><a href="{{ route('login') }}">Doe Já</a></li>
+            <li>
+                <a href="{{ route('login') }}" class="icon-circle" title="Entrar">
+                    <i class="material-icons">account_circle</i>
                 </a>
-                
-                <a href="#" data-target="mobile" class="sidenav-trigger">
-                    <i class="material-icons">menu</i>
+            </li>
+            <li>
+                <a href="{{ route('login') }}" class="icon-circle" title="Carrinho">
+                    <i class="material-icons">shopping_cart</i>
                 </a>
-                
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="#">Sobre Nós</a></li>
-                    <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
+            </li>
+        @endguest
 
-                    @guest
-                        <li><a href="{{ route('login') }}">Doe Já</a></li>
-                        <li><a href="{{ route('login') }}"><i class="material-icons">account_circle</i></a></li>
-                        <li><a href="{{ route('login') }}"><i class="material-icons">shopping_cart</i></a></li>
-                    @endguest
-
-                    @auth
-                        @if(Auth::user()->admin)
-                            <li><a href="{{ route('admin.gerenciar') }}" class="text-admin">Painel Admin</a></li>
-                            <li><a href="{{ route('admin.gerenciar') }}"><i class="material-icons">admin_panel_settings</i></a></li>
-                        @else
-                            <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
-                            <li><a href="{{ route('perfil.meuPerfil') }}"><i class="material-icons">account_circle</i></a></li>
-                            <li><a href="{{ route('carrinho') }}"><i class="material-icons">shopping_cart</i></a></li>
-                        @endif
-                        
-                        <li><a href="{{ route('login.sair') }}">Sair</a></li>
-                    @endauth
-                </ul>
-            </div>
-        </nav>
-
-        <ul class="sidenav" id="mobile">
-            <li><a href="{{ route('produtos.vitrine') }}">Home</a></li>
-            <li><a href="#">Sobre Nós</a></li>
-            <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
+        @auth
+            @if(Auth::user()->admin)
+                <li><a href="{{ route('admin.gerenciar') }}" class="text-admin">Painel Admin</a></li>
+                <li>
+                    <a href="{{ route('admin.gerenciar') }}" class="icon-circle" title="Configurações Admin">
+                        <i class="material-icons">admin_panel_settings</i>
+                    </a>
+                </li>
+            @else
+                <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
+                <li>
+                    <a href="{{ route('perfil.meuPerfil') }}" class="icon-circle" title="Meu Perfil">
+                        <i class="material-icons">account_circle</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('carrinho') }}" class="icon-circle" title="Carrinho">
+                        <i class="material-icons">shopping_cart</i>
+                    </a>
+                </li>
+            @endif
             
-            @guest
-                <li><a href="{{ route('login') }}">Doe Já</a></li>
-                <li><a href="{{ route('login') }}">Login</a></li>
-            @endguest
+            <li><a href="{{ route('login.sair') }}" class="btn-sair">Sair</a></li>
+        @endauth
+    </ul>
 
-            @auth
-                @if(Auth::user()->admin)
-                    <li><a href="{{ route('admin.gerenciar') }}">Admin Panel</a></li>
-                @else
-                    <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
-                    <li><a href="{{ route('perfil.meuPerfil') }}">Perfil</a></li>
-                    <li><a href="{{ route('carrinho') }}">Carrinho</a></li>
-                @endif
-                
-                <li><a href="{{ route('login.sair') }}">Sair</a></li>
-            @endauth
-        </ul>
+    <button class="sidenav-trigger" onclick="toggleMenu()">
+        <i class="material-icons">menu</i>
+    </button>
+</header>
 
-        <script src="{{ asset('js/cabecalho.js') }}"></script>
-    </body>
-</html>
+<div class="sidenav-overlay" id="overlay" onclick="toggleMenu()"></div>
+<ul class="sidenav" id="mobile-menu">
+    <li><a href="{{ route('produtos.vitrine') }}">Home</a></li>
+    <li><a href="#">Sobre Nós</a></li>
+    <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
+    
+    @guest
+        <li><a href="{{ route('login') }}">Doe Já</a></li>
+        <li><a href="{{ route('login') }}">Login</a></li>
+    @endguest
+
+    @auth
+        @if(Auth::user()->admin)
+            <li><a href="{{ route('admin.gerenciar') }}">Admin Panel</a></li>
+        @else
+            <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
+            <li><a href="{{ route('perfil.meuPerfil') }}">Perfil</a></li>
+            <li><a href="{{ route('carrinho') }}">Carrinho</a></li>
+        @endif
+        
+        <li><a href="{{ route('login.sair') }}">Sair</a></li>
+    @endauth
+</ul>
+
+<script>
+    // Função em JS puro para abrir e fechar o menu mobile
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('overlay');
+        menu.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+</script>

@@ -1,0 +1,275 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@font-face {
+    font-family: 'The Season';
+    src: url('../fonts/The Seasons.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --amarelo-brecho: #EFB810;
+    --branco-fundo:    #F0F0F0;
+    --cinza-detalhe:   #B3B3B3;
+    --preto-puro:      #000000;
+    --fonte-titulo:    'The Season', serif;
+    --fonte-texto:     'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fonte-texto);
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o rodapé fique no fundo */
+}
+
+/* Centraliza os cards e conteúdos filhos perfeitamente */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* ==================================================================
+   💻 NAVBAR (CABEÇALHO) - DESKTOP FIRST (image_8b6a58.png)
+   ================================================================== */
+.brecharme-navbar {
+    background-color: var(--cinza-detalhe);
+    border-bottom: 2px solid var(--cinza-detalhe);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.brand-logo-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 55px;
+    width: auto;
+    margin-right: 12px;
+}
+
+.brand-logo-text {
+    font-family: var(--fonte-titulo);
+    font-size: 32px;
+    color: #F0F0F0;
+    font-weight: normal;
+}
+
+/* Lista de Links Desktop */
+.navbar-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar-links li a {
+    color: #F0F0F0;
+    text-decoration: none;
+    font-family: var(--fonte-texto);
+    font-weight: 500;
+    font-size: 14px;
+    border: 1.5px solid var(--amarelo-brecho);
+    border-radius: 12px;
+    padding: 8px 20px;
+    display: inline-block;
+    background-color: var(--amarelo-brecho);
+    transition: all 0.3s ease;
+}
+
+.navbar-links li a:hover {
+    background-color: #F0F0F0;
+    border-color: var(--amarelo-brecho);
+    color: var(--amarelo-brecho);
+}
+
+/* Ícones do Perfil e Carrinho Redondos (image_8b7d02.png) */
+.navbar-links li a.icon-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--amarelo-brecho);
+    background-color: var(--amarelo-brecho);
+    transition: all 0.3s ease;
+}
+
+.navbar-links li a.icon-circle .material-icons {
+    font-size: 24px;
+    color: #F0F0F0;
+}
+
+.navbar-links li a.icon-circle:hover {
+    background-color: #F0F0F0;
+    border-color: var(--amarelo-brecho);
+}
+
+.navbar-links li a.icon-circle:hover .material-icons {
+    color: var(--amarelo-brecho);
+}
+
+.navbar-links li a.btn-sair {
+    border: none;
+    color: #666666;
+}
+
+.navbar-links li a.btn-sair:hover {
+    background: transparent;
+    color: var(--preto-puro);
+}
+
+/* Botão Hambúrguer escondido por padrão no PC */
+.sidenav-trigger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--preto-puro);
+}
+
+.sidenav-trigger .material-icons {
+    font-size: 32px;
+}
+
+/* ==================================================================
+   📱 RESPONSIVIDADE DO MENU (SÓ APARECE NO CELULAR)
+   ================================================================== */
+@media (max-width: 992px) {
+    .navbar-links {
+        display: none; /* Esconde os links horizontais no celular */
+    }
+
+    .sidenav-trigger {
+        display: block; /* O botão hambúrguer surge apenas no celular */
+    }
+}
+
+/* Gaveta Lateral Mobile Amarela (image_8c5da0.png) */
+.sidenav {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 260px;
+    height: 100%;
+    background-color: var(--amarelo-brecho);
+    box-shadow: 3px 0 10px rgba(0,0,0,0.15);
+    z-index: 9999;
+    transition: left 0.3s ease;
+    padding: 40px 20px;
+    list-style: none;
+}
+
+.sidenav.active {
+    left: 0; /* Desliza para a tela se ativo */
+}
+
+.sidenav li {
+    margin-bottom: 15px;
+}
+
+.sidenav li a {
+    display: block;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    border: 2px solid #FFFFFF;
+    border-radius: 25px; /* Formato Pílula */
+    padding: 12px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.sidenav li a:hover {
+    background-color: #FFFFFF;
+    color: var(--amarelo-brecho);
+}
+
+.sidenav-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9998;
+    display: none;
+}
+
+.sidenav-overlay.active {
+    display: block;
+}
+
+/* ==================================================================
+   🧦 ESTILIZAÇÃO DO RODAPÉ (CINZA DETALHE B3B3B3) (image_8c5da0.png)
+   ================================================================== */
+.brecharme-footer {
+    background-color: var(--cinza-detalhe);
+    padding: 30px 20px;
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    text-align: center;
+}
+
+.footer-column h5 {
+    font-family: var(--fonte-titulo);
+    color: var(--branco-fundo);
+    font-size: 18px;
+    margin-bottom: 12px;
+    font-weight: normal;
+}
+
+.footer-column p, 
+.footer-column a {
+    font-family: var(--fonte-texto);
+    color: var(--branco-fundo);
+    font-size: 13px;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+.footer-column a:hover {
+    color: var(--amarelo-brecho);
+}
+
+@media (max-width: 768px) {
+    .footer-container { 
+        flex-direction: column; 
+        align-items: center; 
+    }
+    .footer-column { 
+        width: 100%; 
+        margin: 15px 0; 
+    }
+}

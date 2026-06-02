@@ -1,6 +1,4 @@
-/* ==================================================================
-   👑 TELA DE GERENCIAMENTO (CÓDIGO FIEL AO PROTÓTIPO)
-   ================================================================== */
+/* admin.css - Estilos para as páginas de gerenciamento do admin */
 .gerenciar-mobile-container {
     max-width: 500px; /* Mantém o foco centralizado simulando o mobile mesmo no desktop */
     margin: 60px auto;
@@ -73,4 +71,105 @@
         font-size: 15px;
         padding: 12px 15px;
     }
+}
+
+/* ==================================================================
+   📝 FORMULÁRIOS E TABELAS ADMINISTRATIVAS
+   ================================================================== */
+.admin-table-container, .form-container-admin {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+    font-family: var(--fonte-texto);
+}
+
+.table-header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.btn-add-table {
+    background-color: #000000;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Campos de entrada dos formulários */
+.input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-field label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.input-field input {
+    padding: 12px;
+    border: 1.5px solid #CCCCCC;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.input-field input:focus {
+    border-color: var(--amarelo-brecho);
+    outline: none;
+}
+
+/* Checkbox estilizado básico */
+.input-field-checkbox {
+    margin: 20px 0;
+    text-align: left;
+}
+
+/* Badges de Status na Tabela */
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.badge-admin { background-color: #E3F2FD; color: #0D47A1; }
+.badge-user { background-color: #E8F5E9; color: #1B5E20; }
+
+/* Flex de Ações */
+.action-buttons-flex {
+    display: flex;
+    gap: 8px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-submit {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-submit.dark-style { background-color: #000000; color: #F0f0f0; }
+.btn-cancel {
+    padding: 12px 30px;
+    text-decoration: none;
+    color: #555555;
+    border: 1.5px solid #CCCCCC;
+    border-radius: 8px;
+    display: inline-block;
 }
