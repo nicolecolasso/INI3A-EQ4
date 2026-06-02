@@ -14,7 +14,8 @@ class UsuarioSeeder extends Seeder
             'name'     => 'Administrador Brecharme',
             'email'    => 'admin@brecharme.com',
             'password' => Hash::make('SistemaCaritas123'),
-            'admin'    => true 
+            'admin'    => true,
+            'telefone' => '14991083780' 
         ]);
     }
 }

@@ -37,12 +37,25 @@ body {
     align-items: center;
 }
 
-/* Logo (Usa a tua fonte baixada) */
-.brecharme-navbar .brand-logo {
+/* 🌟 ARRUMADO AQUI: Container que junta a foto e o texto alinhados */
+.brand-logo-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* 🌟 ARRUMADO AQUI: Estilo e tamanho da imagem do cabide no computador */
+.logo-img {
+    height: 50px; /* Ajuste a altura para o tamanho ideal na barra */
+    width: auto;
+    margin-right: 12px; /* Dá um espacinho entre o cabide e o texto */
+}
+
+/* 🌟 ARRUMADO AQUI: Texto do logo usando a fonte The Season */
+.brand-logo-text {
     font-family: var(--fonte-titulo);
     font-size: 28px;
     color: #000000;
-    text-decoration: none;
     font-weight: bold;
 }
 
@@ -134,9 +147,15 @@ body {
         padding: 12px 20px;
     }
     
-    .brecharme-navbar .brand-logo {
+    /* 🌟 ARRUMADO AQUI: Ajustes de tamanho e cores do logo no Mobile */
+    .logo-img {
+        height: 38px; /* Reduz o tamanho do cabide no celular */
+        margin-right: 8px;
+    }
+
+    .brand-logo-text {
         font-size: 22px;
-        color: #FFFFFF;
+        color: #FFFFFF; /* Texto branco para destacar no fundo cinza */
     }
 
     /* Mostra o botão hambúrguer amarelo */

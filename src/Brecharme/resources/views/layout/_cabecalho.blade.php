@@ -5,7 +5,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
         <link rel="stylesheet" href="{{ asset('css/cabecalho.css') }}">
-        
+        @stack('estilos')
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
@@ -13,7 +13,11 @@
 
         <nav class="brecharme-navbar">
             <div class="nav-wrapper">
-                <a href="{{ route('produtos.vitrine') }}" class="brand-logo">Brecharme</a>
+                
+                <a href="{{ route('produtos.vitrine') }}" class="brand-logo-container">
+                    <img src="{{ asset('img/logo.png') }}" alt="Brecharme" class="logo-img">
+                    <span class="brand-logo-text">Brecharme</span>
+                </a>
                 
                 <a href="#" data-target="mobile" class="sidenav-trigger">
                     <i class="material-icons">menu</i>

@@ -151,27 +151,27 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
 Route::group(['prefix' => 'login'], function () {
     Route::get('/', [
         'as' => 'login',
-        'uses'=>'App\Http\Controllers\loginController@index'
+        'uses'=>'App\Http\Controllers\LoginController@index'
     ]);
 
     Route::post('/entrar',[
         'as'=>'login.entrar',
-        'uses'=>'App\Http\Controllers\loginController@entrar'
+        'uses'=>'App\Http\Controllers\LoginController@entrar'
     ]);
 
     Route::get('/sair',[
         'as'=>'login.sair',
-        'uses'=>'App\Http\Controllers\loginController@sair'
+        'uses'=>'App\Http\Controllers\LoginController@sair'
     ]);
 
     Route::get('/novoCadastro', [
         'as'   => 'login.novoCadastro',
-        'uses' => 'App\Http\Controllers\loginController@registrar'
+        'uses' => 'App\Http\Controllers\LoginController@registrar'
     ]);
 
     Route::post('/salvarCadastro', [
         'as'   => 'login.salvarCadastro',
-        'uses' => 'App\Http\Controllers\loginController@salvar'
+        'uses' => 'App\Http\Controllers\LoginController@salvar'
     ]);
 });
 

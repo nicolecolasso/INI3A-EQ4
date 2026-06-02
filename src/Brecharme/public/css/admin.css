@@ -1,0 +1,76 @@
+/* ==================================================================
+   👑 TELA DE GERENCIAMENTO (CÓDIGO FIEL AO PROTÓTIPO)
+   ================================================================== */
+.gerenciar-mobile-container {
+    max-width: 500px; /* Mantém o foco centralizado simulando o mobile mesmo no desktop */
+    margin: 60px auto;
+    padding: 0 30px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Título "Gerenciar" com a fonte elegante The Season */
+.gerenciar-titulo {
+    font-family: var(--fonte-titulo); /* 'The Season' */
+    font-size: 36px;
+    font-weight: normal;
+    color: #000000;
+    margin-bottom: 40px;
+    letter-spacing: 0.5px;
+}
+
+/* Container que empilha os botões verticalmente */
+.gerenciar-menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px; /* Espaçamento exato entre os botões */
+    width: 100%;
+}
+
+/* Classe base para o formato de pílula */
+.btn-pill-admin {
+    display: block;
+    width: 100%;
+    max-width: 280px; /* Define uma largura padrão elegante para os botões */
+    background-color: var(--branco-fundo); /* Fundo cinza bem claro #F0F0F0 */
+    color: #333333;
+    text-decoration: none;
+    font-family: var(--fonte-texto); /* Montserrat */
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px 20px;
+    border-radius: 18px; /* Entrega o formato arredondado de pílula do print */
+    text-align: center;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Variação 1: Botões com borda escura escurecida */
+.btn-pill-admin.dark-border {
+    border: 1.8px solid #4A4A4A;
+}
+
+.btn-pill-admin.dark-border:hover {
+    background-color: #4A4A4A;
+    color: #FFFFFF;
+}
+
+/* Variação 2: Botões de Comunicado com borda amarela do Brecharme */
+.btn-pill-admin.yellow-border {
+    border: 1.8px solid var(--amarelo-brecho); /* #EFB810 */
+}
+
+.btn-pill-admin.yellow-border:hover {
+    background-color: var(--amarelo-brecho);
+    color: #FFFFFF;
+}
+
+/* Ajuste fino para telas muito pequenas */
+@media (max-width: 360px) {
+    .btn-pill-admin {
+        max-width: 100%;
+        font-size: 15px;
+        padding: 12px 15px;
+    }
+}
