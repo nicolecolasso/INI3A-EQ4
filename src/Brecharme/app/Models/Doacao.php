@@ -11,6 +11,7 @@ class Doacao extends Model
     protected $primaryKey = 'id_doacao';
 
     protected $fillable = [
+        'nome',
         'categoria',
         'descricao',
         'caminho_img',

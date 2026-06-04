@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('doacao', function (Blueprint $table) {
             $table->increments('id_doacao');
+            $table->string('nome');
             $table->enum('categoria', ['Roupas', 'Calçados', 'Acessórios', 'Eletrônicos', 'Móveis', 'Brinquedos', 'Outros'])->default('Outros');
             $table->text('descricao');
             $table->string('caminho_img');

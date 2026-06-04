@@ -11,7 +11,10 @@
     
     <header class="table-header-box">
         <h2>Gerenciamento de Reservas / Compras</h2>
-        </header>
+        <a href="{{ route('admin.reservas.novaReserva') }}" class="btn-add-table">
+            <i class="material-icons">shopping_bag</i> Nova Reserva/Compra
+        </a>
+    </header>
 
     <div class="table-responsive">
         <table class="admin-table">

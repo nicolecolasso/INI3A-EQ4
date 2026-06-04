@@ -41,6 +41,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@aprovar'
     ]);
 
+    Route::post('doacoes/retirar/{id}', [
+        'as'   => 'admin.doacoes.retirar',
+        'uses' => 'App\Http\Controllers\Admin\DoacaoController@retirar'
+    ]);
+
     Route::get('doacoes/rejeitar/{id}', [
         'as'   => 'admin.doacoes.rejeitar',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@rejeitar'
