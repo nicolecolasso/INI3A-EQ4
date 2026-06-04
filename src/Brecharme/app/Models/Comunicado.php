@@ -15,7 +15,12 @@ class Comunicado extends Model
         'mensagem',
         'data_envio',
         'fk_comunicado_id_usuario',
+        'status'
     ];
+
+    const STATUS_PENDENTE = 'pendente';
+    const STATUS_ENVIADO  = 'enviado';
+    const STATUS_FALHOU   = 'falhou';
 
     protected $casts = [
         'data_envio' => 'datetime',

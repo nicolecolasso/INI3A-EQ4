@@ -139,11 +139,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
 
 
     //Comunicados - Painel Administrativo
-    Route::get('comunicados/comunicados', [
-        'as'   => 'admin.comunicados',
-        'uses' => 'App\Http\Controllers\Admin\ComunicadoController@comunicados'
-    ]);
-
     Route::get('comunicados/novo', [
         'as'   => 'admin.comunicados.novoComunicado',
         'uses' => 'App\Http\Controllers\Admin\ComunicadoController@novoComunicado'
@@ -154,7 +149,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\ComunicadoController@salvar'
     ]);
 
-    Route::get('comunicados/reenviar/{id}', [
+    Route::get('comunicados/reenviar', [
         'as'   => 'admin.comunicados.reenviarComunicado',
         'uses' => 'App\Http\Controllers\Admin\ComunicadoController@reenviarComunicado'
     ]);

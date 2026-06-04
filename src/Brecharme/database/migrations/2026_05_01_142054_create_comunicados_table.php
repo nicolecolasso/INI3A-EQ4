@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('id_comunicado');
             $table->string('assunto');
             $table->text('mensagem');
+            $table->string('status')->default('pendente');
             $table->timestamp('data_envio')->useCurrent();
 
             $table->foreignId('fk_comunicado_id_usuario')->references('id')->on('users')->onDelete('cascade');

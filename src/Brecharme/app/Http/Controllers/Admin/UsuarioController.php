@@ -24,9 +24,13 @@ class UsuarioController extends Controller
     {
         $dados = $req->all();
         
-        if (isset($dados['senha'])) {
-            $dados['senha'] = bcrypt($dados['senha']); 
+        // Se a senha foi preenchida, criptografa e joga na coluna correta do banco (password)
+        if (!empty($dados['senha'])) {
+            $dados['password'] = bcrypt($dados['senha']); 
         }
+        
+        // Remove o índice 'senha' para não confundir o Eloquent
+        unset($dados['senha']);
 
         User::create($dados);
         return redirect()->route('admin.usuarios');
@@ -44,12 +48,19 @@ class UsuarioController extends Controller
     {
         $dados = $req->all();
 
+        // 🎯 O SEGREDO AQUI: 
+        // Se a senha veio preenchida no formulário de edição, atualizamos
         if (!empty($dados['senha'])) {
-            $dados['senha'] = bcrypt($dados['senha']); 
+            $dados['password'] = bcrypt($dados['senha']); 
         } else {
-            unset($dados['senha']); 
+            // Se veio vazia, removemos TANTO 'senha' quanto 'password' do array.
+            // Assim o Laravel ignora completamente esse campo e mantém a senha antiga intacta!
+            unset($dados['password']); 
         }
+        
+        unset($dados['senha']); 
 
+        // Executa o update apenas com os campos modificados (como telefone, nome, etc)
         User::find($id)->update($dados);
 
         return redirect()->route('admin.usuarios');

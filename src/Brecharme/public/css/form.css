@@ -7,7 +7,7 @@
     max-width: 700px; /* Tamanho ideal para leitura e preenchimento */
     margin: 40px auto;
     padding: 40px;
-    background: #FFFFFF;
+    background: #f0f0f0;
     border: 1px solid #EAEAEA;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
@@ -75,7 +75,7 @@
 .form-container-admin select:focus,
 .form-container-admin textarea:focus {
     outline: none;
-    background-color: #FFFFFF;
+    background-color: #f0f0f0;
     border-color: #1A1A1A;
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
@@ -131,4 +131,43 @@
 .btn-cancel:hover {
     background-color: #F5F5F5;
     color: #1A1A1A;
+}
+
+/* Moldura cinza de destaque para o Dropdown */
+.historico-dropdown-container {
+    margin-bottom: 30px;
+    background-color: #F5F5F5;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.historico-label {
+    font-family: var(--fonte-texto);
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--preto-puro);
+}
+
+/* Estilização para o select se adaptar ao layout premium */
+.historico-select {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px 12px;
+    border: 1px solid #EAEAEA;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    font-family: var(--fonte-texto);
+    font-size: 14px;
+    color: #333333;
+    outline: none;
+}
+
+.historico-select:focus {
+    border-color: #2196F3;
+}
+
+/* Espaçamento extra opcional para os botões finais */
+.section-spacing {
+    margin-top: 30px;
 }

@@ -31,7 +31,7 @@
             Novo Comunicado
         </a>
         
-        <a href="{{ route('admin.comunicados') }}" class="btn-pill-admin yellow-border">
+        <a href="{{ route('admin.comunicados.reenviarComunicado') }}" class="btn-pill-admin yellow-border">
             Reenvio Comunicado
         </a>
 

@@ -139,7 +139,7 @@
 .table-responsive {
     width: 100%;
     overflow-x: auto;
-    background: #FFFFFF;
+    background: #f0f0f0;
     border: 1px solid #EAEAEA;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
@@ -150,7 +150,7 @@
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    background-color: #FFFFFF;
+    background-color: #f0f0f0;
     min-width: 700px; /* Impede que os dados quebrem linha em telas menores */
 }
 
@@ -256,7 +256,7 @@
 
 .btn-action.delete:hover {
     background-color: #D32F2F;
-    color: #FFFFFF;
+    color: #f0f0f0;
 }
 
 /* Linha desativada */
