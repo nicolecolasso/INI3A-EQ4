@@ -37,10 +37,31 @@
                             <div style="font-size: 12px; color: #888;">{{ $linha->usuario->email ?? '' }}</div>
                         </td>
                         <td>
-                            {{ $linha->produto->nome ?? 'Produto indisponível' }}
-                            <div style="font-size: 12px; color: #b39012; font-weight: 500;">
-                                R$ {{ isset($linha->produto->valor) ? number_format($linha->produto->valor, 2, ',', '.') : '0,00' }}
-                            </div>
+                            {{-- Loop para varrer os produtos vinculados a esta compra específica --}}
+                            @php $totalReserva = 0; @endphp
+                            
+                            @if($linha->itens->count() > 0)
+                                @foreach($linha->itens as $item)
+                                    @if($item->produto)
+                                        @php $totalReserva += $item->produto->valor; @endphp
+                                        <div style="margin-bottom: 4px;">
+                                            <strong>{{ $item->produto->nome }}</strong> 
+                                            <span style="color: #666; font-size: 12px;">
+                                                (R$ {{ number_format($item->produto->valor, 2, ',', '.') }})
+                                            </span>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                
+                                {{-- Se houver mais de um produto, exibe o total da reserva --}}
+                                @if($linha->itens->count() > 1)
+                                    <div style="font-size: 12px; color: #b39012; font-weight: 600; border-top: 1px dashed #ddd; margin-top: 4px; padding-top: 4px;">
+                                        Total: R$ {{ number_format($totalReserva, 2, ',', '.') }}
+                                    </div>
+                                @endif
+                            @else
+                                <span style="color: #999; font-style: italic;">Nenhum produto atrelado</span>
+                            @endif
                         </td>
                         <td>{{ \Carbon\Carbon::parse($linha->data_compra)->format('d/M/Y H:i') }}</td>
                         <td>
@@ -64,7 +85,7 @@
                         </td>
                         <td>
                             <div class="action-buttons-flex">
-                                <a href="{{ route('admin.reservas.editar', $linha->id_compra) }}" class="btn-action edit" title="Mudar Status / Editar">
+                                <a href="{{ route('admin.reservas.editarReserva', $linha->id_compra) }}" class="btn-action edit" title="Mudar Status / Editar">
                                     <i class="material-icons">edit</i>
                                 </a>
                             </div>

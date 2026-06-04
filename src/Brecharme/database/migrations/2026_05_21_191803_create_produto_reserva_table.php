@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id_produto_reserva');
             $table->foreignId('fk_id_produto')->references('id_produto')->on('produto')->onDelete('cascade');
             $table->foreignId('fk_id_compra')->references('id_compra')->on('compra')->onDelete('cascade');
-            $table->enum('status', ['Carrinho', 'Reservado', 'Concluído'])->default('Carrinho');
+            $table->enum('status', ['Carrinho', 'Reservado', 'Concluído', 'Cancelado'])->default('Carrinho');
             $table->timestamps();
         });
     }

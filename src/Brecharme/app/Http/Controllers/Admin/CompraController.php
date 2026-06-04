@@ -13,7 +13,7 @@ class CompraController extends Controller
 {
     public function reservas()
     {
-        $linhas = Compra::with(['produto', 'usuario'])
+        $linhas = Compra::with(['usuario'])
             ->orderByRaw("
                 CASE status
                     WHEN 'Reservado' THEN 1
@@ -25,7 +25,6 @@ class CompraController extends Controller
             ")
             ->orderBy('data_compra', 'desc') // Desempata pelas movimentações mais recentes
             ->get();
-
         return view('admin.reservas.reservas', compact('linhas'));
     }
 
@@ -44,6 +43,7 @@ class CompraController extends Controller
 
     public function salvar(Request $req)
     {
+
         // 1. Cria a Compra 
         $compra = Compra::create([
             'status'               => $req->status,
@@ -86,8 +86,70 @@ class CompraController extends Controller
 
     public function atualizar(Request $req, $id)
     {
-        Compra::find($id)->update($req->all());
-        return redirect()->route('admin.reservas');
+        // 1. Busca a compra antes de atualizar para saber o que ela tinha antes
+        $compra = Compra::find($id);
+        
+        // Captura todos os IDs de produtos que faziam parte desta compra antes da edição
+        $produtosAntigos = \App\Models\ProdutoReserva::where('fk_id_compra', $id)
+            ->pluck('fk_id_produto')
+            ->toArray();
+
+        // 2. Atualiza os dados da compra (Status e Usuário)
+        $compra->update([
+            'status'               => $req->status,
+            'fk_compra_id_usuario' => $req->id_usuario,
+            'sessao'               => $req->sessao,
+        ]);
+
+        // 3. Pega a nova lista de produtos selecionados no formulário
+        $produtosSelecionados = $req->input('id_produto', []); 
+
+        // Descobrir quais produtos foram REMOVIDOS do select na edição
+        // Itens que estavam antes na compra, mas não estão na nova lista selecionada
+        $produtosRemovidos = array_diff($produtosAntigos, $produtosSelecionados);
+        
+        if (!empty($produtosRemovidos)) {
+            // Se o produto saiu da reserva, ele volta a ficar "Disponível" no estoque!
+            \App\Models\Produto::whereIn('id_produto', $produtosRemovidos)->update(['status' => 'Disponível']);
+        }
+
+        // 4. Limpa os vínculos antigos na tabela intermediária para reconstruir com a nova seleção
+        \App\Models\ProdutoReserva::where('fk_id_compra', $id)->delete();
+
+        // 5. Mapeia e atualiza o status de cada produto que ficou/entrou na compra
+        foreach ($produtosSelecionados as $idProduto) {
+            if ($req->status == 'Concluída') {
+                $statusIntermediaria = 'Concluído';
+            } elseif ($req->status == 'Cancelada') {
+                $statusIntermediaria = 'Cancelado'; // Envia no masculino para bater com seu ENUM revisado
+            } else {
+                $statusIntermediaria = $req->status; // 'Carrinho' ou 'Reservado'
+            }
+
+            // Recria o vínculo na tabela intermediária com o termo perfeitamente aceito
+            \App\Models\ProdutoReserva::create([
+                'fk_id_produto' => $idProduto,
+                'fk_id_compra'  => $id,
+                'status'        => $statusIntermediaria
+            ]);
+
+            // CONTROLE DE RETORNO DO ESTOQUE (produto)
+            if ($req->status == 'Cancelada') {
+                // Se a compra foi cancelada, o produto volta a ficar "Disponível" imediatamente
+                $novoStatusProduto = 'Disponível';
+            } elseif ($req->status == 'Concluída') {
+                // Se a compra foi finalizada, o produto foi "Vendido"
+                $novoStatusProduto = 'Vendido';
+            } else {
+                // Se continuar como 'Reservado' ou 'Carrinho', o produto permanece 'Reservado'
+                $novoStatusProduto = 'Reservado';
+            }
+
+            // Aplica a alteração de status diretamente no estoque do produto
+            \App\Models\Produto::where('id_produto', $idProduto)->update(['status' => $novoStatusProduto]);
+        }
+
+        return redirect()->route('admin.reservas')->with('sucesso', 'Reserva e estoque atualizados com sucesso!');
     }
 
 }

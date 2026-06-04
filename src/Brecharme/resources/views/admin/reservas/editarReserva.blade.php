@@ -8,10 +8,10 @@
 
 @section('conteudo')
 <div class="form-container-admin">
-    <h3 class="form-titulo">Editar Reserva/Compra: {{ $linha->id_reserva }}</h3>
+    <h3 class="form-titulo">Editar Reserva/Compra: {{ $linha->id_compra }}</h3>
     
     <div class="row-form">
-        <form action="{{ route('admin.reservas.atualizar', $linha->id) }}" method="post">
+        <form action="{{ route('admin.reservas.atualizar', $linha->id_compra) }}" method="post">
             {{ csrf_field() }}
             
             {{ method_field('put') }}

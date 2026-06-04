@@ -26,19 +26,20 @@ class ProdutoController extends Controller
     {
         $dados = $req->all();
 
-        if ($req->hasFile('arquivo')) {
-            $imagem = $req->file('arquivo');
+        if ($req->hasFile('caminho_img')) {
+            $imagem = $req->file('caminho_img');
             $num = rand(1111, 9999);
-            $dir = "img/produtos/";
-            $ex = $imagem->guessClientExtension();
-            $nomeImagem = "imagem_" . $num . "." . $ex;
-            $imagem->move($dir, $nomeImagem);
+            $dir = "img/doacoes/";
             
+            // Pega a extensão real do arquivo (ex: png, jpg)
+            $ex = $imagem->getClientOriginalExtension(); 
+            $nomeImagem = "imagem_" . $num . "." . $ex;
+            
+            // Move o arquivo fisicamente para public/img/doacoes/
+            $imagem->move(public_path($dir), $nomeImagem);
+            
+            // Grava no array de dados o caminho completo que vai para o banco
             $dados['caminho_img'] = $dir . $nomeImagem;
-        }
-
-        if (!isset($dados['excluido'])) {
-            $dados['excluido'] = false;
         }
 
         return $dados;

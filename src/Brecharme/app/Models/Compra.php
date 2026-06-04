@@ -14,7 +14,7 @@ class Compra extends Model
         'status',
         'sessao',
         'data_compra',
-        'fk_compra_id_usuario',
+        'fk_compra_id_usuario'
     ];
 
     protected $casts = [
@@ -25,4 +25,11 @@ class Compra extends Model
     {
         return $this->belongsTo(User::class, 'fk_compra_id_usuario', 'id');
     }
+
+    public function itens()
+    {
+        // Uma compra possui muitos registros na tabela intermediária
+        return $this->hasMany(ProdutoReserva::class, 'fk_id_compra', 'id_compra');
+    }
+
 }
