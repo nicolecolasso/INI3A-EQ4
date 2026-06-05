@@ -9,18 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class VitrineController extends Controller
 {
-    public function vitrine()
+    public function vitrine(Request $request)
     {
-        $produtos = Produto::where('status', 'Disponível')
-                           ->where('excluido', false)
-                           ->get();
+        $query = Produto::where('status', 'Disponível')
+                        ->where('excluido', false);
+
+        if ($request->has('categoria') && $request->categoria != '') {
+            $query->where('categoria', $request->categoria);
+        }
+
+        $produtos = $query->paginate(12);
 
         return view('produtos.vitrine', compact('produtos'));
     }
 
     public function detalheProduto($id)
     {
-        $produto = Produto::find($id);
+        $produto = Produto::where('id_produto', $id)->firstOrFail();
         return view('produtos.produto', compact('produto'));
     }
 
@@ -36,16 +41,14 @@ class VitrineController extends Controller
         if ($req->hasFile('caminho_img')) {
             $imagem = $req->file('caminho_img');
             $num = rand(1111, 9999);
+            
             $dir = "img/doacoes/";
             
-            // Pega a extensão real do arquivo (ex: png, jpg)
             $ex = $imagem->getClientOriginalExtension(); 
             $nomeImagem = "imagem_" . $num . "." . $ex;
             
-            // Move o arquivo fisicamente para public/img/doacoes/
             $imagem->move(public_path($dir), $nomeImagem);
             
-            // Grava no array de dados o caminho completo que vai para o banco
             $dados['caminho_img'] = $dir . $nomeImagem;
         }
 
@@ -57,7 +60,6 @@ class VitrineController extends Controller
         $dados = $this->ajusteDados($request);
 
         $dados['fk_doacao_id_usuario'] = Auth::id();
-
         $dados['data_doacao'] = now();
         $dados['status']      = 'Analise'; 
 
@@ -65,5 +67,4 @@ class VitrineController extends Controller
 
         return redirect()->route('perfil.minhasDoacoes')->with('sucesso', 'Sua proposta de doação foi enviada para análise!');
     }
-    
 }

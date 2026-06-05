@@ -117,7 +117,6 @@
     display: none;
 }
 
-/* 🧱 CORREÇÃO DOS CARDS NO DESKTOP */
 .item-card {
     position: relative;
     overflow: hidden;
@@ -126,7 +125,6 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
     
-    /* 🎯 Define um tamanho fixo proporcional para o card do produto */
     flex: 0 0 240px; 
     width: 240px;
 }
@@ -144,7 +142,7 @@
     text-decoration: none;
 }
 
-/* 📸 Limita o tamanho máximo da foto no container */
+/*  Limita o tamanho máximo da foto no container */
 .item-card-image {
     width: 100%;
     height: 280px; /* Altura ideal de foto estilo e-commerce */
@@ -164,7 +162,7 @@
     transform: scale(1.04); /* Efeito sutil de zoom ao passar o mouse */
 }
 
-/* 📝 Ajuste do Overlay de informações fixado abaixo da imagem */
+/* Ajuste do Overlay de informações fixado abaixo da imagem */
 .item-info-overlay {
     position: absolute;
     bottom: 0;
@@ -189,21 +187,15 @@
     text-overflow: ellipsis;
 }
 
-.item-description {
+.item-price {
     font-family: var(--fonte-texto);
-    font-size: 11px; /* Aumentado de 10px */
+    font-size: 11px;
     color: #CCCCCC;
     margin: 0;
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* ==================================================================
-   👑 3 & 4. BANNERS DUPLOS LADO A LADO
-   ================================================================== */
+/*BANNERS DUPLOS LADO A LADO*/
 .banners-double-row {
     display: flex;
     justify-content: space-between;
@@ -229,6 +221,7 @@
     background-position: center;
     position: relative;
     overflow: hidden;
+    border-radius: 12px;
 }
 
 .banner-ui-overlay {
@@ -286,9 +279,7 @@
     background-color: #FF0000;
 }
 
-/* ==================================================================
-   📱 RESPONSIVIDADE (MOBILE)
-   ================================================================== */
+/* RESPONSIVIDADE (MOBILE) */
 @media (max-width: 992px) {
     .hero-image { height: 220px; }
     .section-title { font-size: 26px; }
@@ -297,6 +288,10 @@
     .item-card { 
         flex: 0 0 120px; 
         height: 120px; 
+    }
+
+    .item-info-overlay{
+        display: none;
     }
     
     .banners-double-row { 

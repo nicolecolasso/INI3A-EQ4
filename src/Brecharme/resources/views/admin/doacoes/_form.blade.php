@@ -22,11 +22,18 @@
 </div>
 
 <div class="input-field">
-    <label for="caminho_img">Foto do Item</label>
-    <input type="file" name="caminho_img" id="caminho_img" accept="image/*" {{ isset($linha) ? '' : 'required' }}>
-    @if(isset($linha->caminho_img))
-        <small style="display: block; margin-top: 5px; color: gray;">Já existe uma foto salva. Selecione outra apenas se quiser mudar.</small>
-    @endif
+    <label>Foto do Item</label>
+    <div class="upload-area">
+        <div class="upload-preview" id="uploadPreviewDoacao">
+            @if(isset($linha->caminho_img))
+                <img src="{{ asset($linha->caminho_img) }}" alt="Foto do item" />
+            @else
+                <i class="material-icons">image</i>
+            @endif
+        </div>
+        <input type="file" id="inputImagemDoacao" name="caminho_img" accept="image/*" style="display: none;" {{ isset($linha) ? '' : 'required' }}>
+        <button type="button" class="btn-selecionar" onclick="document.getElementById('inputImagemDoacao').click()">Selecionar</button>
+    </div>
 </div>
 
 <div class="input-field">

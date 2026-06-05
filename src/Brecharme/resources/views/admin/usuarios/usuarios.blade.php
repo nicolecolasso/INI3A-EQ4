@@ -31,11 +31,11 @@
             <tbody>
                 @forelse($linhas as $linha)
                     <tr class="{{ $linha->excluido ? 'row-user-inactive' : '' }}">
-                        <td>#{{ $linha->id }}</td>
-                        <td><strong>{{ $linha->name }}</strong></td>
-                        <td>{{ $linha->email }}</td>
-                        <td>{{ $linha->telefone ?? 'Não informado' }}</td>
-                        <td>
+                        <td data-label="ID">#{{ $linha->id }}</td>
+                        <td data-label="Nome"><strong>{{ $linha->name }}</strong></td>
+                        <td data-label="E-mail">{{ $linha->email }}</td>
+                        <td data-label="Telefone">{{ $linha->telefone ?? 'Não informado' }}</td>
+                        <td data-label="Tipo / Status">
                             @if($linha->excluido)
                                 <span class="badge badge-inactive">Inativo</span>
                             @else
@@ -44,7 +44,7 @@
                                 </span>
                             @endif
                         </td>
-                        <td>
+                        <td data-label="Ações">
                             <div class="action-buttons-flex">
                                 <a href="{{ route('admin.usuarios.editarUsuario', $linha->id) }}" class="btn-action edit" title="Editar">
                                     <i class="material-icons">edit</i>
@@ -58,7 +58,7 @@
                                         <i class="material-icons">block</i>
                                     </a>
                                 @else
-                                    <button class="btn-action delete disabled" title="Já desativado" disabled style="opacity: 0.4; cursor: not-allowed;">
+                                    <button class="btn-action delete disabled" title="Já desativado" disabled>
                                         <i class="material-icons">clear</i>
                                     </button>
                                 @endif

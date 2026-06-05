@@ -25,14 +25,17 @@
     <label for="valor">Preço de Venda (R$)</label>
     <input type="number" name="valor" id="valor" step="0.01" min="0" value="{{ $linha->valor ?? '' }}" required placeholder="0,00">
 </div>
-
-<div class="form-group">
-    <label for="caminho_img">Foto do Produto</label>
-    <input type="file" name="caminho_img" id="caminho_img" {{ isset($linha) ? '' : 'required' }} accept="image/*">
-    
-    @if(isset($linha->caminho_img))
-        <small>Já existe uma foto salva. Selecione outra apenas se quiser mudar.</small>
-    @endif
+    <div class="upload-area">
+        <div class="upload-preview" id="uploadPreviewProduto">
+            @if(isset($linha->caminho_img))
+                <img src="{{ asset($linha->caminho_img) }}" alt="Foto do produto" />
+            @else
+                <i class="material-icons">image</i>
+            @endif
+        </div>
+        <input type="file" id="inputImagemProduto" name="caminho_img" accept="image/*" style="display: none;" {{ isset($linha) ? '' : 'required' }}>
+        <button type="button" class="btn-selecionar" onclick="document.getElementById('inputImagemProduto').click()">Selecionar</button>
+    </div>
 </div>
 
 @if(isset($linha))

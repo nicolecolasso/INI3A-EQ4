@@ -1,0 +1,263 @@
+.carrinho-main-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-family: var(--fonte-texto);
+}
+
+.carrinho-title {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+/* Itens do Carrinho */
+.carrinho-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+/* Card Individual de Item do Carrinho */
+.carrinho-item-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: #fff;
+    padding: 1rem;
+    border: 2px solid var(--branco-fundo);
+    border-radius: 12px;
+    position: relative;
+}
+
+.carrinho-img-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--branco-fundo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9f9f9;
+}
+
+.carrinho-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carrinho-item-info {
+    flex: 1;
+}
+
+.carrinho-item-info h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+    color: var(--preto-puro);
+    font-weight: 500;
+}
+
+.carrinho-item-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--preto-puro);
+}
+
+.carrinho-item-preco {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--preto-puro);
+    text-align: right;
+}
+
+.btn-remover-carrinho{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: var(--cinza-detalhe);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.btn-remover-carrinho:hover {
+    color: red;
+}
+
+/* Área de Ação inferior (Botão Confirmar) */
+.carrinho-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.btn-confirmar-reserva {
+    background-color: var(--amarelo-brecho);
+    color: var(--branco-fundo);
+    font-family: var(--fonte-texto);
+    border: 2px solid var(--branco-fundo);
+    border-radius: 8px;
+    padding: 0.75rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-confirmar-reserva:hover {
+    background-color: var(--amarelo-brecho);
+    transform: translateY(-2px);
+}
+
+/* Estado de Carrinho Vazio */
+.carrinho-vazio {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    border-radius: 12px;
+}
+
+/* TELA DE CONFIRMAÇÃO DE RESERVA */
+.sucesso-container {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+.sucesso-block {
+    background: #fff;
+    border: 2px solid var(--branco-fundo);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.sucesso-header-flex {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.sucesso-badge-icon {
+    background: var(--amarelo-brecho);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #333;
+    flex-shrink: 0;
+}
+
+.sucesso-badge-icon i {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.sucesso-text-content h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.sucesso-text-content p {
+    margin: 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Bloco Inferior de Detalhes */
+.detalhes-titulo {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+
+.detalhes-lista-produtos {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detalhe-produto-linha {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.btn-voltar-vitrine {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: transparent;
+    border: 2px solid #333;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-voltar-vitrine:hover {
+    border-color: var(--amarelo-brecho);
+    color: var(--amarelo-brecho);
+}
+
+.carrinho-title.centralizado {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.texto-sub-detalhe {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.status-badge-inline {
+    color: #888;
+    margin-left: 10px;
+}
+
+.texto-vazio {
+    color: #999;
+}
+
+.container-botao-voltar {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .carrinho-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .sucesso-header-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .carrinho-actions {
+        justify-content: center;
+    }
+    
+    .btn-confirmar-reserva {
+        width: 100%;
+    }
+}

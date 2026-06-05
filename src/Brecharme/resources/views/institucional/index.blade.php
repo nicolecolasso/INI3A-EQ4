@@ -11,7 +11,7 @@
     
     <section class="hero-carousel">
         <div class="carousel-inner">
-            <img src="{{ asset('img/Imagem_roupas.jpg') }}" alt="Loja Brecharme" class="hero-image">
+            <img src="{{ asset('img/brecharme1.png') }}" alt="Loja Brecharme" class="hero-image">
             <div class="carousel-dots">
                 <span class="dot"></span>
                 <span class="dot active"></span>
@@ -35,12 +35,12 @@
                         <a href="{{ route('produtos.detalheProduto', $produto->id_produto) }}" class="item-link">
                             
                             <div class="item-card-image">
-                                <img src="{{ asset($produto->caminho_img ?? 'img/produto-placeholder.png') }}" alt="{{ $produto->nome }}">
+                                <img src="{{ asset($produto->caminho_img) }}" alt="{{ $produto->nome }}">
                             </div>
 
                             <div class="item-info-overlay">
                                 <h3 class="item-name">{{ $produto->nome }}</h3>
-                                <p class="item-description">{{ Str::limit($produto->descricao, 100) }}</p>
+                                <p class="item-price">R$ {{ number_format($produto->valor, 2, ',', '.') }}</p>
                             </div>
                         </a>
                     </div>
@@ -61,7 +61,7 @@
         
         <div class="banner-box caritas-box">
             <a href="https://caritasbauru.org.br/" target="_blank" class="banner-link">
-                <div class="banner-bg-img" style="background-image: url('{{ asset('img/Imagem_roupas.jpg') }}');">
+                <div class="banner-bg-img" style="background-image: url('{{ asset('img/caritas.png') }}');">
                     <div class="banner-ui-overlay">
                         <div class="banner-pill-label label-caritas">Sobre a Cáritas</div>
                         <span class="btn-action-trigger red-trigger">Saiba mais</span>
@@ -72,7 +72,7 @@
 
         <div class="banner-box find-box">
             <a href="https://maps.app.goo.gl/Qv6UfzH5sycVVMWh9" target="_blank" class="banner-link">
-                <div class="banner-bg-img" style="background-image: url('{{ asset('img/Imagem_roupas.jpg') }}');">
+                <div class="banner-bg-img" style="background-image: url('{{ asset('img/localizacao.png') }}');">
                     <div class="banner-ui-overlay">
                         <div class="banner-pill-label label-find">
                             Encontre-nos 
@@ -90,9 +90,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const heroImages = [
-            "{{ asset('img/Imagem_roupas.jpg') }}",
-            "{{ asset('img/tenis.jpg') }}",
-            "{{ asset('img/Imagem_roupas.jpg') }}"
+            "{{ asset('img/brecharme1.png') }}",
+            "{{ asset('img/brecharme2.png') }}",
+            "{{ asset('img/brecharme3.png') }}"
         ];
 
         const heroImageElement = document.querySelector('.hero-image');

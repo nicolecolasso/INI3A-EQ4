@@ -32,60 +32,59 @@
             <tbody>
                 @forelse($linhas as $linha)
                     <tr class="{{ in_array($linha->status, ['Rejeitada', 'Retirada']) ? 'row-user-inactive' : '' }}">
-                        <td>#{{ $linha->id_doacao }}</td>
-                        <td>
+                        <td data-label="ID">#{{ $linha->id_doacao }}</td>
+                        <td data-label="Foto">
                             <div class="product-img-thumbnail">
-                                <img src="{{ asset($linha->caminho_img ?? 'img/produto-placeholder.png') }}" alt="Doação">
+                                <img src="{{ asset($linha->caminho_img ) }}" alt="Doação">
                             </div>
                         </td>
 
-                        <td>
-                            <div style="font-size: 14px; color: #333; font-weight: 600;">
-                                {{ $linha->nome ?? 'Doação sem nome' }} {{-- 🎯 Corrigido de $linha->doacao->nome para $linha->nome --}}
+                        <td data-label="Nome do Item">
+                            <div class="admin-strong-text">
+                                {{ $linha->nome ?? 'Doação sem nome' }} 
                             </div>
                         </td>
                         
-                        <td>
+                        <td data-label="Doador e Retirada">
                             <strong>{{ $linha->usuario->name ?? 'Doador Anônimo' }}</strong>
-                            <div style="font-size: 12px; color: #555; margin-top: 2px;">
-                                <i class="material-icons" style="font-size: 12px; vertical-align: middle;">phone</i> 
+                            <div class="admin-subtext">
+                                <i class="material-icons icon-inline">phone</i> 
                                 {{ $linha->usuario->telefone ?? 'Sem telefone' }}
                             </div>
-                            <div style="font-size: 12px; color: #2e7d32; font-weight: 600; margin-top: 4px; background: #e8f5e9; padding: 2px 6px; border-radius: 4px; display: inline-block;">
-                                <i class="material-icons" style="font-size: 14px; vertical-align: middle;">location_on</i> 
+                            <div class="admin-location-tag">
+                                <i class="material-icons icon-inline">location_on</i> 
                                 Retirada em: {{ $linha->localizacao ?? 'Não informada' }}
                             </div>
                         </td>
                         
-                        <td>
-                            <span style="font-size: 11px; background: #EAEAEA; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase;">
+                        <td data-label="Detalhes">
+                            <span class="admin-category-tag">
                                 {{ $linha->categoria }}
                             </span>
-                            <div style="font-size: 13px; color: #444; margin-top: 6px;">
+                            <div class="admin-description-text">
                                 {{ Str::limit($linha->descricao, 50, '...') }}
                             </div>
                         </td>
                         <td>
                             @if($linha->status == 'Analise')
-                                <span class="badge" style="background-color: #FFF3E0; color: #E65100; font-weight: 700; border: 1px solid #FFE0B2;">
+                                <span class="badge badge-analise">
                                     Em Análise
                                 </span>
                             @elseif($linha->status == 'Aprovada')
                                 <span class="badge badge-user">Aprovada</span>
                             @elseif($linha->status == 'Retirada')
-                                <span class="badge" style="background-color: #E0F7FA; color: #006064;">
+                                <span class="badge badge-retirada">
                                     Retirada
                                 </span>
                             @else
                                 <span class="badge badge-inactive">Rejeitada</span>
                             @endif
                         </td>
-                        <td>
+                        <td data-label="Ações">
                             <div class="action-buttons-flex">
                                 @if($linha->status == 'Analise')
                                     <a href="{{ route('admin.doacoes.aprovar', $linha->id_doacao) }}" 
-                                       class="btn-action" 
-                                       style="background-color: #E8F5E9; color: #2E7D32;" 
+                                       class="btn-action btn-action-approve" 
                                        title="Aprovar Doação"
                                        onclick="return confirm('Deseja aprovar esta doação? Ela ficará aguardando retirada.');">
                                         <i class="material-icons">check</i>
@@ -100,8 +99,7 @@
                                 @endif
 
                                 @if($linha->status == 'Aprovada')
-                                    <button type="button" class="btn-action" 
-                                            style="background-color: #E0F7FA; color: #006064; border: none; cursor: pointer;" 
+                                    <button type="button" class="btn-action btn-action-ship" 
                                             title="Confirmar Retirada e Virar Produto"
                                             onclick="abrirModalRetirada('{{ $linha->id_doacao }}', '{{ addslashes($linha->nome) }}')">
                                         <i class="material-icons">local_shipping</i>
@@ -127,7 +125,7 @@
 <div id="modalPreco" class="modal-preco">
     <div class="modal-conteudo">
         <h3>Confirmar Retirada e Definir Preço</h3>
-        <p id="modalTextoItem" style="font-size: 14px; color: #666;"></p>
+        <p id="modalTextoItem" class="modal-text"></p>
         
         <form id="formRetirarPreco" action="" method="POST">
             @csrf
@@ -135,8 +133,8 @@
             <input type="number" name="preco" id="preco_venda" step="0.01" min="0" placeholder="0,00" required autofocus>
             
             <div class="modal-botoes">
-                <button type="button" class="btn" style="background: #ccc; color: #333;" onclick="fecharModalPreco()">Cancelar</button>
-                <button type="submit" class="btn" style="background: #006064; color: white;">Confirmar e Cadastrar</button>
+                <button type="button" class="btn btn-secondary" onclick="fecharModalPreco()">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar e Cadastrar</button>
             </div>
         </form>
     </div>
@@ -145,7 +143,8 @@
 <script>
     function abrirModalRetirada(id, nome) {
         const form = document.getElementById('formRetirarPreco');
-        form.action = `/admin/doacoes/retirar/${id}`;
+        
+        form.action = "{{ url('admin/doacoes/retirar') }}/" + id;
         
         document.getElementById('modalTextoItem').innerText = "O item (" + nome + ") foi retirado. Insira o preço de venda para o estoque:";
         document.getElementById('modalPreco').style.display = 'flex';

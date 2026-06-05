@@ -32,28 +32,30 @@
             <tbody>
                 @forelse($linhas as $linha)
                     <tr class="{{ $linha->excluido ? 'row-user-inactive' : '' }}">
-                        <td>#{{ $linha->id_produto }}</td>
-                        <td>
+                        <td data-label="ID">#{{ $linha->id_produto }}</td>
+                        <td data-label="Foto">
                             <div class="product-img-thumbnail">
-                                <img src="{{ asset($linha->caminho_img ?? 'img/produto-placeholder.png') }}" alt="{{ $linha->nome }}">
+                                <img src="{{ asset($linha->caminho_img) }}" alt="{{ $linha->nome }}">
                             </div>
                         </td>
-                        <td>
+                        <td data-label="Nome">
                             <strong>{{ $linha->nome }}</strong>
-                            <div style="font-size: 12px; color: #888; margin-top: 2px;" title="{{ $linha->descricao }}">
+                            <div class="admin-subtext" title="{{ $linha->descricao }}">
                                 {{ Str::limit($linha->descricao, 40, '...') }}
                             </div>
                         </td>
-                        <td>{{ $linha->categoria ?? 'Geral' }}</td>
-                        <td class="product-price">R$ {{ number_format($linha->valor, 2, ',', '.') }}</td>
-                        <td>
+                        <td data-label="Categoria">{{ $linha->categoria ?? 'Geral' }}</td>
+                        <td data-label="Preço" class="product-price">R$ {{ number_format($linha->valor, 2, ',', '.') }}</td>
+                        
+                        <td data-label="Status">
                             @if($linha->excluido)
                                 <span class="badge badge-inactive">Inativo / Removido</span>
                             @else
                                 <span class="badge badge-user">{{ $linha->status ?? 'Disponível' }}</span>
                             @endif
                         </td>
-                        <td>
+                        
+                        <td data-label="Ações">
                             <div class="action-buttons-flex">
                                 <a href="{{ route('admin.produtos.editarProduto', $linha->id_produto) }}" class="btn-action edit" title="Editar Produto">
                                     <i class="material-icons">edit</i>
@@ -67,7 +69,7 @@
                                         <i class="material-icons">block</i>
                                     </a>
                                 @else
-                                    <button class="btn-action delete disabled" title="Produto já desativado" disabled style="opacity: 0.4; cursor: not-allowed;">
+                                    <button class="btn-action delete disabled" title="Produto já desativado" disabled>
                                         <i class="material-icons">clear</i>
                                     </button>
                                 @endif

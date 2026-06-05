@@ -8,6 +8,7 @@
     <ul class="navbar-links">
         <li><a href="{{ route('institucional.quemSomos') }}">Quem Somos</a></li>
         <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
+        <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
 
         @guest
             <li><a href="{{ route('login') }}">Doe Já</a></li>
@@ -32,19 +33,18 @@
                     </a>
                 </li>
             @else
-                <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
                 <li>
                     <a href="{{ route('perfil.meuPerfil') }}" class="icon-circle" title="Meu Perfil">
                         <i class="material-icons">account_circle</i>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('carrinho') }}" class="icon-circle" title="Carrinho">
-                        <i class="material-icons">shopping_cart</i>
-                    </a>
-                </li>
+                
             @endif
-            
+            <li>
+                <a href="{{ route('carrinho') }}" class="icon-circle" title="Carrinho">
+                    <i class="material-icons">shopping_cart</i>
+                </a>
+            </li>
             <li><a href="{{ route('login.sair') }}" class="btn-sair">Sair</a></li>
         @endauth
     </ul>
@@ -59,6 +59,7 @@
     <li><a href="{{ route('institucional.index') }}">Home</a></li>
     <li><a href="{{ route('institucional.quemSomos') }}">Quem Somos</a></li>
     <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
+    <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
     
     @guest
         <li><a href="{{ route('login') }}">Doe Já</a></li>
@@ -69,11 +70,9 @@
         @if(Auth::user()->admin)
             <li><a href="{{ route('admin.gerenciar') }}">Admin Panel</a></li>
         @else
-            <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
             <li><a href="{{ route('perfil.meuPerfil') }}">Perfil</a></li>
-            <li><a href="{{ route('carrinho') }}">Carrinho</a></li>
         @endif
-        
+        <li><a href="{{ route('carrinho') }}">Carrinho</a></li>
         <li><a href="{{ route('login.sair') }}">Sair</a></li>
     @endauth
 </ul>

@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 @font-face {
@@ -17,10 +16,11 @@
     --fonte-texto:     'Montserrat', sans-serif;
 }
 
+/* Reset agressivo para anular interferências de frameworks antigos */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
 
 body {
@@ -28,7 +28,7 @@ body {
     background-color: #F0F0F0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Garante que o rodapé fique no fundo */
+    min-height: 100vh; 
 }
 
 /* Centraliza os cards e conteúdos filhos perfeitamente */
@@ -41,7 +41,7 @@ main {
 }
 
 /* ==================================================================
-   💻 NAVBAR (CABEÇALHO) - DESKTOP FIRST (image_8b6a58.png)
+   💻 NAVBAR (CABEÇALHO) - DESKTOP FIRST
    ================================================================== */
 .brecharme-navbar {
     background-color: var(--cinza-detalhe);
@@ -74,7 +74,7 @@ main {
 
 /* Lista de Links Desktop */
 .navbar-links {
-    list-style: none;
+    list-style: none !important; /* Remove bolinhas fantasmas do materialize */
     display: flex;
     align-items: center;
     gap: 15px;
@@ -100,7 +100,7 @@ main {
     color: var(--amarelo-brecho);
 }
 
-/* Ícones do Perfil e Carrinho Redondos (image_8b7d02.png) */
+/* Ícones do Perfil e Carrinho Redondos */
 .navbar-links li a.icon-circle {
     border-radius: 50%;
     width: 40px;
@@ -129,7 +129,6 @@ main {
 }
 
 .navbar-links li a.btn-sair {
-    /* Segue o mesmo estilo dos outros links do header */
     border: 1.5px solid var(--amarelo-brecho);
     border-radius: 12px;
     padding: 8px 20px;
@@ -187,15 +186,15 @@ main {
     }
 
     .navbar-links {
-        display: none; /* Esconde os links horizontais no celular */
+        display: none; 
     }
 
     .sidenav-trigger {
-        display: block; /* O botão hambúrguer surge apenas no celular */
+        display: block; 
     }
 }
 
-/* Gaveta Lateral Mobile Amarela (image_8c5da0.png) */
+/* Gaveta Lateral Mobile Amarela */
 .sidenav {
     position: fixed;
     top: 0;
@@ -207,11 +206,11 @@ main {
     z-index: 9999;
     transition: left 0.3s ease;
     padding: 40px 20px;
-    list-style: none;
+    list-style: none !important;
 }
 
 .sidenav.active {
-    left: 0; /* Desliza para a tela se ativo */
+    left: 0; 
 }
 
 .sidenav li {
@@ -225,7 +224,7 @@ main {
     font-weight: 500;
     font-size: 16px;
     border: 2px solid #F0F0F0;
-    border-radius: 25px; /* Formato Pílula */
+    border-radius: 25px; 
     padding: 12px 20px;
     text-align: center;
     transition: all 0.3s ease;
@@ -249,7 +248,7 @@ main {
 }
 
 /* ==================================================================
-   🧦 ESTILIZAÇÃO DO RODAPÉ (CINZA DETALHE B3B3B3) (image_8c5da0.png)
+   🧦 ESTILIZAÇÃO DO RODAPÉ
    ================================================================== */
 .brecharme-footer {
     background-color: var(--cinza-detalhe);

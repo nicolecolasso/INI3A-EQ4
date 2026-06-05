@@ -29,16 +29,14 @@ class ProdutoController extends Controller
         if ($req->hasFile('caminho_img')) {
             $imagem = $req->file('caminho_img');
             $num = rand(1111, 9999);
-            $dir = "img/doacoes/";
             
-            // Pega a extensão real do arquivo (ex: png, jpg)
+            $dir = "img/produtos/";
+            
             $ex = $imagem->getClientOriginalExtension(); 
             $nomeImagem = "imagem_" . $num . "." . $ex;
             
-            // Move o arquivo fisicamente para public/img/doacoes/
             $imagem->move(public_path($dir), $nomeImagem);
             
-            // Grava no array de dados o caminho completo que vai para o banco
             $dados['caminho_img'] = $dir . $nomeImagem;
         }
 
@@ -64,10 +62,16 @@ class ProdutoController extends Controller
 
     public function atualizar(Request $req, $id)
     {
+        $produto = Produto::where('id_produto', $id)->firstOrFail();
         $dados = $this->ajusteDados($req);
-        Produto::find($id)->update($dados);
+        
+        if (!$req->hasFile('caminho_img')) {
+            $dados['caminho_img'] = $produto->caminho_img;
+        }
 
-        return redirect()->route('admin.produtos');
+        $produto->update($dados);
+
+        return redirect()->route('admin.produtos')->with('sucesso', 'Produto atualizado com sucesso!');
     }
 
     public function excluir($id)

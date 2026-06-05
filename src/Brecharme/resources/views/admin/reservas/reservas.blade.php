@@ -31,12 +31,12 @@
             <tbody>
                 @forelse($linhas as $linha)
                     <tr class="{{ in_array($linha->status, ['Concluída', 'Cancelada']) ? 'row-user-inactive' : '' }}">
-                        <td>#{{ $linha->id_compra }}</td>
-                        <td>
+                        <td data-label="ID Reserva">#{{ $linha->id_compra }}</td>
+                        <td data-label="Cliente">
                             <strong>{{ $linha->usuario->name ?? 'Usuário não encontrado' }}</strong>
-                            <div style="font-size: 12px; color: #888;">{{ $linha->usuario->email ?? '' }}</div>
+                            <div class="admin-subtext">{{ $linha->usuario->email ?? '' }}</div>
                         </td>
-                        <td>
+                        <td data-label="Produto">
                             {{-- Loop para varrer os produtos vinculados a esta compra específica --}}
                             @php $totalReserva = 0; @endphp
                             
@@ -44,9 +44,9 @@
                                 @foreach($linha->itens as $item)
                                     @if($item->produto)
                                         @php $totalReserva += $item->produto->valor; @endphp
-                                        <div style="margin-bottom: 4px;">
+                                        <div class="admin-item-row">
                                             <strong>{{ $item->produto->nome }}</strong> 
-                                            <span style="color: #666; font-size: 12px;">
+                                            <span class="admin-subtext admin-inline-note">
                                                 (R$ {{ number_format($item->produto->valor, 2, ',', '.') }})
                                             </span>
                                         </div>
@@ -55,26 +55,26 @@
                                 
                                 {{-- Se houver mais de um produto, exibe o total da reserva --}}
                                 @if($linha->itens->count() > 1)
-                                    <div style="font-size: 12px; color: #b39012; font-weight: 600; border-top: 1px dashed #ddd; margin-top: 4px; padding-top: 4px;">
+                                    <div class="reservation-total">
                                         Total: R$ {{ number_format($totalReserva, 2, ',', '.') }}
                                     </div>
                                 @endif
                             @else
-                                <span style="color: #999; font-style: italic;">Nenhum produto atrelado</span>
+                                <span class="admin-italic-note">Nenhum produto atrelado</span>
                             @endif
                         </td>
-                        <td>{{ \Carbon\Carbon::parse($linha->data_compra)->format('d/M/Y H:i') }}</td>
-                        <td>
+                        <td data-label="Data">{{ \Carbon\Carbon::parse($linha->data_compra)->format('d/M/Y H:i') }}</td>
+                        <td data-label="Status">
                             @if($linha->status == 'Reservado')
-                                <span class="badge badge-admin" style="background-color: #FFF9E6; color: #B38F00; border: 1px solid #FFE0B2;">
+                                <span class="badge badge-reservado">
                                     Reservado
                                 </span>
                             @elseif($linha->status == 'Carrinho')
-                                <span class="badge badge-user" style="background-color: #E0F7FA; color: #006064;">
+                                <span class="badge badge-carrinho">
                                     No Carrinho
                                 </span>
                             @elseif($linha->status == 'Concluída')
-                                <span class="badge" style="background-color: #E8F5E9; color: #2E7D32;">
+                                <span class="badge badge-concluida">
                                     Concluída
                                 </span>
                             @else
@@ -83,7 +83,7 @@
                                 </span>
                             @endif
                         </td>
-                        <td>
+                        <td data-label="Ações">
                             <div class="action-buttons-flex">
                                 <a href="{{ route('admin.reservas.editarReserva', $linha->id_compra) }}" class="btn-action edit" title="Mudar Status / Editar">
                                     <i class="material-icons">edit</i>

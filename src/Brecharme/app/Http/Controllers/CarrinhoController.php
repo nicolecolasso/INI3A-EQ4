@@ -17,7 +17,7 @@ class CarrinhoController extends Controller
                            ->with('produto') 
                            ->get();
 
-        return view('carrinho.index', compact('reservas'));
+        return view('carrinho.carrinho', compact('reservas'));
     }
 
     public function finalizar()
@@ -67,32 +67,75 @@ class CarrinhoController extends Controller
 
     public function adicionar($id)
     {
+        // 1. Busca o produto pela chave primária (id_produto)
         $produto = Produto::findOrFail($id);
 
-        // 1. Checa se este produto já está reservado por alguém
-        $jaReservado = Compra::where('fk_compra_id_produto', $id)
-                              ->whereIn('status', ['Carrinho', 'Reservado', 'Concluída'])
-                              ->exists();
+        // 2. Checa se este produto já está no carrinho ou reservado por alguém
+        // Como a relação está na tabela ProdutoReserva, verificamos por ela!
+        $jaReservado = ProdutoReserva::where('fk_id_produto', $id)
+            ->whereIn('status', ['Carrinho', 'Reservado', 'Concluída'])
+            ->exists();
 
-        if ($jaReservado) {
-            return redirect()->back()->with('erro', 'Ops! Este produto já foi reservado por outro client.');
+        // Alternativa segura: Você também pode checar o status direto no modelo do Produto
+        if ($jaReservado || in_array($produto->status, ['Carrinho', 'Reservado', 'Concluída'])) {
+            return redirect()->back()->with('erro', 'Ops! Este produto já foi reservado por outro cliente.');
         }
 
-        // 2. Cria a reserva atrelada ao usuário logado
-        Compra::create([
-            'fk_compra_id_usuario'    => Auth::id(),
-            'fk_compra_id_produto' => $produto->id,
-            'status'     => 'Carrinho',
+        // 3. Cria o "cabeçalho" da compra atrelada ao usuário logado
+        // Nota: Adicionei um valor padrão para a string 'sessao' exigida na sua migration
+        $novaCompra = Compra::create([
+            'fk_compra_id_usuario' => Auth::id(),
+            'status'               => 'Carrinho',
+            'sessao'               => session()->getId(), // Preenche o campo 'sessao' obrigatório
         ]);
 
+        // 4. Cria o vínculo na tabela pivô/auxiliar (Onde a mágica acontece)
+        // Usamos o ID gerado da compra. Caso seu modelo use 'id_compra' como chave primária, usamos ele.
+        ProdutoReserva::create([
+            'fk_id_produto' => $id,
+            'fk_id_compra'  => $novaCompra->id_compra ?? $novaCompra->id,
+            'status'        => 'Carrinho',
+        ]);
+
+        // 5. Atualiza o status do produto para 'Carrinho' para controle da vitrine
         Produto::where('id_produto', $id)->update(['status' => 'Carrinho']);
 
-        ProdutoReserva::create([
-            'fk_id_produto' => $produto->id,
-            'fk_id_compra' => Compra::latest()->first()->id,
-        ]);
-
-        // 3. Redireciona direto para o carrinho com mensagem de sucesso
+        // 6. Redireciona para o carrinho com mensagem de sucesso
         return redirect()->route('carrinho')->with('sucesso', 'Produto adicionado ao seu carrinho!');
+    }
+
+    public function remover($id)
+    {
+        // 1. Busca o vínculo na tabela intermediária para garantir que o produto pertence ao carrinho do usuário
+        $reserva = ProdutoReserva::where('fk_id_produto', $id)
+            ->whereHas('compra', function($query) {
+                $query->where('fk_compra_id_usuario', Auth::id())
+                    ->where('status', 'Carrinho');
+            })
+            ->first();
+
+        if (!$reserva) {
+            return redirect()->back()->with('erro', 'Produto não encontrado no seu carrinho.');
+        }
+
+        // Guarda o ID da compra antes de deletar o item para verificar depois se era o último item da compra
+        $idCompra = $reserva->fk_id_compra;
+
+        // 2. Remove o vínculo do produto específico na tabela auxiliar
+        $reserva->delete();
+
+        // 3. Atualiza o status do produto para 'Disponível' para que ele volte correndo para a vitrine
+        Produto::where('id_produto', $id)->update(['status' => 'Disponível']);
+
+        // 4. Verifica se ainda algum produto atrelado a essa mesma compra
+        $qtdeItems = ProdutoReserva::where('fk_id_compra', $idCompra)->count();
+
+        if ($qtdeItems === 0) {
+            // Se não sobrou nenhum, a compra passa a ser 'Cancelada'
+            Compra::where('id_compra', $idCompra)->update(['status' => 'Cancelada']);
+        }
+
+        // 5. Redireciona para o carrinho com mensagem de sucesso
+        return redirect()->route('carrinho')->with('sucesso', 'Produto removido do seu carrinho!');
     }
 }

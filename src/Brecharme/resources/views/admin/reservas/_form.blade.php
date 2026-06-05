@@ -4,7 +4,6 @@
     <select name="id_usuario" id="id_usuario" required>
         <option value="" disabled {{ !isset($linha) ? 'selected' : '' }}>Selecione um cliente...</option>
         @foreach($usuarios as $usuario)
-            {{-- 🎯 CORRIGIDO: Sintaxe do selected limpa e dentro da tag <option> --}}
             <option value="{{ $usuario->id }}" {{ (isset($linha) && $linha->fk_compra_id_usuario == $usuario->id) ? 'selected' : '' }}>
                 {{ $usuario->name }} ({{ $usuario->email }})
             </option>
@@ -12,13 +11,12 @@
     </select>
 </div>
 
-{{-- Campo de Produtos (Agora liberado para Novo E Editar) --}}
 <div class="form-group">
     <label for="id_produto">Produtos da Reserva (Segure CTRL para selecionar/desmarcar)</label>
-    <select name="id_produto[]" id="id_produto" multiple required style="height: 150px;">
+    <select name="id_produto[]" id="id_produto" multiple required class="multiselect-tall">
         @foreach($produtos as $produto)
             @php
-                // VERIFICAÇÃO: Checa se o produto atual já está vinculado a esta compra através dos itens
+                // Checa se o produto atual já está vinculado a esta compra através dos itens
                 $jaSelecionado = false;
                 if(isset($linha) && isset($linha->itens)) {
                     $jaSelecionado = $linha->itens->contains('fk_id_produto', $produto->id_produto);

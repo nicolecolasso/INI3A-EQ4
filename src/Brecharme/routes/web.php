@@ -224,6 +224,11 @@ Route::group(['prefix' => 'carrinho', 'middleware' => ['auth']], function () {
         'as' => 'carrinho.conclusaoReserva',
         'uses' => 'App\Http\Controllers\CarrinhoController@conclusaoReserva'
     ]);
+
+    Route::post('/remover/{id_produto}', [
+        'as' => 'carrinho.remover',
+        'uses' => 'App\Http\Controllers\CarrinhoController@remover'
+    ]);
 });
 
 Route::group(['prefix' => 'perfil', 'middleware' => ['auth']], function () {

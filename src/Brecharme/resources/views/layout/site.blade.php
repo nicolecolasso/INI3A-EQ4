@@ -21,6 +21,7 @@
     </main>
 
     @include('layout._rodape')
+    @stack('scripts')
 
 </body>
 </html>

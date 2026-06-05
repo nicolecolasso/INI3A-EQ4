@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Doacao;
+use Illuminate\Support\Facades\File; 
 
 class DoacaoController extends Controller
 {
@@ -79,11 +80,18 @@ class DoacaoController extends Controller
 
     public function atualizar(Request $req, $id)
     {
+        // Procura o registro original antes de atualizar
+        $doacao = Doacao::where('id_doacao', $id)->firstOrFail();
+        
         $dados = $this->ajusteDados($req);
         
-        Doacao::find($id)->update($dados);
+        if (!$req->hasFile('caminho_img')) {
+            $dados['caminho_img'] = $doacao->caminho_img;
+        }
 
-        return redirect()->route('admin.doacoes');
+        $doacao->update($dados);
+
+        return redirect()->route('admin.doacoes')->with('sucesso', 'Doação atualizada com sucesso!');
     }
 
     public function aprovar($id)
@@ -94,26 +102,42 @@ class DoacaoController extends Controller
 
     public function retirar(Request $req, $id)
     {
-        $doacao = Doacao::find($id);
+        // Procura pela chave primária id_doacao
+        $doacao = Doacao::where('id_doacao', $id)->first();
 
         if ($doacao) {
             $doacao->update(['status' => 'Retirada']);
 
             $precoDigitado = $req->input('preco', 0.00);
+            
+            $caminhoDoacaoFisico = public_path($doacao->caminho_img); 
+            
+            $nomeArquivo = basename($doacao->caminho_img); 
+            
+            $caminhoNovoProdutoRelativo = "img/produtos/" . $nomeArquivo;
+            $caminhoProdutoFisico = public_path($caminhoNovoProdutoRelativo); 
 
-            // Cria o produto no estoque do site usando as colunas exatas do seu banco
+            if (!File::exists(public_path('img/produtos'))) {
+                File::makeDirectory(public_path('img/produtos'), 0755, true);
+            }
+
+            
+            if (File::exists($caminhoDoacaoFisico)) {
+                File::copy($caminhoDoacaoFisico, $caminhoProdutoFisico);
+            }
+
             \App\Models\Produto::create([
                 'nome'        => $doacao->nome,
                 'descricao'   => $doacao->descricao,
                 'categoria'   => $doacao->categoria,
-                'caminho_img' => $doacao->caminho_img,
+                'caminho_img' => $caminhoNovoProdutoRelativo, 
                 'valor'       => $precoDigitado,
                 'status'      => 'Disponível',
                 'created_at'  => now(),
                 'updated_at'  => now()
             ]);
 
-            return redirect()->route('admin.doacoes')->with('sucesso', 'Item marcado como Retirado e cadastrado com sucesso!');
+            return redirect()->route('admin.doacoes')->with('sucesso', 'Item retirado! Produto criado na vitrine e histórico de doação preservado.');
         }
 
         return redirect()->route('admin.doacoes')->with('erro', 'Doação não encontrada.');
