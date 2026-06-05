@@ -1,93 +1,77 @@
-/* admin.css - Estilos para as páginas de gerenciamento do admin */
 .gerenciar-mobile-container {
-    max-width: 500px; /* Mantém o foco centralizado simulando o mobile mesmo no desktop */
+    max-width: 500px;
     margin: 60px auto;
     padding: 0 30px;
     text-align: center;
     box-sizing: border-box;
 }
 
-/* Título "Gerenciar" com a fonte elegante The Season */
 .gerenciar-titulo {
-    font-family: var(--fonte-titulo); /* 'The Season' */
+    font-family: var(--fonte-titulo);
     font-size: 36px;
     font-weight: normal;
-    color: #000000;
+    color: var(--preto-puro);
     margin-bottom: 40px;
     letter-spacing: 0.5px;
 }
 
-/* Container que empilha os botões verticalmente */
 .gerenciar-menu-buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px; /* Espaçamento exato entre os botões */
+    gap: 18px;
     width: 100%;
 }
 
-/* Classe base para o formato de pílula */
+/* Botões em formato pílula do Menu Gerenciar */
 .btn-pill-admin {
     display: block;
     width: 100%;
-    max-width: 280px; /* Define uma largura padrão elegante para os botões */
-    background-color: var(--branco-fundo); /* Fundo cinza bem claro #F0F0F0 */
+    max-width: 280px;
+    background-color: var(--branco-fundo);
     color: #333333;
     text-decoration: none;
-    font-family: var(--fonte-texto); /* Montserrat */
+    font-family: var(--fonte-texto);
     font-size: 16px;
     font-weight: 500;
     padding: 14px 20px;
-    border-radius: 18px; /* Entrega o formato arredondado de pílula do print */
+    border-radius: 18px;
     text-align: center;
     box-sizing: border-box;
     transition: all 0.2s ease-in-out;
 }
 
-/* Variação 1: Botões com borda escura escurecida */
 .btn-pill-admin.dark-border {
     border: 1.8px solid #4A4A4A;
 }
 
 .btn-pill-admin.dark-border:hover {
     background-color: #4A4A4A;
-    color: #F0F0F0;
+    color: var(--branco-fundo);
 }
 
-/* Variação 2: Botões de Comunicado com borda amarela do Brecharme */
 .btn-pill-admin.yellow-border {
-    border: 1.8px solid var(--amarelo-brecho); /* #EFB810 */
+    border: 1.8px solid var(--amarelo-brecho);
     color: var(--amarelo-brecho);
 }
 
 .btn-pill-admin.yellow-border:hover {
     background-color: var(--amarelo-brecho);
-    color: #F0F0F0;
-}
-
-/* Ajuste fino para telas muito pequenas */
-@media (max-width: 360px) {
-    .btn-pill-admin {
-        max-width: 100%;
-        font-size: 15px;
-        padding: 12px 15px;
-    }
+    color: var(--branco-fundo);
 }
 
 /* ==================================================================
-   👑 PAINEL ADMINISTRATIVO - GERENCIAMENTO DE USUÁRIOS (BRECHARME)
+   👑 PAINEL GERAL DE TABELAS ADMINISTRATIVAS
    ================================================================== */
-
-/* Contêiner principal da área administrativa */
 .admin-table-container {
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fonte-texto);
     box-sizing: border-box;
 }
 
-/* 🏷️ Cabeçalho da Tabela (Título + Botão Alinhados) */
+/* Topo do painel (Título + Botão Nova Doação) */
 .table-header-box {
     display: flex;
     justify-content: space-between;
@@ -107,13 +91,13 @@
     font-weight: normal;
 }
 
-/* ➕ Botão "Novo Usuário" Customizado */
+/* Botão Superior "Nova Doação" (Padrão Sólido Escuro) */
 .btn-add-table {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background-color: #1A1A1A;
-    color: var(--amarelo-brecho, #EFB810);
+    color: var(--amarelo-brecho);
     text-decoration: none;
     padding: 12px 24px;
     border-radius: 30px;
@@ -126,16 +110,12 @@
 }
 
 .btn-add-table:hover {
-    background-color: #EFB810;
+    background-color: var(--amarelo-brecho);
     color: #1A1A1A;
     box-shadow: 0 6px 18px rgba(239, 184, 16, 0.25);
 }
 
-.btn-add-table i {
-    font-size: 18px;
-}
-
-/* 📊 Caixa de rolagem responsiva para a Tabela */
+/* Estrutura Responsiva da Tabela */
 .table-responsive {
     width: 100%;
     overflow-x: auto;
@@ -146,16 +126,14 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
-/* 💻 A Tabela Admin */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
     background-color: #f0f0f0;
-    min-width: 700px; /* Mantém a tabela legível em telas grandes */
+    min-width: 700px;
 }
 
-/* Estilização do Topo (Th) */
 .admin-table th {
     background-color: #FAFAFA;
     color: #666666;
@@ -167,7 +145,6 @@
     border-bottom: 1px solid #EAEAEA;
 }
 
-/* Estilização das Linhas de Dados (Td) */
 .admin-table td {
     padding: 18px 24px;
     border-bottom: 1px solid #F5F5F5;
@@ -176,50 +153,24 @@
     vertical-align: middle;
 }
 
-/* Efeito de destaque ao passar o mouse na linha */
 .admin-table tbody tr:hover {
     background-color: #FAFAFA;
 }
 
-/* Formatação do ID */
 .admin-table td:first-child {
     color: #999999;
     font-weight: 500;
 }
 
-/* 🏷️ Estilização dos Badges de Status (Tipo) */
-.badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    text-align: center;
-}
-
-.badge.badge-admin {
-    background-color: #E3F2FD;
-    color: #0D47A1;
-}
-
-.badge.badge-user {
-    background-color: #E8F5E9;
-    color: #1B5E20;
-}
-
-.badge.badge-inactive {
-    background-color: #EEEEEE;
-    color: #616161;
-}
-
-/* ⚙️ Alinhamento dos Botões de Ação */
+/* ==================================================================
+   ⚙️ BOTÕES DE AÇÃO INTERNOS DA TABELA (CIRCULARES)
+   ================================================================== */
 .action-buttons-flex {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* Botões de Ação Circulares (Lápis e Bloqueio) */
 .btn-action {
     display: inline-flex;
     align-items: center;
@@ -238,7 +189,7 @@
     font-size: 18px;
 }
 
-/* Botão Editar (Azul discreto) */
+/* Editar/Ver Detalhes */
 .btn-action.edit {
     background-color: #F4F4F4;
     color: #444444;
@@ -246,10 +197,10 @@
 
 .btn-action.edit:hover {
     background-color: #000000;
-    color: var(--amarelo-brecho, #EFB810);
+    color: var(--amarelo-brecho);
 }
 
-/* Botão Excluir/Desativar (Vermelho Suave) */
+/* Rejeitar (Vermelho) */
 .btn-action.delete {
     background-color: #FFEAEA;
     color: #D32F2F;
@@ -260,6 +211,70 @@
     color: #f0f0f0;
 }
 
+/* Aprovar (Verde) */
+.btn-action-approve {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.btn-action-approve:hover {
+    background-color: #C8E6C9;
+}
+
+/* Confirmar Retirada (Carga/Transporte) */
+.btn-action-ship {
+    background-color: #E0F7FA;
+    color: #006064;
+}
+
+.btn-action.disabled,
+.btn-action.disabled:hover {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ==================================================================
+   🏷️ BADGES DE STATUS E LABELS COMPLEMENTARES
+   ================================================================== */
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.badge.badge-user {
+    background-color: #E8F5E9;
+    color: #1B5E20;
+}
+
+.badge.badge-inactive {
+    background-color: #EEEEEE;
+    color: #616161;
+}
+
+.badge-analise {
+    background-color: #FFF3E0;
+    color: #E65100;
+    font-weight: 700;
+    border: 1px solid #FFE0B2;
+}
+
+.badge-retirada {
+    background-color: #E0F7FA;
+    color: #006064;
+}
+
+.badge-reserva-pendente,
+.badge-reservado {
+    background-color: #FFF9E6 !important;
+    color: #B38F00 !important;
+    border: 1px solid #FFE0B2;
+}
+
+/* Estilização de textos dentro da célula */
 .admin-strong-text {
     font-size: 14px;
     color: #333333;
@@ -309,71 +324,152 @@
     vertical-align: middle;
 }
 
-.badge-analise {
-    background-color: #FFF3E0;
-    color: #E65100;
-    font-weight: 700;
-    border: 1px solid #FFE0B2;
+/* Miniaturas de Imagem na Tabela */
+.product-img-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #EAEAEA;
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.badge-retirada {
-    background-color: #E0F7FA;
-    color: #006064;
+.product-img-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.badge-reservado {
-    background-color: #FFF9E6;
-    color: #B38F00;
-    border: 1px solid #FFE0B2;
+/* Estados de linhas desativadas ou vazias */
+.row-user-inactive {
+    background-color: #FAFAFA !important;
+    opacity: 0.65;
 }
 
-.badge-carrinho {
-    background-color: #E0F7FA;
-    color: #006064;
+.empty-table {
+    text-align: center !important;
+    padding: 40px !important;
+    color: #999999;
+    font-style: italic;
 }
 
-.badge-concluida {
-    background-color: #E8F5E9;
-    color: #2E7D32;
+/* ==================================================================
+   📦 MODAL: DEFINIÇÃO DE PREÇO (MANDATÓRIO PADRÃO PREMIUM)
+   ================================================================== */
+.modal-preco {
+    display: none; 
+    position: fixed; 
+    z-index: 9999; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.5);
+    align-items: center; 
+    justify-content: center;
 }
 
-.btn-action-approve {
-    background-color: #E8F5E9;
-    color: #2E7D32;
+.modal-conteudo {
+    background-color: #ffffff; 
+    padding: 30px; 
+    border-radius: 20px; /* Bordas suaves combinando com o layout */
+    width: 90%; 
+    max-width: 420px; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    font-family: var(--fonte-texto);
 }
 
-.btn-action-approve:hover {
-    background-color: #C8E6C9;
-}
-
-.btn-action-ship {
-    background-color: #E0F7FA;
-    color: #006064;
-    border: none;
+.modal-conteudo h3 { 
+    margin-top: 0; 
+    font-family: var(--fonte-titulo); 
+    font-size: 22px;
+    color: #1A1A1A; 
+    margin-bottom: 12px;
 }
 
 .modal-text {
     font-size: 14px;
     color: #666666;
-    margin: 0;
+    margin-bottom: 20px;
+    line-height: 1.5;
 }
 
-.btn-secondary {
-    background: #cccccc;
+.modal-conteudo label {
+    font-size: 13px;
+    font-weight: 600;
     color: #333333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.btn-primary {
-    background: #006064;
-    color: #ffffff;
+.modal-conteudo input { 
+    width: 100%; 
+    padding: 12px 16px; 
+    margin: 8px 0 24px 0; 
+    border: 1.5px solid #EAEAEA; 
+    border-radius: 10px; 
+    box-sizing: border-box; 
+    font-family: var(--fonte-texto);
+    font-size: 15px;
+    transition: border-color 0.2s;
 }
 
-.btn-action.disabled,
-.btn-action.disabled:hover {
-    opacity: 0.4;
-    cursor: not-allowed;
+.modal-conteudo input:focus {
+    border-color: var(--amarelo-brecho);
+    outline: none;
 }
 
+/* 🎯 Seção de botões do Modal customizados */
+.modal-botoes { 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 12px; 
+}
+
+/* Estilo Base dos botões do Modal */
+.modal-botoes .btn {
+    padding: 12px 20px;
+    border-radius: 30px; /* Formato pílula premium */
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease-in-out;
+    font-family: var(--fonte-texto);
+}
+
+/* Botão Cancelar (Cinza Arredondado) */
+.modal-botoes .btn-secondary {
+    background-color: #EAEAEA;
+    color: #555555;
+}
+
+.modal-botoes .btn-secondary:hover {
+    background-color: #D6D6D6;
+    color: #1A1A1A;
+}
+
+/* Botão Confirmar (Preto com escrita Ouro do Brecharme) */
+.modal-botoes .btn-primary {
+    background-color: #1A1A1A;
+    color: var(--amarelo-brecho);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.modal-botoes .btn-primary:hover {
+    background-color: var(--amarelo-brecho);
+    color: #1A1A1A;
+    box-shadow: 0 6px 18px rgba(239, 184, 16, 0.25);
+}
+
+/* ==================================================================
+   🌾 COMPONENTES EXTRAS E FORMULÁRIOS SECUNDÁRIOS
+   ================================================================== */
 .form-hint {
     display: block;
     margin-top: 5px;
@@ -381,9 +477,7 @@
     font-size: 13px;
 }
 
-.multiselect-tall {
-    min-height: 150px;
-}
+.multiselect-tall { min-height: 150px; }
 
 .upload-area {
     display: flex;
@@ -418,7 +512,6 @@
     color: #333;
 }
 
-button.btn-selecionar,
 .btn-selecionar {
     display: inline-flex;
     align-items: center;
@@ -435,10 +528,8 @@ button.btn-selecionar,
     transition: all 0.2s ease;
 }
 
-button.btn-selecionar:hover,
-.btn-selecionar:hover {
-    background: #f0f0f0;
-}
+.btn-selecionar:hover { background: #f0f0f0; }
+
 .reservation-total {
     font-size: 12px;
     color: #b39012;
@@ -448,92 +539,26 @@ button.btn-selecionar:hover,
     padding-top: 6px;
 }
 
-.admin-italic-note {
-    color: #999999;
-    font-style: italic;
-}
+.admin-italic-note { color: #999999; font-style: italic; }
 
+/* ==================================================================
+   📱 REGRAS DE RESPONSIVIDADE (MEDIA QUERIES)
+   ================================================================== */
 @media (max-width: 900px) {
     .table-header-box {
         flex-direction: column;
         align-items: stretch;
         gap: 16px;
     }
-
-    .admin-table th,
-    .admin-table td {
-        padding: 14px 16px;
-        font-size: 13px;
-    }
-
-    .admin-table {
-        min-width: 100%;
-    }
-
-    .admin-description-text,
-    .admin-category-tag,
-    .admin-location-tag {
-        max-width: none;
-    }
-}
-
-@media (max-width: 640px) {
-    .admin-table-container {
-        padding: 0 14px;
-    }
-
-    .table-header-box h2 {
-        font-size: 22px;
-    }
-
-    .btn-add-table {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .admin-table th,
-    .admin-table td {
-        padding: 12px 12px;
-    }
-
-    .admin-table {
-        min-width: 100%;
-    }
-
-    .admin-table th,
-    .admin-table td {
-        white-space: normal;
-        word-break: break-word;
-    }
-
-    .modal-conteudo {
-        width: 94%;
-        padding: 20px;
-    }
-
-    .modal-botoes {
-        flex-direction: column-reverse;
-        align-items: stretch;
-    }
-
-    .modal-botoes .btn {
-        width: 100%;
-    }
+    .admin-table th, .admin-table td { padding: 14px 16px; font-size: 13px; }
+    .admin-table { min-width: 100%; }
+    .admin-description-text, .admin-category-tag, .admin-location-tag { max-width: none; }
 }
 
 @media (max-width: 860px) {
-    .admin-table thead {
-        display: none;
-    }
-
-    .admin-table,
-    .admin-table tbody,
-    .admin-table tr,
-    .admin-table td {
-        display: block;
-        width: 100%;
-    }
-
+    .admin-table thead { display: none; }
+    .admin-table, .admin-table tbody, .admin-table tr, .admin-table td { display: block; width: 100%; }
+    
     .admin-table tr {
         margin-bottom: 18px;
         background: #FFFFFF;
@@ -542,7 +567,7 @@ button.btn-selecionar:hover,
         border: 1px solid #F1F1F1;
         overflow: hidden;
     }
-
+    
     .admin-table td {
         padding: 14px 16px;
         border: none;
@@ -553,11 +578,9 @@ button.btn-selecionar:hover,
         flex-wrap: wrap;
         gap: 10px;
     }
-
-    .admin-table td:last-child {
-        border-bottom: none;
-    }
-
+    
+    .admin-table td:last-child { border-bottom: none; }
+    
     .admin-table td::before {
         content: attr(data-label);
         display: inline-block;
@@ -571,106 +594,23 @@ button.btn-selecionar:hover,
         margin-right: 12px;
         flex: 0 0 38%;
     }
-
-    .admin-table td > * {
-        flex: 1;
-    }
-
-    .admin-table td .action-buttons-flex {
-        justify-content: flex-end;
-    }
-
-    .admin-table td .product-img-thumbnail {
-        width: 56px;
-        height: 56px;
-        margin-left: auto;
-    }
-
-    .admin-table td .badge {
-        width: auto;
-        margin-left: auto;
-    }
-
-    .admin-table td strong,
-    .admin-table td span,
-    .admin-table td .admin-subtext,
-    .admin-table td .admin-description-text {
-        text-align: right;
-    }
-
-    .admin-table tr .action-buttons-flex {
-        justify-content: flex-end;
-    }
+    
+    .admin-table td > * { flex: 1; }
+    .admin-table td .action-buttons-flex { justify-content: flex-end; }
+    .admin-table td .product-img-thumbnail { margin-left: auto; }
+    .admin-table td .badge { margin-left: auto; }
+    .admin-table td strong, .admin-table td span, .admin-table td .admin-subtext, .admin-table td .admin-description-text { text-align: right; }
 }
 
-/* Linha desativada */
-.row-user-inactive {
-    background-color: #FCFCFC !important;
-    opacity: 0.6;
+@media (max-width: 640px) {
+    .admin-table-container { padding: 0 14px; }
+    .table-header-box h2 { font-size: 22px; }
+    .btn-add-table { width: 100%; justify-content: center; }
+    .modal-conteudo { width: 94%; padding: 20px; border-radius: 16px; }
+    .modal-botoes { flex-direction: column-reverse; align-items: stretch; }
+    .modal-botoes .btn { width: 100%; }
 }
 
-/* Mensagem de tabela vazia */
-.empty-table {
-    text-align: center !important;
-    padding: 40px !important;
-    color: #999999;
-    font-style: italic;
+@media (max-width: 360px) {
+    .btn-pill-admin { max-width: 100%; font-size: 15px; padding: 12px 15px; }
 }
-
-/* Estilização da Miniatura da Imagem do Produto */
-.product-img-thumbnail {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #EAEAEA;
-    background-color: #FAFAFA;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.product-img-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Faz a foto se adaptar ao quadradinho sem distorcer */
-}
-
-/* Formatação do Preço do produto */
-.product-price {
-    font-weight: 600;
-    color: #1A1A1A;
-}
-
-/* Modificação rápida no badge para Produtos Ativos na Loja (Dourado sutil ou verde) */
-.badge.badge-user {
-    background-color: #E8F5E9; /* Verde leve para ativo */
-    color: #1B5E20;
-}
-
-.badge-reserva-pendente {
-    background-color: #FFF9E6 !important;
-    color: #B38F00 !important;
-}
-
-/* Deixa as linhas concluídas ou canceladas ligeiramente em segundo plano */
-.row-user-inactive {
-    background-color: #FAFAFA !important;
-    opacity: 0.75;
-}
-
-.modal-preco {
-    display: none; 
-    position: fixed; 
-    z-index: 9999; 
-    left: 0; top: 0; width: 100%; height: 100%; 
-    background-color: rgba(0,0,0,0.5);
-    align-items: center; justify-content: center;
-}
-.modal-conteudo {
-    background-color: #fff; padding: 25px; border-radius: 8px;
-    width: 90%; max-width: 400px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-.modal-conteudo h3 { margin-top: 0; color: #333; }
-.modal-conteudo input { width: 100%; padding: 10px; margin: 15px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-.modal-botoes { display: flex; justify-content: flex-end; gap: 10px; }

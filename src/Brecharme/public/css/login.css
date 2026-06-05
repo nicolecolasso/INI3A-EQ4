@@ -111,6 +111,11 @@
     transition: all 0.2s ease;
 }
 
+.input-with-icon input[type="password"],
+.input-with-icon input[type="text"] {
+    padding: 0 42px 0 42px !important;
+}
+
 .input-with-icon input:focus {
     border-bottom-color: var(--amarelo-brecho);
 }
@@ -122,6 +127,20 @@
 .input-with-icon input::placeholder {
     color: #B3b3b3;
     font-size: 14px;
+}
+
+.input-with-icon .toggle-password-btn {
+    position: absolute;
+    right: 12px;
+    color: #B3B3B3;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+}
+
+.input-with-icon .toggle-password-btn:hover {
+    color: var(--amarelo-brecho);
 }
 
 /* 🔘 Botão Padrão: Amarelo com escrita clara */
@@ -219,33 +238,6 @@
 .alert-error-login span {
     font-weight: 500;
     line-height: 1.4;
-}
-
-.input-with-icon {
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-/* Abre espaço no lado direito do input para o ícone não cobrir o texto */
-.input-with-icon input[type="password"],
-.input-with-icon input[type="text"] {
-    padding: 0 42px 0 42px !important; 
-}
-
-.input-with-icon .toggle-password-btn {
-    position: absolute;
-    right: 12px;
-    color: #B3B3B3;
-    font-size: 20px;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.2s ease;
-}
-
-.input-with-icon .toggle-password-btn:hover {
-    color: var(--amarelo-brecho);
 }
 
 /* Quando o input focar, se o olhinho estiver ativo, destaca ele também */

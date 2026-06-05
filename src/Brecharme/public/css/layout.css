@@ -161,9 +161,7 @@ main {
     color: inherit;
 }
 
-/* ==================================================================
-   📱 RESPONSIVIDADE DO MENU (SÓ APARECE NO CELULAR)
-   ================================================================== */
+/* RESPONSIVIDADE DO MENU  */
 @media (max-width: 992px) {
     .brecharme-navbar {
         padding: 15px 20px;
@@ -247,9 +245,7 @@ main {
     display: block;
 }
 
-/* ==================================================================
-   🧦 ESTILIZAÇÃO DO RODAPÉ
-   ================================================================== */
+/* ESTILIZAÇÃO DO RODAPÉ */
 .brecharme-footer {
     background-color: var(--cinza-detalhe);
     padding: 30px 20px;

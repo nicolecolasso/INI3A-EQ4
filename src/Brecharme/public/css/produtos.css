@@ -32,9 +32,11 @@
     gap: 1rem;
 }
 
+/* Título Principal (Fonte elegante "The Seasons") */
 .vitrine-title {
+    font-family: var(--fonte-titulo), serif !important;
     font-size: 2.5rem;
-    font-weight: 300;
+    font-weight: normal;
     letter-spacing: 0.05em;
     margin: 0;
     color: #333;
@@ -45,7 +47,7 @@
     position: relative;
 }
 
-/* Botão Filtrar */
+/* Botão Filtrar (Fonte legível "Montserrat") */
 .filtrar-btn {
     display: flex;
     align-items: center;
@@ -57,6 +59,7 @@
     color: #333;
     font-size: 1rem;
     font-weight: 500;
+    font-family: var(--fonte-texto), sans-serif !important;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -69,7 +72,7 @@
     font-size: 1.25rem;
 }
 
-/* Dropdown do Filtro */
+/* Dropdown de Categorias do Filtro */
 .filtro-dropdown {
     position: absolute;
     top: 100%;
@@ -106,7 +109,11 @@
     border-bottom: none;
 }
 
-/* GRID DE PRODUTOS */
+/* ==================================================================
+   📦 3. GRID E CRIAÇÃO DOS CARDS DE PRODUTOS
+   ================================================================== */
+
+/* Grid Principal */
 .produtos-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -115,7 +122,22 @@
     width: 100%;
 }
 
-/* Card do Produto */
+/* Aviso de Categoria Vazia (Alinhado ao centro do Grid) */
+.sem-produtos {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    width: 100%;
+}
+
+.sem-produtos p {
+    font-family: var(--fonte-texto), sans-serif;
+    font-size: 1.2rem;
+    color: var(--cinza-detalhe);
+    margin: 0;
+}
+
+/* Moldura do Card */
 .produto-card {
     display: flex !important;
     flex-direction: column !important;
@@ -131,7 +153,6 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Link do Produto */
 .produto-link {
     text-decoration: none !important;
     color: inherit !important;
@@ -140,7 +161,7 @@
     height: 100% !important;
 }
 
-/* Imagem do Produto */
+/* Imagem Interna do Card */
 .produto-imagem {
     width: 100% !important;
     height: 250px;
@@ -162,6 +183,7 @@
     transform: scale(1.05) !important;
 }
 
+/* Blocos de Informação do Card */
 .produto-info {
     padding: 1rem !important;
     text-align: center !important;
@@ -189,16 +211,9 @@
     margin: 0 !important;
 }
 
-/* Mensagem de Sem Produtos */
-.sem-produtos {
-    grid-column: 1 / -1 !important;
-    text-align: center !important;
-    padding: 3rem 1rem !important;
-    color: #999 !important;
-    font-size: 1.1rem !important;
-}
-
-/* Container de Paginação */
+/* ==================================================================
+   🔢 4. SISTEMA DE PAGINAÇÃO
+   ================================================================== */
 .paginacao-container {
     display: flex;
     justify-content: center;
@@ -206,7 +221,6 @@
     margin-bottom: 2rem;
 }
 
-/* Paginação */
 .paginacao {
     display: flex;
     gap: 0.5rem;
@@ -246,81 +260,68 @@
 }
 
 /* ==================================================================
-   📱 RESPONSIVIDADE DO PRODUTO (Substituindo com prioridade correta)
+   📱 5. REGRAS DE RESPONSIVIDADE (MEDIA QUERIES)
    ================================================================== */
 
-/* Responsivo para Tablets */
+/* Ajustes para Tablets e telas médias */
 @media (max-width: 768px) {
-    .vitrine-title {
-        font-size: 2rem;
+    .vitrine-title { 
+        font-size: 2rem; 
     }
-
-    .vitrine-header {
-        flex-direction: column;
-        align-items: flex-start;
+    .vitrine-header { 
+        flex-direction: column; 
+        align-items: flex-start; 
     }
-
-    .filtrar-container {
-        width: 100%;
+    .filtrar-container { 
+        width: 100%; 
     }
-
-    .filtro-dropdown {
-        right: auto;
-        left: 0;
-        width: 100%;
+    .filtro-dropdown { 
+        right: auto; 
+        left: 0; 
+        width: 100%; 
     }
-
-    .produtos-grid {
-        /* Mantendo a flexibilidade proporcional */
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
-        gap: 1rem !important;
+    .produtos-grid { 
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; 
+        gap: 1rem !important; 
     }
-
-    .produto-imagem {
-        height: 200px !important;
+    .produto-imagem { 
+        height: 200px !important; 
     }
 }
 
-/* Responsivo para Celulares */
+/* Ajustes para Smartphones */
 @media (max-width: 480px) {
-    .vitrine-container {
-        padding: 0 0.5rem;
+    .vitrine-container { 
+        padding: 0 0.5rem; 
     }
-
-    .vitrine-title {
-        font-size: 1.75rem;
+    .vitrine-title { 
+        font-size: 1.75rem; 
     }
-
-    .filtrar-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
+    .filtrar-btn { 
+        padding: 0.6rem 1rem; 
+        font-size: 0.9rem; 
     }
-
-    .produtos-grid {
-        /* Força a exibir exatamente em 2 colunas no celular como estava no seu original */
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 0.75rem !important;
+    .produtos-grid { 
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 0.75rem !important; 
     }
-
-    .produto-imagem {
-        height: 150px !important;
+    .produto-imagem { 
+        height: 150px !important; 
     }
-
-    .paginacao {
-        flex-wrap: wrap;
-        gap: 0.25rem;
+    .paginacao { 
+        flex-wrap: wrap; 
+        gap: 0.25rem; 
     }
-
-    .paginacao-item {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.9rem;
-        min-width: 35px;
+    .paginacao-item { 
+        padding: 0.4rem 0.6rem; 
+        font-size: 0.9rem; 
+        min-width: 35px; 
     }
 }
 
-/* ========================================
-   ESTILOS PARA NOVA DOAÇÃO
-   ======================================== */
+/* ==================================================================
+   🎁 6. FORMULÁRIO DE NOVA DOAÇÃO
+   ================================================================== */
 .doacao-container {
     display: flex;
     justify-content: center;
@@ -396,7 +397,7 @@
     color: #333;
 }
 
-.doacao-form textarea,
+.doacao-form textarea, 
 .doacao-form input[type="text"] {
     width: 100%;
     padding: 1rem;
@@ -411,6 +412,7 @@
     resize: none;
 }
 
+/* Área de Upload de Foto da Doação */
 .upload-area {
     display: flex;
     flex-direction: column;
@@ -478,19 +480,21 @@
     color: white;
 }
 
+/* Ajuste mobile do Card de Doações */
 @media (max-width: 480px) {
     .doacao-card {
         padding: 1.5rem;
         box-shadow: none;
         background: transparent;
     }
-   
     .doacao-title {
         font-size: 1.25rem;
     }
 }
 
-/* ESTILOS PARA DETALHES DO PRODUTO */
+/* ==================================================================
+   🔍 7. PÁGINA INTERNA DE DETALHES DO PRODUTO
+   ================================================================== */
 .produto-detalhe-container {
     max-width: 1100px;
     margin: 3rem auto;
@@ -510,6 +514,7 @@
     gap: 1.5rem;
 }
 
+/* Foto em Destaque */
 .imagem-principal-moldura {
     border: 3px solid #333;
     border-radius: 5px;
@@ -528,6 +533,7 @@
     object-fit: contain;
 }
 
+/* Galeria de Miniaturas */
 .miniaturas-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -547,7 +553,8 @@
     transition: all 0.2s ease;
 }
 
-.miniatura-item:hover, .miniatura-item.ativo {
+.miniatura-item:hover, 
+.miniatura-item.ativo {
     border-color: #efb810;
     transform: translateY(-2px);
 }
@@ -558,6 +565,7 @@
     object-fit: cover;
 }
 
+/* Coluna de Textos Informativos */
 .produto-info-col {
     display: flex;
     flex-direction: column;
@@ -579,6 +587,7 @@
     text-align: justify;
 }
 
+/* Botão Adicionar ao Carrinho */
 .btn-adicionar-carrinho {
     background-color: #efb810;
     color: #333;
@@ -604,15 +613,14 @@
     box-shadow: 0 2px 0 #333;
 }
 
+/* Responsividade dos Detalhes do Produto */
 @media (max-width: 992px) {
     .vitrine-container {
         padding: 0 2rem;
     }
-
     .produto-layout {
         gap: 2rem;
     }
-   
     .produto-nome {
         font-size: 1.8rem;
     }
@@ -622,25 +630,20 @@
     .produto-layout {
         grid-template-columns: 1fr;
     }
-   
     .produto-detalhe-container {
         margin: 1.5rem auto;
         padding: 0 1rem;
     }
-   
     .produto-info-col {
         align-items: center;
         text-align: center;
     }
-   
     .produto-descricao {
         text-align: center;
     }
-   
     .btn-adicionar-carrinho {
         width: 100%;
     }
-   
     .miniaturas-grid {
         grid-template-columns: repeat(4, 1fr);
     }

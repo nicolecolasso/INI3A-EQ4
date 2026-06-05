@@ -35,6 +35,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Global UI handlers moved from inline templates
+document.addEventListener('DOMContentLoaded', function () {
+    // Toggle filtro dropdown when clicking button
+    const filtrarBtn = document.querySelector('.filtrar-btn');
+    const filtroDropdown = document.getElementById('filtroDropdown');
+    if (filtrarBtn && filtroDropdown) {
+        filtrarBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            filtroDropdown.classList.toggle('ativo');
+        });
+    }
+});
+
 document.addEventListener('click', function (event) {
     // Close filtro dropdown when clicking outside
     const filtroContainer = document.querySelector('.filtrar-container');
