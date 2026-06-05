@@ -18,7 +18,7 @@
         <div class="produto-info-col">
             <h1 class="produto-nome">{{ $produto->nome ?? 'Nome do Produto' }}</h1>
             
-            <p class="produto-card-preco" style="font-size: 1.8rem; text-align: left; margin: 1rem 0;">
+            <p class="produto-card-preco destaque-preco">
                 R$ {{ number_format($produto->valor ?? 0, 2, ',', '.') }}
             </p>
            

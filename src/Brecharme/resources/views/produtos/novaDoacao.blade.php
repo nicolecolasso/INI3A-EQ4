@@ -47,8 +47,8 @@
                     <div class="upload-preview" id="uploadPreview">
                         <i class="material-icons">image</i>
                     </div>
-                    <input type="file" name="caminho_img" id="inputImagem" accept="image/*" style="display: none;" required>
-                    <button type="button" class="btn-selecionar" onclick="document.getElementById('inputImagem').click()">Selecionar</button>
+                    <input type="file" name="caminho_img" id="inputImagem" accept="image/*" required>
+                    <button type="button" class="btn-selecionar">Selecionar</button>
                 </div>
             </div>
 
@@ -65,6 +65,3 @@
 </div>
 
 @endsection
-@push('scripts')
-    <script src="{{ asset('js/script.js') }}"></script>
-@endpush

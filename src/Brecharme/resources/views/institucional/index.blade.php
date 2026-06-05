@@ -45,7 +45,7 @@
                         </a>
                     </div>
                 @empty
-                    <p class="sem-produtos" style="font-family: var(--fonte-texto); color: var(--cinza-detalhe);">
+                    <p class="sem-produtos">
                         Nenhum item em destaque no momento.
                     </p>
                 @endforelse
@@ -61,7 +61,7 @@
         
         <div class="banner-box caritas-box">
             <a href="https://caritasbauru.org.br/" target="_blank" class="banner-link">
-                <div class="banner-bg-img" style="background-image: url('{{ asset('img/caritas.png') }}');">
+                <div class="banner-bg-img" data-bg-image="{{ asset('img/caritas.png') }}">
                     <div class="banner-ui-overlay">
                         <div class="banner-pill-label label-caritas">Sobre a Cáritas</div>
                         <span class="btn-action-trigger red-trigger">Saiba mais</span>
@@ -72,7 +72,7 @@
 
         <div class="banner-box find-box">
             <a href="https://maps.app.goo.gl/Qv6UfzH5sycVVMWh9" target="_blank" class="banner-link">
-                <div class="banner-bg-img" style="background-image: url('{{ asset('img/localizacao.png') }}');">
+                <div class="banner-bg-img" data-bg-image="{{ asset('img/localizacao.png') }}">
                     <div class="banner-ui-overlay">
                         <div class="banner-pill-label label-find">
                             Encontre-nos 
@@ -87,71 +87,4 @@
 
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const heroImages = [
-            "{{ asset('img/brecharme1.png') }}",
-            "{{ asset('img/brecharme2.png') }}",
-            "{{ asset('img/brecharme3.png') }}"
-        ];
-
-        const heroImageElement = document.querySelector('.hero-image');
-        const dots = document.querySelectorAll('.carousel-dots .dot');
-        let currentHeroIndex = 0;
-        let heroInterval = null;
-
-        function setHeroSlide(index) {
-            currentHeroIndex = index;
-            heroImageElement.src = heroImages[index];
-            dots.forEach((dot, dotIndex) => {
-                dot.classList.toggle('active', dotIndex === index);
-            });
-        }
-
-        function startHeroRotation() {
-            heroInterval = setInterval(() => {
-                setHeroSlide((currentHeroIndex + 1) % heroImages.length);
-            }, 4000);
-        }
-
-        function resetHeroRotation() {
-            clearInterval(heroInterval);
-            startHeroRotation();
-        }
-
-        if (heroImageElement && dots.length) {
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    setHeroSlide(index);
-                    resetHeroRotation();
-                });
-            });
-
-            setHeroSlide(0);
-            startHeroRotation();
-        }
-
-        const itemsGrid = document.querySelector('.items-grid');
-        const prevButton = document.querySelector('.slider-arrow.prev');
-        const nextButton = document.querySelector('.slider-arrow.next');
-
-        if (itemsGrid && prevButton && nextButton) {
-            const cards = itemsGrid.querySelectorAll('.item-card');
-            if (cards.length === 0) {
-                prevButton.style.display = 'none';
-                nextButton.style.display = 'none';
-            } else {
-                const scrollAmount = () => Math.round(itemsGrid.clientWidth * 0.8);
-
-                prevButton.addEventListener('click', () => {
-                    itemsGrid.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
-                });
-
-                nextButton.addEventListener('click', () => {
-                    itemsGrid.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
-                });
-            }
-        }
-    });
-</script>
 @endsection

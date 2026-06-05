@@ -2,7 +2,6 @@
 
 @push('estilos')
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/produtos.css') }}">
 @endpush
 
 @section('titulo', 'Editar Produto')
@@ -24,6 +23,3 @@
     </div> 
 </div> 
 @endsection
-@push('scripts')
-    <script src="{{ asset('js/script.js') }}"></script>
-@endpush

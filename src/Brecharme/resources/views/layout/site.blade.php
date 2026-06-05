@@ -21,6 +21,7 @@
     </main>
 
     @include('layout._rodape')
+    <script src="{{ asset('js/script.js') }}"></script>
     @stack('scripts')
 
 </body>

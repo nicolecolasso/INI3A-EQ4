@@ -12,6 +12,14 @@
     margin-bottom: 2rem;
 }
 
+.alert-success {
+    background: #e6f4ea;
+    color: #137333;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
 /* Itens do Carrinho */
 .carrinho-grid {
     display: grid;

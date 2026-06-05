@@ -5,15 +5,18 @@
 
 <div class="input-field">
     <label for="categoria">Categoria da Doação</label>
-    <select name="categoria" id="categoria" required>
-        <option value="Outros" {{ (isset($linha->categoria) && $linha->categoria == 'Outros') ? 'selected' : '' }}>Outros</option>
-        <option value="Roupas" {{ (isset($linha->categoria) && $linha->categoria == 'Roupas') ? 'selected' : '' }}>Roupas</option>
-        <option value="Calçados" {{ (isset($linha->categoria) && $linha->categoria == 'Calçados') ? 'selected' : '' }}>Calçados</option>
-        <option value="Acessórios" {{ (isset($linha->categoria) && $linha->categoria == 'Acessórios') ? 'selected' : '' }}>Acessórios</option>
-        <option value="Eletrônicos" {{ (isset($linha->categoria) && $linha->categoria == 'Eletrônicos') ? 'selected' : '' }}>Eletrônicos</option>
-        <option value="Móveis" {{ (isset($linha->categoria) && $linha->categoria == 'Móveis') ? 'selected' : '' }}>Móveis</option>
-        <option value="Brinquedos" {{ (isset($linha->categoria) && $linha->categoria == 'Brinquedos') ? 'selected' : '' }}>Brinquedos</option>
-    </select>
+    <div class="select-wrapper">
+        <select name="categoria" id="categoria" required>
+            <option value="Outros" {{ (isset($linha->categoria) && $linha->categoria == 'Outros') ? 'selected' : '' }}>Outros</option>
+            <option value="Roupas" {{ (isset($linha->categoria) && $linha->categoria == 'Roupas') ? 'selected' : '' }}>Roupas</option>
+            <option value="Calçados" {{ (isset($linha->categoria) && $linha->categoria == 'Calçados') ? 'selected' : '' }}>Calçados</option>
+            <option value="Acessórios" {{ (isset($linha->categoria) && $linha->categoria == 'Acessórios') ? 'selected' : '' }}>Acessórios</option>
+            <option value="Eletrônicos" {{ (isset($linha->categoria) && $linha->categoria == 'Eletrônicos') ? 'selected' : '' }}>Eletrônicos</option>
+            <option value="Móveis" {{ (isset($linha->categoria) && $linha->categoria == 'Móveis') ? 'selected' : '' }}>Móveis</option>
+            <option value="Brinquedos" {{ (isset($linha->categoria) && $linha->categoria == 'Brinquedos') ? 'selected' : '' }}>Brinquedos</option>
+        </select>
+        <i class="material-icons select-icon">expand_more</i>
+    </div>
 </div>
 
 <div class="input-field">
@@ -24,15 +27,15 @@
 <div class="input-field">
     <label>Foto do Item</label>
     <div class="upload-area">
-        <div class="upload-preview" id="uploadPreviewDoacao">
+        <div class="upload-preview">
             @if(isset($linha->caminho_img))
                 <img src="{{ asset($linha->caminho_img) }}" alt="Foto do item" />
             @else
                 <i class="material-icons">image</i>
             @endif
         </div>
-        <input type="file" id="inputImagemDoacao" name="caminho_img" accept="image/*" style="display: none;" {{ isset($linha) ? '' : 'required' }}>
-        <button type="button" class="btn-selecionar" onclick="document.getElementById('inputImagemDoacao').click()">Selecionar</button>
+        <input type="file" name="caminho_img" accept="image/*" {{ isset($linha) ? '' : 'required' }}>
+        <button type="button" class="btn-selecionar">Selecionar</button>
     </div>
 </div>
 
@@ -44,11 +47,14 @@
 @if(isset($linha))
 <div class="input-field">
     <label for="status">Status da Doação</label>
-    <select name="status" id="status" required>
-        <option value="Analise" {{ $linha->status == 'Analise' ? 'selected' : '' }}>Analise</option>
-        <option value="Aprovada" {{ $linha->status == 'Aprovada' ? 'selected' : '' }}>Aprovada</option>
-        <option value="Rejeitada" {{ $linha->status == 'Rejeitada' ? 'selected' : '' }}>Rejeitada</option>
-        <option value="Retirada" {{ $linha->status == 'Retirada' ? 'selected' : '' }}>Retirada</option>
-    </select>
+    <div class="select-wrapper">
+        <select name="status" id="status" required>
+            <option value="Analise" {{ $linha->status == 'Analise' ? 'selected' : '' }}>Analise</option>
+            <option value="Aprovada" {{ $linha->status == 'Aprovada' ? 'selected' : '' }}>Aprovada</option>
+            <option value="Rejeitada" {{ $linha->status == 'Rejeitada' ? 'selected' : '' }}>Rejeitada</option>
+            <option value="Retirada" {{ $linha->status == 'Retirada' ? 'selected' : '' }}>Retirada</option>
+        </select>
+        <i class="material-icons select-icon">expand_more</i>
+    </div>
 </div>
 @endif

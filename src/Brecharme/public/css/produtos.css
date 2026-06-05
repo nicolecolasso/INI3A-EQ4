@@ -418,6 +418,14 @@
     gap: 1rem;
 }
 
+.upload-area input[type="file"] {
+    display: none !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+}
+
 .upload-preview {
     width: 180px;
     height: 180px;

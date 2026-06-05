@@ -40,6 +40,11 @@
     gap: 8px;
 }
 
+.sem-produtos {
+    font-family: var(--fonte-texto);
+    color: var(--cinza-detalhe);
+}
+
 .carousel-dots .dot {
     width: 10px;
     height: 10px;

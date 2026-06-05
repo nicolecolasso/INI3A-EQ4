@@ -161,23 +161,58 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
 });
 
 Route::group(['prefix' => 'login'], function () {
-    // 1. Tela de Login (GET /login) -> Nomeada como 'login'
-    Route::get('/', [LoginController::class, 'index'])->name('login');
+    // 1. Tela de Login (GET /login)
+    Route::get('/', [
+        'as'   => 'login',
+        'uses' => 'App\Http\Controllers\LoginController@index'
+    ]);
 
-    // 2. Processar o Login (POST /login) -> Alterada a URL para '/' para bater com o formulário!
-    Route::post('/', [LoginController::class, 'entrar'])->name('login.entrar');
+    // 2. Processar o Login (POST /login)
+    Route::post('/', [
+        'as'   => 'login.entrar',
+        'uses' => 'App\Http\Controllers\LoginController@entrar'
+    ]);
 
     // 3. Deslogar do sistema (GET /login/sair)
-    Route::get('/sair', [LoginController::class, 'sair'])->name('login.sair');
+    Route::get('/sair', [
+        'as'   => 'login.sair',
+        'uses' => 'App\Http\Controllers\LoginController@sair'
+    ]);
 
+    // 4. Tela de Novo Cadastro (GET /login/novoCadastro)
     Route::get('/novoCadastro', [
         'as'   => 'login.novoCadastro',
         'uses' => 'App\Http\Controllers\LoginController@registrar'
     ]);
 
+    // 5. Processar o Novo Cadastro (POST /login/salvarCadastro)
     Route::post('/salvarCadastro', [
         'as'   => 'login.salvarCadastro',
         'uses' => 'App\Http\Controllers\LoginController@salvar'
+    ]);
+
+    // 6. Tela de "Esqueci minha senha" (GET /login/esqueciSenha)
+    Route::get('/esqueciSenha', [
+        'as'   => 'login.esqueciSenha',
+        'uses' => 'App\Http\Controllers\LoginController@esqueciSenha'
+    ]);
+
+    // 7. Processar o pedido de recuperação / Enviar E-mail (POST /login/enviarLink)
+    Route::post('/enviarLink', [
+        'as'   => 'password.email',
+        'uses' => 'App\Http\Controllers\LoginController@enviarLinkRecuperacao'
+    ]);
+
+    // 8. Tela para digitar a nova senha vinda do link do e-mail (GET /login/recuperarSenha/{token})
+    Route::get('/recuperarSenha/{token}', [
+        'as'   => 'password.reset',
+        'uses' => 'App\Http\Controllers\LoginController@mostrarTelaRecuperarSenha'
+    ]);
+
+    // 9. Processar e atualizar a senha de fato no banco (POST /login/atualizarSenha)
+    Route::post('/atualizarSenha', [
+        'as'   => 'password.update',
+        'uses' => 'App\Http\Controllers\LoginController@atualizarSenha'
     ]);
 });
 

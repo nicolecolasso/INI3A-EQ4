@@ -8,7 +8,7 @@
 
 @section('conteudo')
 <div class="form-container-admin">
-    <h3 class="form-titulo">Adicionar Novo Produto ao Acervo</h3>
+    <h3 class="form-titulo">Adicionar Novo Produto</h3>
     
     <div class="row-form">
         <form action="{{ route('admin.produtos.salvar') }}" method="post" enctype="multipart/form-data">
@@ -24,6 +24,3 @@
     </div>
 </div>
 @endsection
-@push('scripts')
-    <script src="{{ asset('js/script.js') }}"></script>
-@endpush

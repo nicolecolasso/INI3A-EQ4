@@ -11,7 +11,7 @@
     <h1 class="carrinho-title">Carrinho - {{ Auth::user()->name ?? 'Cliente' }}</h1>
 
     @if(session('sucesso'))
-        <div style="background: #e6f4ea; color: #137333; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <div class="alert-success">
             {{ session('sucesso') }}
         </div>
     @endif

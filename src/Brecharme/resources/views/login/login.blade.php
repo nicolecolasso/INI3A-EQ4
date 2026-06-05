@@ -59,7 +59,15 @@
                         name="senha" 
                         placeholder="Digite sua senha" 
                         required>
+                    <i class="material-icons toggle-password-btn" id="toggle-senha">visibility_off</i>
                 </div>
+            </div>
+
+            <div class="remember-me-wrapper">
+                <label class="remember-me-label">
+                    <input type="checkbox" name="remember" id="remember" value="1">
+                    <span>Manter-me conectado</span>
+                </label>
             </div>
 
             <button type="submit" class="btn-login-premium">
@@ -68,13 +76,13 @@
         </form>
 
         <div class="login-footer-navigation">
-            <a href="{{ url('/recuperar-senha') }}" class="footer-nav-link forgot-password">
+            <a href="{{ route('login.esqueciSenha') }}" class="footer-nav-link forgot-password">
                 Esqueci minha senha
             </a>
             
             <p class="signup-text-wrapper">
                 Não possui cadastro? 
-                <a href="{{ url('/novo-cadastro') }}" class="footer-nav-link registration-link">
+                <a href="{{ route('login.novoCadastro') }}" class="footer-nav-link registration-link">
                     Cadastre-se
                 </a>
             </p>
@@ -82,5 +90,4 @@
 
     </div>
 </div>
-
 @endsection

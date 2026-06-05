@@ -38,26 +38,4 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const dropdown = document.getElementById('comunicado_historico');
-        const inputAssunto = document.getElementById('assunto');
-        const textareaMensagem = document.getElementById('mensagem');
-
-        dropdown.addEventListener('change', function () {
-            const selectedOption = this.options[this.selectedIndex];
-
-            if (selectedOption && selectedOption!="") {
-                const asuntoAntigo = selectedOption.getAttribute('data-assunto');
-                const mensagemAntiga = selectedOption.getAttribute('data-mensagem');
-
-                inputAssunto.value = asuntoAntigo;
-                textareaMensagem.value = mensagemAntiga;
-            } else {
-                inputAssunto.value = "";
-                textareaMensagem.value = "";
-            }
-        });
-    });
-</script>
 @endsection

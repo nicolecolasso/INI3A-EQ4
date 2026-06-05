@@ -84,24 +84,25 @@
                             <div class="action-buttons-flex">
                                 @if($linha->status == 'Analise')
                                     <a href="{{ route('admin.doacoes.aprovar', $linha->id_doacao) }}" 
-                                       class="btn-action btn-action-approve" 
-                                       title="Aprovar Doação"
-                                       onclick="return confirm('Deseja aprovar esta doação? Ela ficará aguardando retirada.');">
+                                       class="btn-action btn-action-approve confirm-action" 
+                                       data-confirm="Deseja aprovar esta doação? Ela ficará aguardando retirada."
+                                       title="Aprovar Doação">
                                         <i class="material-icons">check</i>
                                     </a>
                                     
                                     <a href="{{ route('admin.doacoes.rejeitar', $linha->id_doacao) }}" 
-                                       class="btn-action delete" 
-                                       title="Rejeitar Doação"
-                                       onclick="return confirm('Deseja rejeitar esta doação?');">
+                                       class="btn-action delete confirm-action" 
+                                       data-confirm="Deseja rejeitar esta doação?"
+                                       title="Rejeitar Doação">
                                         <i class="material-icons">close</i>
                                     </a>
                                 @endif
 
                                 @if($linha->status == 'Aprovada')
-                                    <button type="button" class="btn-action btn-action-ship" 
+                                    <button type="button" class="btn-action btn-action-ship btn-open-modal-ship" 
                                             title="Confirmar Retirada e Virar Produto"
-                                            onclick="abrirModalRetirada('{{ $linha->id_doacao }}', '{{ addslashes($linha->nome) }}')">
+                                            data-doacao-id="{{ $linha->id_doacao }}"
+                                            data-doacao-nome="{{ addslashes($linha->nome) }}">
                                         <i class="material-icons">local_shipping</i>
                                     </button>
                                 @endif
@@ -133,25 +134,10 @@
             <input type="number" name="preco" id="preco_venda" step="0.01" min="0" placeholder="0,00" required autofocus>
             
             <div class="modal-botoes">
-                <button type="button" class="btn btn-secondary" onclick="fecharModalPreco()">Cancelar</button>
+                <button type="button" class="btn btn-secondary btn-close-modal">Cancelar</button>
                 <button type="submit" class="btn btn-primary">Confirmar e Cadastrar</button>
             </div>
         </form>
     </div>
 </div>
-
-<script>
-    function abrirModalRetirada(id, nome) {
-        const form = document.getElementById('formRetirarPreco');
-        
-        form.action = "{{ url('admin/doacoes/retirar') }}/" + id;
-        
-        document.getElementById('modalTextoItem').innerText = "O item (" + nome + ") foi retirado. Insira o preço de venda para o estoque:";
-        document.getElementById('modalPreco').style.display = 'flex';
-    }
-
-    function fecharModalPreco() {
-        document.getElementById('modalPreco').style.display = 'none';
-    }
-</script>
 @endsection

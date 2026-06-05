@@ -12,7 +12,7 @@
         <h1 class="vitrine-title">Produtos</h1>
        
         <div class="filtrar-container">
-            <button class="filtrar-btn" onclick="toggleFiltro()">
+            <button class="filtrar-btn" type="button">
                 <i class="material-icons">tune</i>
                 <span>Filtrar</span>
             </button>
@@ -81,17 +81,4 @@
     @endif
 </div>
 
-<script>
-    function toggleFiltro() {
-        const dropdown = document.getElementById('filtroDropdown');
-        dropdown.classList.toggle('ativo');
-    }
-
-    document.addEventListener('click', function(event) {
-        const filtroContainer = document.querySelector('.filtrar-container');
-        if (!filtroContainer.contains(event.target)) {
-            document.getElementById('filtroDropdown').classList.remove('ativo');
-        }
-    });
-</script>
 @endsection

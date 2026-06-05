@@ -1,6 +1,6 @@
 /* Contêiner principal do formulário */
 .form-container-admin {
-    max-width: 700px; /* Tamanho ideal para leitura e preenchimento */
+    max-width: 700px;
     margin: 40px auto;
     padding: 40px;
     background: #f0f0f0;
@@ -11,7 +11,7 @@
     box-sizing: border-box;
 }
 
-/* 🏷️ Título do Formulário */
+/* Título do Formulário */
 .form-titulo {
     font-family: var(--fonte-titulo), 'Times New Roman', serif;
     font-size: 26px;
@@ -28,8 +28,7 @@
     width: 100%;
 }
 
-/* 🧱 Estilização dos campos vindos do arquivo _form.blade.php */
-/* Caso você use divs englobando cada campo (ex: class="input-field" ou similar) */
+/* Estrutura das divs de campos */
 .form-container-admin .input-field,
 .form-container-admin .form-group {
     margin-bottom: 24px;
@@ -38,48 +37,114 @@
     gap: 8px;
 }
 
-/* Labels (Nomes dos campos) */
+/* Labels customizados estilo Nova Doação */
 .form-container-admin label {
-    font-size: 13px;
-    color: #666666;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 14px;
+    color: #444;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 4px;
+    text-transform: none; /* Remove o uppercase antigo se preferir idêntico */
+    letter-spacing: normal;
 }
 
-/* Inputs de texto, senhas, e-mails e selects */
+/* ✨ INPUTS E TEXTAREAS ESTILO NOVA DOAÇÃO ✨ */
 .form-container-admin input[type="text"],
+.form-container-admin input[type="number"],
 .form-container-admin input[type="email"],
 .form-container-admin input[type="password"],
 .form-container-admin input[type="tel"],
-.form-container-admin select,
 .form-container-admin textarea {
     width: 100%;
-    padding: 14px 16px;
-    font-size: 14px;
+    padding: 1rem !important;
+    font-size: 1rem !important;
     color: #333333;
-    background-color: #FAFAFA;
-    border: 1px solid #EAEAEA;
-    border-radius: 8px;
+    background: white !important;
+    border: 1px solid #333 !important;
+    border-radius: 10px !important;
     font-family: 'Montserrat', sans-serif;
     transition: all 0.3s ease;
     box-sizing: border-box;
 }
 
-/* Efeito de foco ao clicar no campo */
+.form-container-admin textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* Efeito de foco unificado */
 .form-container-admin input:focus,
 .form-container-admin select:focus,
 .form-container-admin textarea:focus {
     outline: none;
-    background-color: #f0f0f0;
-    border-color: #1A1A1A;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+    border-color: #EFB810 !important;
+    box-shadow: 0 0 0 3px rgba(239, 184, 16, 0.1);
 }
 
-/* 🕹️ Rodapé de Ações (Botões) */
+/* ✨ SELECTS ARREDONDADOS COM ÍCONE (ESTILO NOVA DOAÇÃO) ✨ */
+.form-container-admin .select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.form-container-admin .select-wrapper select {
+    width: 100% !important;
+    padding: 0.75rem 1rem !important;
+    border: 1px solid #333 !important;
+    border-radius: 25px !important;
+    appearance: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: white !important;
+    font-size: 1rem !important;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-container-admin .select-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #333;
+}
+
+.form-container-admin .upload-preview i {
+    font-size: 3rem;
+    color: #333;
+}
+
+.form-container-admin .upload-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.form-container-admin .btn-selecionar {
+    font-family: 'Montserrat', sans-serif;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #999;
+    border-radius: 20px;
+    background: white;
+    color: #666;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+.form-container-admin .btn-selecionar:hover {
+    background: #f0f0f0;
+}
+
+/* Rodapé de Ações (Botões) */
 .form-actions {
     display: flex;
     align-items: center;
+    justify-content: center; /* Centraliza os botões para combinar com o estilo do app */
     gap: 15px;
     margin-top: 35px;
     padding-top: 20px;
@@ -89,7 +154,7 @@
 /* Botão Salvar (Estilo Premium Escuro) */
 .btn-submit.dark-style {
     background-color: #1A1A1A;
-    color: var(--amarelo-brecho, #EFB810);
+    color: #EFB810;
     border: none;
     padding: 14px 28px;
     font-size: 14px;
@@ -129,7 +194,7 @@
     color: #1A1A1A;
 }
 
-/* Moldura cinza de destaque para o Dropdown */
+/* Histórico Dropdown se mantêm padrão */
 .historico-dropdown-container {
     margin-bottom: 30px;
     background-color: #F5F5F5;
@@ -138,32 +203,30 @@
     text-align: left;
 }
 
-.historico-label {
-    font-family: var(--fonte-texto);
-    font-size: 14px;
-    font-weight: bold;
-    color: var(--preto-puro);
-}
-
-/* Estilização para o select se adaptar ao layout premium */
-.historico-select {
+.form-container-admin .upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     width: 100%;
-    margin-top: 8px;
-    padding: 10px 12px;
-    border: 1px solid #EAEAEA;
-    border-radius: 6px;
-    background-color: #f0f0f0;
-    font-family: var(--fonte-texto);
-    font-size: 14px;
-    color: #333333;
-    outline: none;
 }
 
-.historico-select:focus {
-    border-color: #2196F3;
+.form-container-admin .upload-area input[type="file"] {
+    display: none !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
 }
 
-/* Espaçamento extra opcional para os botões finais */
-.section-spacing {
-    margin-top: 30px;
+.form-container-admin .upload-preview {
+    width: 180px;
+    height: 180px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    overflow: hidden;
 }
