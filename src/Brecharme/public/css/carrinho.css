@@ -6,21 +6,19 @@
 }
 
 .carrinho-title {
+    font-family: var(--fonte-titulo);
     font-size: 2rem;
-    font-weight: 300;
-    color: #333;
+    font-weight: normal;
+    color: var(--preto-puro);
     margin-bottom: 2rem;
 }
 
-.alert-success {
-    background: #e6f4ea;
-    color: #137333;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+.carrinho-title.centralizado {
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
-/* Itens do Carrinho */
+/* Grids e Alinhamentos */
 .carrinho-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -28,28 +26,41 @@
     align-items: start;
 }
 
-/* Card Individual de Item do Carrinho */
+/* Feedback de Notificações */
+.alert-success {
+    background: #e6f4ea;
+    color: #137333;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+
 .carrinho-item-card {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    background: #fff;
-    padding: 1rem;
+    background: #ffffff;
+    padding: 1.25rem;
     border: 2px solid var(--branco-fundo);
-    border-radius: 12px;
+    border-radius: 16px; /* Aumentado para o padrão arredondado do TCC */
     position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
+/* Imagem Miniatura do Produto */
 .carrinho-img-wrapper {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
+    width: 90px;
+    height: 90px;
+    border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--branco-fundo);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f9f9f9;
+    background: #fafafa;
+    flex-shrink: 0;
 }
 
 .carrinho-img-wrapper img {
@@ -58,46 +69,59 @@
     object-fit: cover;
 }
 
+/* Informações de texto */
 .carrinho-item-info {
     flex: 1;
+    min-width: 0; /* Impede que textos longos quebrem o layout flexbox */
 }
 
 .carrinho-item-info h4 {
-    margin: 0 0 0.25rem 0;
+    margin: 0 0 0.35rem 0;
     font-size: 1.1rem;
     color: var(--preto-puro);
-    font-weight: 500;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Corta o nome do produto com "..." se for gigante */
 }
 
 .carrinho-item-info p {
     margin: 0;
-    font-size: 0.9rem;
-    color: var(--preto-puro);
+    font-size: 0.85rem;
+    color: #777777;
 }
 
+/* Preço do Item */
 .carrinho-item-preco {
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 1.15rem;
+    font-weight: 600;
     color: var(--preto-puro);
     text-align: right;
+    white-space: nowrap;
 }
 
-.btn-remover-carrinho{
+/* Formulário e Botão de Remover */
+.form-remover-carrinho {
+    display: inline-flex;
+}
+
+.btn-remover-carrinho {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 12px;
+    right: 12px;
     background: transparent;
     border: none;
     color: var(--cinza-detalhe);
     cursor: pointer;
-    transition: color 0.2s ease;
+    padding: 4px;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .btn-remover-carrinho:hover {
-    color: red;
+    color: #D32F2F;
+    transform: scale(1.1);
 }
 
-/* Área de Ação inferior (Botão Confirmar) */
 .carrinho-actions {
     grid-column: 1 / -1;
     display: flex;
@@ -105,46 +129,83 @@
     margin-top: 2rem;
 }
 
+/* Botão Confirmar Reserva (Estilo pílula premium) */
 .btn-confirmar-reserva {
-    background-color: var(--amarelo-brecho);
-    color: var(--branco-fundo);
+    background-color: #1A1A1A; /* Invertido para preto padrão Brecharme */
+    color: var(--amarelo-brecho);
     font-family: var(--fonte-texto);
-    border: 2px solid var(--branco-fundo);
-    border-radius: 8px;
-    padding: 0.75rem 2.5rem;
-    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px; /* Formato pílula elegante */
+    padding: 1rem 3rem;
+    font-size: 1rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease-in-out;
 }
 
 .btn-confirmar-reserva:hover {
     background-color: var(--amarelo-brecho);
+    color: #1A1A1A;
+    box-shadow: 0 6px 18px rgba(239, 184, 16, 0.25);
     transform: translateY(-2px);
 }
 
-/* Estado de Carrinho Vazio */
+/* Botão de retorno à Vitrine */
+.btn-voltar-vitrine {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: transparent;
+    border: 2px solid #1A1A1A;
+    border-radius: 30px;
+    padding: 0.6rem 2rem;
+    color: #1A1A1A;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.btn-voltar-vitrine:hover {
+    border-color: var(--amarelo-brecho);
+    color: var(--amarelo-brecho);
+    background-color: #1A1A1A;
+}
+
+/* Estado Vazio */
 .carrinho-vazio {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 4rem 2rem;
-    border-radius: 12px;
+    padding: 5rem 2rem;
+    color: #666;
 }
 
-/* TELA DE CONFIRMAÇÃO DE RESERVA */
+.carrinho-vazio h3 {
+    font-family: var(--fonte-titulo);
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+}
+
 .sucesso-container {
-    max-width: 900px;
+    max-width: 700px;
     margin: 3rem auto;
     padding: 0 1.5rem;
+    font-family: var(--fonte-texto);
 }
 
 .sucesso-block {
-    background: #fff;
+    background: #ffffff;
     border: 2px solid var(--branco-fundo);
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 2.5rem;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
 }
 
 .sucesso-header-flex {
@@ -161,36 +222,40 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 3px solid #333;
+    border: 2px solid #1A1A1A;
     flex-shrink: 0;
 }
 
 .sucesso-badge-icon i {
     font-size: 2.5rem;
-    color: #333;
+    color: #1A1A1A;
 }
 
 .sucesso-text-content h2 {
     margin: 0 0 0.5rem 0;
+    font-family: var(--fonte-titulo);
     font-size: 1.8rem;
-    color: #333;
+    color: #1A1A1A;
+    font-weight: normal;
 }
 
 .sucesso-text-content p {
     margin: 0;
-    color: #555;
+    color: #555555;
     line-height: 1.6;
+    font-size: 0.95rem;
 }
 
-/* Bloco Inferior de Detalhes */
+/* Detalhes da Compra Sucedida */
 .detalhes-titulo {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #333;
-    margin-top: 0;
+    font-family: var(--fonte-titulo);
+    font-size: 1.4rem;
+    color: #1A1A1A;
+    margin-top: 2rem;
     margin-bottom: 1rem;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid var(--branco-fundo);
     padding-bottom: 0.5rem;
+    font-weight: normal;
 }
 
 .detalhes-lista-produtos {
@@ -203,53 +268,20 @@
 .detalhe-produto-linha {
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #f5f5f5;
-}
-
-.btn-voltar-vitrine {
-    display: inline-block;
-    margin-top: 1.5rem;
-    background: transparent;
-    border: 2px solid #333;
-    border-radius: 20px;
-    padding: 0.5rem 1.5rem;
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background 0.2s;
-}
-
-.btn-voltar-vitrine:hover {
-    border-color: var(--amarelo-brecho);
-    color: var(--amarelo-brecho);
-}
-
-.carrinho-title.centralizado {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.texto-sub-detalhe {
-    color: #666;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--branco-fundo);
     font-size: 0.95rem;
 }
 
-.status-badge-inline {
-    color: #888;
-    margin-left: 10px;
-}
+.texto-sub-detalhe { color: #555555; font-weight: 500; }
+.status-badge-inline { color: #888888; font-size: 0.85rem; margin-left: 10px; }
+.texto-vazio { color: #999999; font-style: italic; }
+.container-botao-voltar { text-align: center; margin-top: 2.5rem; }
 
-.texto-vazio {
-    color: #999;
-}
 
-.container-botao-voltar {
-    text-align: center;
-    margin-top: 2rem;
-}
 
-/* RESPONSIVIDADE */
+/* Ajustes para tablets e telas médias */
 @media (max-width: 768px) {
     .carrinho-grid {
         grid-template-columns: 1fr;
@@ -259,13 +291,61 @@
     .sucesso-header-flex {
         flex-direction: column;
         text-align: center;
+        gap: 1.25rem;
     }
     
     .carrinho-actions {
         justify-content: center;
+        width: 100%;
     }
     
     .btn-confirmar-reserva {
         width: 100%;
+        padding: 1rem;
+    }
+    
+    .carrinho-title {
+        font-size: 1.75rem;
+        text-align: center;
+    }
+}
+
+/* Ajustes cruciais para telas de celulares pequenos (Onde o layout quebrava) */
+@media (max-width: 576px) {
+    .carrinho-item-card {
+        flex-direction: column; /* Transforma a linha em coluna no celular */
+        align-items: stretch;
+        text-align: center;
+        padding: 2.5rem 1.25rem 1.25rem 1.25rem; /* Abre espaço no topo para o botão excluir */
+    }
+
+    .carrinho-img-wrapper {
+        margin: 0 auto 0.5rem auto; /* Centraliza a foto no meio do card */
+        width: 100px;
+        height: 100px;
+    }
+
+    .carrinho-item-info h4 {
+        white-space: normal; /* Permite que o nome do item quebre linha se necessário */
+        font-size: 1.1rem;
+    }
+
+    .carrinho-item-preco {
+        text-align: center;
+        margin-top: 0.75rem;
+        font-size: 1.2rem;
+        border-top: 1px dashed var(--branco-fundo);
+        padding-top: 0.75rem;
+    }
+
+    .btn-remover-carrinho {
+        top: 8px;
+        right: 8px;
+    }
+
+    .detalhe-produto-linha {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
     }
 }

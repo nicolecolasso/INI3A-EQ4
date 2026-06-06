@@ -11,10 +11,14 @@
     
     <section class="hero-carousel">
         <div class="carousel-inner">
-            <img src="{{ asset('img/brecharme1.png') }}" alt="Loja Brecharme" class="hero-image">
+            <div class="carousel-images">
+                <img src="{{ asset('img/brecharme1.png') }}" alt="Loja Brecharme" class="hero-image active">
+                <img src="{{ asset('img/brecharme2.png') }}" alt="Loja Brecharme" class="hero-image">
+                <img src="{{ asset('img/brecharme3.png') }}" alt="Loja Brecharme" class="hero-image">
+            </div>
             <div class="carousel-dots">
-                <span class="dot"></span>
                 <span class="dot active"></span>
+                <span class="dot"></span>
                 <span class="dot"></span>
             </div>
         </div>

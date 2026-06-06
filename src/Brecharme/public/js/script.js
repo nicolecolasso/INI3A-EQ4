@@ -133,3 +133,42 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const heroCarousel = document.querySelector('.hero-carousel');
+    if (!heroCarousel) return;
+
+    const slides = Array.from(heroCarousel.querySelectorAll('.carousel-images .hero-image'));
+    const dots = Array.from(heroCarousel.querySelectorAll('.carousel-dots .dot'));
+    if (!slides.length || slides.length !== dots.length) return;
+
+    let currentSlide = slides.findIndex(slide => slide.classList.contains('active'));
+    if (currentSlide < 0) currentSlide = 0;
+
+    function goToSlide(index) {
+        slides.forEach((slide, idx) => slide.classList.toggle('active', idx === index));
+        dots.forEach((dot, idx) => dot.classList.toggle('active', idx === index));
+        currentSlide = index;
+    }
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function () {
+            goToSlide(index);
+        });
+    });
+
+    let autoSlideTimer = setInterval(function () {
+        goToSlide((currentSlide + 1) % slides.length);
+    }, 5000);
+
+    heroCarousel.addEventListener('mouseenter', function () {
+        clearInterval(autoSlideTimer);
+    });
+
+    heroCarousel.addEventListener('mouseleave', function () {
+        clearInterval(autoSlideTimer);
+        autoSlideTimer = setInterval(function () {
+            goToSlide((currentSlide + 1) % slides.length);
+        }, 5000);
+    });
+});
