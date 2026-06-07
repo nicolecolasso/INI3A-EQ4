@@ -32,4 +32,16 @@ class Produto extends Model
     {
         return $this->belongsTo(Doacao::class, 'fk_produto_id_doacao', 'id_doacao');
     }
+
+    public function compras()
+    {
+        return $this->belongsToMany(Compra::class, 'produto_reserva', 'fk_id_produto', 'fk_id_compra')
+                    ->withPivot('id_produto_reserva', 'status')
+                    ->withTimestamps();
+    }
+
+    public function reservas()
+    {
+        return $this->hasMany(ProdutoReserva::class, 'fk_id_produto', 'id_produto');
+    }
 }

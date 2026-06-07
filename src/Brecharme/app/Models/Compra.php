@@ -12,7 +12,6 @@ class Compra extends Model
 
     protected $fillable = [
         'status',
-        'sessao',
         'data_compra',
         'fk_compra_id_usuario'
     ];
@@ -26,22 +25,15 @@ class Compra extends Model
         return $this->belongsTo(User::class, 'fk_compra_id_usuario', 'id');
     }
 
-    public function produto()
+    public function produtos()
     {
-        return $this->hasManyThrough(
-            Produto::class,          // O modelo final que queremos acessar
-            ProdutoReserva::class,   // O modelo intermediário
-            'fk_id_compra',          // Chave estrangeira no modelo intermediário apontando para Compra
-            'id_produto',            // Chave primária/estrangeira no modelo final (Produto)
-            'id_compra',             // Chave primária no modelo Compra
-            'fk_id_produto'          // Chave estrangeira no modelo intermediário apontando para Produto
-        );
+        return $this->belongsToMany(Produto::class, 'produto_reserva', 'fk_id_compra', 'fk_id_produto')
+                    ->withPivot('id_produto_reserva', 'status')
+                    ->withTimestamps();
     }
 
     public function itens()
     {
-        // Uma compra possui muitos registros na tabela intermediária
         return $this->hasMany(ProdutoReserva::class, 'fk_id_compra', 'id_compra');
     }
-
 }

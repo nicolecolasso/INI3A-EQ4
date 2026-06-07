@@ -20,8 +20,7 @@
         @php $temProdutos = false; @endphp
 
         @foreach($reservas as $reserva)
-            {{-- Percorre a coleção de produtos que estão vinculados a esta compra --}}
-            @foreach($reserva->produto as $item)
+            @foreach($reserva->produtos as $item)
                 @php $temProdutos = true; @endphp
                 
                 <div class="carrinho-item-card">
@@ -54,14 +53,15 @@
 
         @if(!$temProdutos)
             <div class="carrinho-vazio">
-                <h3>Seu carrinho está vazio </h3>
+                <h3>Seu carrinho está vazio</h3>
                 <a href="{{ route('produtos.vitrine') }}" class="btn-voltar-vitrine">Ir para a Vitrine</a>
             </div>
         @endif
 
         @if($temProdutos)
             <div class="carrinho-actions">
-                <form action="{{ route('carrinho.finalizar', $reservas->first()->id_compra ?? 0) }}" method="POST">
+                {{-- Envia via POST o ID da compra atrelada ao carrinho --}}
+                <form action="{{ route('carrinho.finalizar', $reservas->first()->id_compra) }}" method="POST">
                     @csrf
                     <button type="submit" class="btn-confirmar-reserva">Confirmar Reserva</button>
                 </form>

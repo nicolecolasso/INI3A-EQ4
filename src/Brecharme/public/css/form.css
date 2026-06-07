@@ -235,3 +235,14 @@
     border-radius: 8px;
     text-align: left;
 }
+
+/* Customizações para o Formulário de Reservas */
+.multiselect-reservas {
+    height: 180px;
+}
+
+.form-text-helper {
+    display: block;
+    margin-top: 5px;
+    color: #6c757d;
+}

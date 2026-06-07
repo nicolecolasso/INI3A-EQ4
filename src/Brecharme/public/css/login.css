@@ -2,6 +2,123 @@
    🔒 TELA DE LOGIN PREMIUM - CUSTOMIZAÇÕES DE CORES E HOVER
    ================================================================== */
 
+.esqueci-senha-wrapper,
+.recuperar-senha-wrapper {
+    max-width: 450px;
+    margin: 80px auto;
+    padding: 0 20px;
+    min-height: 50vh;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.auth-card-content {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+    text-align: center;
+}
+
+.auth-icon {
+    font-size: 48px;
+    color: #efb810;
+    margin-bottom: 15px;
+}
+
+.auth-title {
+    font-size: 1.6rem;
+    color: #333;
+    margin: 0 0 10px 0;
+    font-weight: 500;
+}
+
+.auth-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0 0 30px 0;
+    line-height: 1.5;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auth-fieldset {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.auth-label {
+    font-size: 0.9rem;
+    color: #444;
+    font-weight: 500;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    background: #fafafa;
+}
+
+.auth-input:focus {
+    border-color: #efb810;
+    outline: none;
+    background: #fff;
+}
+
+.btn-recuperar-senha,
+.btn-alterar-senha {
+    width: 100%;
+    background-color: #efb810;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+.btn-recuperar-senha:hover,
+.btn-alterar-senha:hover {
+    background-color: #efb810 !important;
+    transform: translateY(-1px);
+}
+
+.link-back {
+    color: #efb810;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.optional-note {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
 .login-screen-wrapper {
     display: flex;
     justify-content: center;

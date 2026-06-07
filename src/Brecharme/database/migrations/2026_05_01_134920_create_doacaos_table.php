@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('descricao');
             $table->string('caminho_img');
             $table->string('localizacao');
-            $table->enum('status', ['Analise', 'Aprovada', 'Rejeitada', 'Retirada'])->default('Analise');
+            $table->enum('status', ['Analise', 'Aprovada', 'Rejeitada', 'Retirada', 'Cancelada'])->default('Analise');
             $table->timestamp('data_doacao')->useCurrent();
 
             $table->foreignId('fk_doacao_id_usuario')->references('id')->on('users')->onDelete('cascade');

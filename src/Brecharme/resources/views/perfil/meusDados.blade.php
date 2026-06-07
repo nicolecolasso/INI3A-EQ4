@@ -7,29 +7,101 @@
 @section('titulo', 'Meus Dados')
 
 @section('conteudo')
-    {{-- 
-      Exibe a tela com as informações do usuário e troca de senha (GET /perfil/meusDados)
-      
-      O QUE DEVE TER NO BLADE DESTA VIEW CONFORME O PROTÓTIPO:
-      - Exibição de alertas de sucesso ou erro vindos da sessão (Ex: session('sucesso') ou session('erro'))
-      
-      - Título principal: "Meus Dados"
-      
-      - Um <form action="{{ route('perfil.atualizarDados') }}" method="POST"> com @csrf
-        O layout deve ser dividido em duas colunas horizontais paralelas:
+<div class="perfil-wrapper dados-wrapper-layout">
+   
+    {{-- Mensagem de Sucesso --}}
+    @if (session('sucesso'))
+        <div class="alert-success alert-custom-sucesso">
+            <i class="material-icons">check_circle</i>
+            <span>{{ session('sucesso') }}</span>
+        </div>
+    @endif
 
-        COLUNA 1: "Dados pessoais"
-        - Alinhamento de Linha [ Rótulo "Nome:"     + Input cinza com valor: {{ $usuario->name }} ]
-        - Alinhamento de Linha [ Rótulo "Email:"    + Input cinza com valor: {{ $usuario->email }} (Adicionar 'readonly' ou 'disabled') ]
-        - Alinhamento de Linha [ Rótulo "Telefone:" + Input cinza com valor: {{ $usuario->telefone }} ]
+    {{-- Mensagem de Erro Geral ou de Senha Incorreta vinda do Controller --}}
+    @if (session('erro'))
+        <div class="alert-error alert-custom-erro">
+            <i class="material-icons">error_outline</i>
+            <span>{{ session('erro') }}</span>
+        </div>
+    @endif
 
-        COLUNA 2: "Alterar Senha:"
-        - Input cinza com placeholder exato: placeholder="Digite a senha atual" (name="senha_atual")
-        - Input cinza com placeholder exato: placeholder="Digite a nova senha" (name="nova_senha")
-        - Input cinza com placeholder exato: placeholder="Confirme a nova senha" (name="nova_senha_confirmation")
+    {{-- Validação de erros nativos do Laravel ($errors) --}}
+    @if ($errors->any())
+        <div class="alert-error alert-custom-erro">
+            <i class="material-icons">error_outline</i>
+            <span>{{ $errors->first() }}</span>
+        </div>
+    @endif
 
-      - Um botão de envio (Amarelo) centralizado abaixo das colunas para processar o formulário:
-        <button type="submit" class="btn-perfil-action-yellow">Salvar</button>
-        Lembrar que tudo tem que ser reponsivo
-    --}}
+    <div class="perfil-grid dados-grid-layout">
+       
+        <div class="perfil-card dados-usuario-card">
+            <div class="avatar-container avatar-dados-margin">
+                <i class="material-icons icon-avatar-dourado">account_circle</i>
+            </div>
+            <h3 class="nome-usuario-titulo">{{ $usuario->name }}</h3>
+            <p class="subtitulo-usuario-texto">Alterando informações pessoais</p>
+           
+            <hr class="divisor-dados-hr">
+           
+            <a href="{{ route('perfil.meuPerfil') }}" class="btn-voltar-perfil btn-voltar-custom">
+                <i class="material-icons icon-seta-voltar">arrow_back</i>
+                Voltar ao Perfil
+            </a>
+        </div>
+
+        <div class="perfil-dashboard dados-dashboard-card">
+           
+            <h2 class="titulo-meus-dados">Meus Dados</h2>
+
+            <form action="{{ route('perfil.atualizarDados') }}" method="POST">
+                @csrf                
+                <div class="form-sections-grid grid-form-colunas">
+                   
+                    <div class="form-column coluna-form-bloco">
+                        <h4 class="subtitulo-secao-form">Dados pessoais</h4>
+                       
+                        <div class="input-block bloco-input-layout">
+                            <label for="name" class="label-dados-form">Nome:</label>
+                            <input type="text" id="name" name="name" value="{{ old('name', $usuario->name) }}" required class="input-field input-montserrat" placeholder="Seu nome completo">
+                        </div>
+
+                        <div class="input-block bloco-input-layout">
+                            <label for="email" class="label-dados-form">Email:</label>
+                            <input type="email" id="email" name="email" value="{{ old('email', $usuario->email) }}" required class="input-field input-montserrat" placeholder="Seu e-mail">
+                        </div>
+
+                        <div class="input-block bloco-input-layout">
+                            <label for="telefone" class="label-dados-form">Telefone:</label>
+                            <input type="text" id="telefone" name="telefone" value="{{ old('telefone', $usuario->telefone) }}" class="input-field input-montserrat" placeholder="(14) 99999-9999">
+                        </div>
+                    </div>
+
+                    <div class="form-column coluna-form-bloco">
+                        <h4 class="subtitulo-secao-form">Alterar Senha:</h4>
+                       
+                        <div class="input-block bloco-input-layout">
+                            <input type="password" name="senha_atual" class="input-field input-montserrat" placeholder="Digite a senha atual">
+                        </div>
+
+                        <div class="input-block bloco-input-layout">
+                            <input type="password" name="nova_senha" class="input-field input-montserrat" placeholder="Digite a nova senha">
+                        </div>
+
+                        <div class="input-block bloco-input-layout">
+                            <input type="password" name="nova_senha_confirmation" class="input-field input-montserrat" placeholder="Confirme a nova senha">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-actions btn-container-salvar">
+                    <button type="submit" class="btn-salvar-dourado btn-salvar-custom-dados">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

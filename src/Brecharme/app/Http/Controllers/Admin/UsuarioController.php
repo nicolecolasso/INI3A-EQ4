@@ -91,4 +91,14 @@ class UsuarioController extends Controller
 
         return redirect()->route('admin.usuarios')->with('sucesso', 'Utilizador excluído e stock pendente devolvido à vitrine com sucesso!');
     }
+
+    public function ativar($id)
+    {
+        User::findOrFail($id)->update([
+            'excluido' => false,
+            'data_exclusao' => null
+        ]);
+
+        return redirect()->route('admin.usuarios')->with('sucesso', 'Usuário reintegrado ao sistema com sucesso!');
+    }
 }

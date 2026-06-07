@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('compra', function (Blueprint $table) {
             $table->increments('id_compra');
             $table->enum('status', ['Carrinho', 'Reservado', 'Concluída', 'Cancelada'])->default('Carrinho');
-            $table->string('sessao');
             $table->timestamp('data_compra')->useCurrent();
 
             $table->foreignId('fk_compra_id_usuario')->references('id')->on('users')->onDelete('cascade');

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProdutoReserva extends Model
 {
-
     protected $table = 'produto_reserva';
 
     protected $primaryKey = 'id_produto_reserva';

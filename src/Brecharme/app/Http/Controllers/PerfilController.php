@@ -84,8 +84,12 @@ class PerfilController extends Controller
      */
     public function minhasReservas()
     {
-        $usuario = User::findOrFail(Auth::id());
-        $compras = $usuario->compras;
+        // O with(['itens.produto']) traz a tabela pivot e os produtos de uma só vez
+        $compras = \App\Models\Compra::with(['itens.produto'])
+            ->where('fk_compra_id_usuario', Auth::id())
+            ->orderBy('id_compra', 'desc')
+            ->get();
+
         return view('perfil.minhasReservas', compact('compras'));
     }
 
@@ -94,6 +98,7 @@ class PerfilController extends Controller
      */
     public function cancelarDoacao($id)
     {
+        // IMPORTANTE: Se o seu banco usa "id_doacao", mude o 'find($id)' para: where('id_doacao', $id)->first()
         $doacao = Doacao::find($id);
 
         if (!$doacao) {
@@ -104,9 +109,12 @@ class PerfilController extends Controller
             abort(403, 'Acesso não autorizado.');
         }
 
-        // Só permite o cancelamento se ainda não tiver sido aprovada/rejeitada (estiver em 'Analise')
+        // Permite cancelar se estiver em Análise
         if ($doacao->status === 'Analise') {
-            $doacao->delete(); 
+            
+            // 🛠️ EM VEZ DE DELETAR, SALVAMOS O STATUS COMO CANCELADA
+            $doacao->update(['status' => 'Cancelada']); 
+
             return redirect()->route('perfil.minhasDoacoes')
                              ->with('sucesso', 'Proposta de doação cancelada com sucesso!');
         }
@@ -120,23 +128,35 @@ class PerfilController extends Controller
      */
     public function cancelarReserva($id)
     {
-        $reserva = ProdutoReserva::find($id);
+        $compra = \App\Models\Compra::find($id);
 
-        if (!$reserva) {
+        if (!$compra) {
             return redirect()->route('perfil.minhasReservas')->with('erro', 'Reserva não encontrada.');
         }
 
-        if ($reserva->compra->fk_compra_id_usuario !== Auth::id()) {
+        if ($compra->fk_compra_id_usuario !== Auth::id()) {
             abort(403, 'Acesso não autorizado.');
         }
 
-        if ($reserva->status === 'Reservado' || $reserva->status === 'Carrinho') {
-            $reserva->delete(); 
+        if (strtolower($compra->status) === 'Reservado' || strtolower($compra->status) === 'Carrinho') {
+            
+            // Se existirem itens na tabela pivot vinculados a esta compra, mude o status deles ou remova-os
+            \App\Models\ProdutoReserva::where('fk_id_compra', $compra->id_compra)->update(['status' => 'Cancelado']);
+            
+            // Devolve os produtos para o estado Disponível
+            $itens = \App\Models\ProdutoReserva::where('fk_id_compra', $compra->id_compra)->get();
+            foreach($itens as $item) {
+                \App\Models\Produto::where('id_produto', $item->fk_id_produto)->update(['status' => 'Disponível']);
+            }
+
+            // Cancela ou deleta a compra mãe
+            $compra->update(['status' => 'Cancelada']); 
+
             return redirect()->route('perfil.minhasReservas')
-                             ->with('sucesso', 'Reserva cancelada com sucesso!');
+                             ->with('sucesso', 'Reserva cancelada com sucesso e itens devolvidos ao acervo!');
         }
 
         return redirect()->route('perfil.minhasReservas')
-                         ->with('erro', 'Esta reserva não pode ser cancelada.');
+                         ->with('erro', 'Esta reserva já foi processada e não pode ser cancelada.');
     }   
 }

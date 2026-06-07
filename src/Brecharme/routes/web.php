@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], function () {
     Route::get('gerenciar', [
@@ -9,13 +9,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\AdminController@gerenciar'
     ]);
 
-    //Doações - Painel Administrativo
+    // Doações - Painel Administrativo
     Route::get('doacoes/doacoes', [
         'as'   => 'admin.doacoes',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@doacoes'
     ]);
 
-    
     Route::get('doacoes/novaDoacao', [
         'as'   => 'admin.doacoes.novaDoacao',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@novaDoacao'
@@ -31,14 +30,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@editarDoacao'
     ]);
 
+    // Deixamos explicitamente PUT para o formulário e POST para ações rápidas de status
     Route::put('doacoes/atualizar/{id}', [
         'as'   => 'admin.doacoes.atualizar',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@atualizar'
-    ]);
-
-    Route::get('doacoes/aprovar/{id}', [
-        'as'   => 'admin.doacoes.aprovar',
-        'uses' => 'App\Http\Controllers\Admin\DoacaoController@aprovar'
     ]);
 
     Route::post('doacoes/retirar/{id}', [
@@ -46,13 +41,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@retirar'
     ]);
 
-    Route::get('doacoes/rejeitar/{id}', [
+    Route::post('doacoes/rejeitar/{id}', [
         'as'   => 'admin.doacoes.rejeitar',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@rejeitar'
     ]);
 
 
-    //Produtos - Painel Administrativo
+    // Produtos - Painel Administrativo
     Route::get('produtos/produtos', [
         'as'   => 'admin.produtos',
         'uses' => 'App\Http\Controllers\Admin\ProdutoController@produtos'
@@ -83,7 +78,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\ProdutoController@excluir'
     ]);
 
-    //Reserva - Painel Administrativo
+    Route::get('produtos/ativar/{id}', [
+        'as'   => 'admin.produtos.ativar',
+        'uses' => 'App\Http\Controllers\Admin\ProdutoController@ativar'
+    ]);
+
+    // Reserva - Painel Administrativo
     Route::get('reservas/reservas', [
         'as'   => 'admin.reservas',
         'uses' => 'App\Http\Controllers\Admin\CompraController@reservas'
@@ -110,8 +110,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
     ]);
 
 
-
-    //Usuário - Painel Administrativo
+    // Usuário - Painel Administrativo
     Route::get('usuarios/usuarios', [
         'as'   => 'admin.usuarios',
         'uses' => 'App\Http\Controllers\Admin\UsuarioController@usuarios'
@@ -142,8 +141,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\UsuarioController@excluir'
     ]);
 
+    Route::get('usuarios/ativar/{id}', [
+        'as'   => 'admin.usuarios.ativar',
+        'uses' => 'App\Http\Controllers\Admin\UsuarioController@ativar'
+    ]);
 
-    //Comunicados - Painel Administrativo
+
+    // Comunicados - Painel Administrativo
     Route::get('comunicados/novo', [
         'as'   => 'admin.comunicados.novoComunicado',
         'uses' => 'App\Http\Controllers\Admin\ComunicadoController@novoComunicado'
@@ -161,59 +165,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
 });
 
 Route::group(['prefix' => 'login'], function () {
-    // 1. Tela de Login (GET /login)
-    Route::get('/', [
-        'as'   => 'login',
-        'uses' => 'App\Http\Controllers\LoginController@index'
-    ]);
-
-    // 2. Processar o Login (POST /login)
-    Route::post('/', [
-        'as'   => 'login.entrar',
-        'uses' => 'App\Http\Controllers\LoginController@entrar'
-    ]);
-
-    // 3. Deslogar do sistema (GET /login/sair)
-    Route::get('/sair', [
-        'as'   => 'login.sair',
-        'uses' => 'App\Http\Controllers\LoginController@sair'
-    ]);
-
-    // 4. Tela de Novo Cadastro (GET /login/novoCadastro)
-    Route::get('/novoCadastro', [
-        'as'   => 'login.novoCadastro',
-        'uses' => 'App\Http\Controllers\LoginController@registrar'
-    ]);
-
-    // 5. Processar o Novo Cadastro (POST /login/salvarCadastro)
-    Route::post('/salvarCadastro', [
-        'as'   => 'login.salvarCadastro',
-        'uses' => 'App\Http\Controllers\LoginController@salvar'
-    ]);
-
-    // 6. Tela de "Esqueci minha senha" (GET /login/esqueciSenha)
-    Route::get('/esqueciSenha', [
-        'as'   => 'login.esqueciSenha',
-        'uses' => 'App\Http\Controllers\LoginController@esqueciSenha'
-    ]);
-
-    // 7. Processar o pedido de recuperação / Enviar E-mail (POST /login/enviarLink)
-    Route::post('/enviarLink', [
-        'as'   => 'password.email',
-        'uses' => 'App\Http\Controllers\LoginController@enviarLinkRecuperacao'
-    ]);
-
-    // 8. Tela para digitar a nova senha vinda do link do e-mail (GET /login/recuperarSenha/{token})
-    Route::get('/recuperarSenha/{token}', [
-        'as'   => 'password.reset',
-        'uses' => 'App\Http\Controllers\LoginController@mostrarTelaRecuperarSenha'
-    ]);
-
-    // 9. Processar e atualizar a senha de fato no banco (POST /login/atualizarSenha)
-    Route::post('/atualizarSenha', [
-        'as'   => 'password.update',
-        'uses' => 'App\Http\Controllers\LoginController@atualizarSenha'
-    ]);
+    Route::get('/', ['as' => 'login', 'uses' => 'App\Http\Controllers\LoginController@index']);
+    Route::post('/', ['as' => 'login.entrar', 'uses' => 'App\Http\Controllers\LoginController@entrar']);
+    Route::get('/sair', ['as' => 'login.sair', 'uses' => 'App\Http\Controllers\LoginController@sair']);
+    Route::get('/novoCadastro', ['as' => 'login.novoCadastro', 'uses' => 'App\Http\Controllers\LoginController@registrar']);
+    Route::post('/salvarCadastro', ['as' => 'login.salvarCadastro', 'uses' => 'App\Http\Controllers\LoginController@salvar']);
+    Route::get('/esqueciSenha', ['as' => 'login.esqueciSenha', 'uses' => 'App\Http\Controllers\LoginController@esqueciSenha']);
+    Route::post('/enviarLink', ['as' => 'password.email', 'uses' => 'App\Http\Controllers\LoginController@enviarLinkRecuperacao']);
+    Route::get('/recuperarSenha/{token}', ['as' => 'password.reset', 'uses' => 'App\Http\Controllers\LoginController@mostrarTelaRecuperarSenha']);
+    Route::post('/atualizarSenha', ['as' => 'password.update', 'uses' => 'App\Http\Controllers\LoginController@atualizarSenha']);
 });
 
 Route::group(['prefix' => 'produtos'], function () {
@@ -222,12 +182,12 @@ Route::group(['prefix' => 'produtos'], function () {
         'uses' => 'App\Http\Controllers\VitrineController@vitrine'
     ]);
 
-    Route::get('/detalheProduto/{id}', [
-        'as' => 'produtos.detalheProduto',
-        'uses' => 'App\Http\Controllers\VitrineController@detalheProduto'
-    ]);
-
     Route::group(['middleware' => ['auth']], function () {
+        Route::get('/detalheProduto/{id}', [
+            'as' => 'produtos.detalheProduto',
+            'uses' => 'App\Http\Controllers\VitrineController@detalheProduto'
+        ]);
+
         Route::get('/novaDoacao', [
             'as' => 'produtos.novaDoacao',
             'uses' => 'App\Http\Controllers\VitrineController@novaDoacao'
@@ -241,68 +201,66 @@ Route::group(['prefix' => 'produtos'], function () {
 
 Route::group(['prefix' => 'carrinho', 'middleware' => ['auth']], function () {
     Route::get('/', [
-        'as' => 'carrinho',
-        'uses' => 'App\Http\Controllers\CarrinhoController@index'
+        'as'   => 'carrinho',
+        'uses' => 'App\Http\Controllers\CarrinhoController@carrinho'
     ]);
 
     Route::post('/adicionar/{id}', [
-        'as' => 'carrinho.adicionar',
+        'as'   => 'carrinho.adicionar',
         'uses' => 'App\Http\Controllers\CarrinhoController@adicionar'
     ]);
 
     Route::post('/finalizar/{id_compra}', [
-        'as' => 'carrinho.finalizar',
+        'as'   => 'carrinho.finalizar',
         'uses' => 'App\Http\Controllers\CarrinhoController@finalizar'
     ]);
 
-    Route::get('/conclusaoReserva/{id_usuario}', [
-        'as' => 'carrinho.conclusaoReserva',
+    Route::get('/conclusaoReserva', [
+        'as'   => 'carrinho.conclusaoReserva',
         'uses' => 'App\Http\Controllers\CarrinhoController@conclusaoReserva'
     ]);
 
-    Route::post('/remover/{id_produto}', [
-        'as' => 'carrinho.remover',
+    // ✨ CORREÇÃO SEMÂNTICA: Mudamos para GET para permitir remoções rápidas via link no carrinho
+    Route::get('/remover/{id_produto}', [
+        'as'   => 'carrinho.remover',
         'uses' => 'App\Http\Controllers\CarrinhoController@remover'
     ]);
 });
 
 Route::group(['prefix' => 'perfil', 'middleware' => ['auth']], function () {
     Route::get('/meuPerfil', [
-        'as' => 'perfil.meuPerfil',
+        'as' => 'perfil.meuPerfil', 
         'uses' => 'App\Http\Controllers\PerfilController@meuPerfil'
     ]);
-
     Route::get('/meusDados', [
-        'as' => 'perfil.meusDados',
+        'as' => 'perfil.meusDados', 
         'uses' => 'App\Http\Controllers\PerfilController@meusDados'
     ]);
-
+    Route::post('/atualizarDados', [
+        'as' => 'perfil.atualizarDados', 
+        'uses' => 'App\Http\Controllers\PerfilController@atualizarDados'
+    ]);
     Route::get('/minhasDoacoes', [
-        'as' => 'perfil.minhasDoacoes',
+        'as' => 'perfil.minhasDoacoes', 
         'uses' => 'App\Http\Controllers\PerfilController@minhasDoacoes'
     ]);
-
     Route::get('/minhasReservas', [
-        'as' => 'perfil.minhasReservas',
+        'as' => 'perfil.minhasReservas', 
         'uses' => 'App\Http\Controllers\PerfilController@minhasReservas'
     ]);
-
     Route::get('/minhasDoacoes/cancelar/{id}', [
-        'as'   => 'perfil.minhasDoacoes.cancelar',
+        'as' => 'perfil.minhasDoacoes.cancelar', 
         'uses' => 'App\Http\Controllers\PerfilController@cancelarDoacao'
     ]);
-
     Route::get('/minhasReservas/cancelar/{id}', [
-        'as'   => 'perfil.minhasReservas.cancelar',
+        'as' => 'perfil.minhasReservas.cancelar', 
         'uses' => 'App\Http\Controllers\PerfilController@cancelarReserva'
+    ]);
+    Route::get('/minhasReservas/detalhes/{id}', [
+        'as'   => 'perfil.minhasReservas.detalhes',
+        'uses' => 'App\Http\Controllers\PerfilController@detalhesReserva'
     ]);
 });
 
-Route::get('/', [
-    'as' => 'institucional.index',
-    'uses' => 'App\Http\Controllers\InstitucionalController@index'
-]);
-Route::get('/quemSomos', [
-    'as' => 'institucional.quemSomos',
-    'uses' => 'App\Http\Controllers\InstitucionalController@quemSomos'
-]);
+Route::get('/', ['as' => 'institucional.index', 'uses' => 'App\Http\Controllers\InstitucionalController@index']);
+Route::get('/quemSomos', ['as' => 'institucional.quemSomos', 'uses' => 'App\Http\Controllers\InstitucionalController@quemSomos']);

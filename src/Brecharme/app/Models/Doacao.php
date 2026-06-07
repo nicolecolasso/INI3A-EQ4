@@ -30,4 +30,8 @@ class Doacao extends Model
         return $this->belongsTo(User::class, 'fk_doacao_id_usuario', 'id');
     }
 
+    public function produtoGerado()
+    {
+        return $this->hasOne(Produto::class, 'fk_produto_id_doacao', 'id_doacao');
+    }
 }

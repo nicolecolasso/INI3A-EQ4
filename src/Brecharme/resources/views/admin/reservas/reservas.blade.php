@@ -37,26 +37,21 @@
                             <div class="admin-subtext">{{ $linha->usuario->email ?? '' }}</div>
                         </td>
                         <td data-label="Produto">
-                            {{-- Loop para varrer os produtos vinculados a esta compra específica --}}
-                            @php $totalReserva = 0; @endphp
-                            
-                            @if($linha->itens->count() > 0)
-                                @foreach($linha->itens as $item)
-                                    @if($item->produto)
-                                        @php $totalReserva += $item->produto->valor; @endphp
-                                        <div class="admin-item-row">
-                                            <strong>{{ $item->produto->nome }}</strong> 
-                                            <span class="admin-subtext admin-inline-note">
-                                                (R$ {{ number_format($item->produto->valor, 2, ',', '.') }})
-                                            </span>
-                                        </div>
-                                    @endif
+                            {{-- Modificado para ler diretamente a relação de produtos da compra --}}
+                            @if($linha->produtos->count() > 0)
+                                @foreach($linha->produtos as $produto)
+                                    <div class="admin-item-row">
+                                        <strong>{{ $produto->nome }}</strong> 
+                                        <span class="admin-subtext admin-inline-note">
+                                            (R$ {{ number_format($produto->valor, 2, ',', '.') }})
+                                        </span>
+                                    </div>
                                 @endforeach
                                 
-                                {{-- Se houver mais de um produto, exibe o total da reserva --}}
-                                @if($linha->itens->count() > 1)
+                                {{-- Se houver mais de um produto, exibe o total acumulado de forma otimizada --}}
+                                @if($linha->produtos->count() > 1)
                                     <div class="reservation-total">
-                                        Total: R$ {{ number_format($totalReserva, 2, ',', '.') }}
+                                        Total: R$ {{ number_format($linha->produtos->sum('valor'), 2, ',', '.') }}
                                     </div>
                                 @endif
                             @else
@@ -66,21 +61,13 @@
                         <td data-label="Data">{{ \Carbon\Carbon::parse($linha->data_compra)->format('d/M/Y H:i') }}</td>
                         <td data-label="Status">
                             @if($linha->status == 'Reservado')
-                                <span class="badge badge-reservado">
-                                    Reservado
-                                </span>
+                                <span class="badge badge-reservado">Reservado</span>
                             @elseif($linha->status == 'Carrinho')
-                                <span class="badge badge-carrinho">
-                                    No Carrinho
-                                </span>
+                                <span class="badge badge-carrinho">No Carrinho</span>
                             @elseif($linha->status == 'Concluída')
-                                <span class="badge badge-concluida">
-                                    Concluída
-                                </span>
+                                <span class="badge badge-concluida">Concluída</span>
                             @else
-                                <span class="badge badge-inactive">
-                                    Cancelada
-                                </span>
+                                <span class="badge badge-inactive">Cancelada</span>
                             @endif
                         </td>
                         <td data-label="Ações">

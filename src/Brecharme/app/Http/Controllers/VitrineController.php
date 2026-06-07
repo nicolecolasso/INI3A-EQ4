@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Doacao;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class VitrineController extends Controller
 {
@@ -25,7 +26,11 @@ class VitrineController extends Controller
 
     public function detalheProduto($id)
     {
-        $produto = Produto::where('id_produto', $id)->firstOrFail();
+        $produto = Produto::where('id_produto', $id)
+                        ->where('excluido', false)
+                        ->where('status', 'Disponível')
+                        ->firstOrFail(); // Se foi excluído ou reservado/vendido, dá erro 404 automaticamente
+
         return view('produtos.produto', compact('produto'));
     }
 
@@ -40,16 +45,19 @@ class VitrineController extends Controller
 
         if ($req->hasFile('caminho_img')) {
             $imagem = $req->file('caminho_img');
-            $num = rand(1111, 9999);
             
-            $dir = "img/doacoes/";
-            
-            $ex = $imagem->getClientOriginalExtension(); 
-            $nomeImagem = "imagem_" . $num . "." . $ex;
-            
-            $imagem->move(public_path($dir), $nomeImagem);
-            
-            $dados['caminho_img'] = $dir . $nomeImagem;
+            // Gera um nome único baseado em texto aleatório (ex: 40 caracteres + .jpg)
+            // Isso evita completamente o risco de uma imagem sobrescrever outra
+            $nomeImagem = $imagem->hashName(); 
+
+            $targetPath = public_path('img/doacoes');
+
+            // Garante que a pasta existe usando a ferramenta do Laravel
+            File::ensureDirectoryExists($targetPath);
+
+            $imagem->move($targetPath, $nomeImagem);
+
+            $dados['caminho_img'] = "img/doacoes/" . $nomeImagem;
         }
 
         return $dados;

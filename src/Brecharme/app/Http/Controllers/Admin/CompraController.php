@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Compra;
-use App\Models\ProdutoReserva;
 use App\Models\Produto;
 use App\Models\User;
 
@@ -13,126 +12,101 @@ class CompraController extends Controller
 {
     public function reservas()
     {
-        $linhas = Compra::with(['usuario'])
-            ->orderByRaw("
-                CASE status
-                    WHEN 'Reservado' THEN 1
-                    WHEN 'Carrinho' THEN 2
-                    WHEN 'Concluída' THEN 3
-                    WHEN 'Cancelada' THEN 4
-                    ELSE 5
-                END ASC
-            ")
-            ->orderBy('data_compra', 'desc')
-            ->get();
+        $linhas = Compra::with(['usuario', 'produtos'])->get();
         return view('admin.reservas.reservas', compact('linhas'));
-    }
-
-    public function listaReservas()
-    {
-        $linhas = Compra::all();
-        return view('admin.reservas.listaReservas', compact('linhas'));
     }
 
     public function novaReserva()
     {
-        $produtos = Produto::where('status', 'Disponível')->get();  
-        $usuarios = User::all();
-        return view('admin.reservas.novaReserva', compact('produtos', 'usuarios'));
+        $usuarios = User::where('excluido', false)->get();
+        $produtos = Produto::where('status', 'Disponível')->get();
+        return view('admin.reservas.novaReserva', compact('usuarios', 'produtos'));
     }
 
-    public function salvar(Request $req)
+    public function salvar(Request $request)
     {
-        $compra = Compra::create([
-            'status'               => $req->status,
-            'sessao'               => $req->sessao ?? session()->getId(),
-            'data_compra'          => now(),
-            'fk_compra_id_usuario' => $req->id_usuario
+        $request->validate([
+            'id_usuario' => 'required',
+            'id_produto' => 'required|array',
+            'status'     => 'required'
         ]);
 
-        if ($req->has('id_produto')) {
-            foreach ($req->id_produto as $idProduto) {
-                $statusIntermediaria = ($req->status == 'Cancelada') ? 'Cancelado' : $req->status;
+        $compra = Compra::create([
+            'fk_compra_id_usuario' => $request->id_usuario,
+            'status'               => $request->status,
+            'data_compra'          => now()
+        ]);
 
-                ProdutoReserva::create([
-                    'fk_id_produto' => $idProduto,
-                    'fk_id_compra'  => $compra->id_compra,
-                    'status'        => $statusIntermediaria
-                ]);
+        $compra->produtos()->sync($request->id_produto);
 
-                if ($req->status == 'Cancelada') {
-                    $novoStatusProduto = 'Disponível';
-                } elseif ($req->status == 'Concluída') {
-                    $novoStatusProduto = 'Vendido';
-                } else {
-                    $novoStatusProduto = 'Reservado';
-                }
-
-                Produto::where('id_produto', $idProduto)->update(['status' => $novoStatusProduto]);
-            }
-        }
+        // Atualiza o status dos produtos inseridos baseado no status da compra
+        $statusProduto = $request->status == 'Concluída' ? 'Vendido' : ($request->status == 'Carrinho' ? 'Carrinho' : 'Reservado');
+        Produto::whereIn('id_produto', $request->id_produto)->update(['status' => $statusProduto]);
 
         return redirect()->route('admin.reservas')->with('sucesso', 'Reserva criada com sucesso!');
     }
 
     public function editarReserva($id)
     {
-        $linha = Compra::with('itens')->find($id);
+        $linha = Compra::with('produtos')->findOrFail($id);
         $usuarios = User::all();
+
+        // Traz os produtos que estão disponíveis ou que pertencem a esta compra específica
         $produtos = Produto::where('status', 'Disponível')
-            ->orWhereHas('reservas', function($q) use ($id) {
-                $q->where('fk_id_compra', $id);
-            })->get();
+            ->orWhereHas('compras', function ($query) use ($id) {
+                $query->where('compras.id_compra', $id);
+            })
+            ->get();
 
         return view('admin.reservas.editarReserva', compact('linha', 'usuarios', 'produtos'));
     }
 
-    public function atualizar(Request $req, $id)
+    public function atualizar(Request $request, $id)
     {
-        $compra = Compra::findOrFail($id);
-        
-        // 1. Descobrir quais os produtos estavam originalmente associados a esta compra antes da edição
-        $produtosAntigos = ProdutoReserva::where('fk_id_compra', $id)->pluck('fk_id_produto')->toArray();
-        $produtosNovos = $req->input('id_produto', []);
-
-        // 2. Se algum produto foi REMOVIDO da lista pelo administrador, ele volta a ficar Disponível na vitrine imediatamente
-        $produtosRemovidos = array_diff($produtosAntigos, $produtosNovos);
-        if (!empty($produtosRemovidos)) {
-            Produto::whereIn('id_produto', $produtosRemovidos)->update(['status' => 'Disponível']);
-        }
-
-        // 3. Atualiza os dados principais da compra mestre
-        $compra->update([
-            'status'               => $req->status,
-            'fk_compra_id_usuario' => $req->id_usuario,
-            'sessao'               => $req->sessao ?? $compra->sessao
+        $request->validate([
+            'id_usuario' => 'required',
+            'id_produto' => 'required|array',
+            'status'     => 'required'
         ]);
 
-        // 4. Limpa os vínculos antigos na pivot para reconstruir o estado atualizado
-        ProdutoReserva::where('fk_id_compra', $id)->delete();
-
-        // 5. Varre a nova lista redefinindo as amarrações de estoque corretas
-        foreach ($produtosNovos as $idProduto) {
-            if ($req->status == 'Concluída') {
-                $statusIntermediaria = 'Concluída';
-                $novoStatusProduto = 'Vendido';
-            } elseif ($req->status == 'Cancelada') {
-                $statusIntermediaria = 'Cancelado';
-                $novoStatusProduto = 'Disponível';
+        $compra = Compra::findOrFail($id);
+        
+        // 1. Identificar produtos previamente associados
+        $produtosAntigos = $compra->produtos()->pluck('id_produto')->toArray();
+        $novosProdutos = $request->input('id_produto', []);
+        
+        // 2. Sincronizar relacionamento na tabela intermediária
+        $compra->produtos()->sync($novosProdutos);
+        
+        // 3. Devolver produtos removidos  (Voltam a ficar Disponíveis)
+        $removidos = array_diff($produtosAntigos, $novosProdutos);
+        if (!empty($removidos)) {
+            Produto::whereIn('id_produto', $removidos)->update(['status' => 'Disponível']);
+        }
+        
+        // 4. Atualizar o estoque dos itens que permaneceram ou entraram
+        if (!empty($novosProdutos)) {
+            if ($request->status == 'Concluída') {
+                $statusProduto = 'Vendido';
+            } elseif ($request->status == 'Cancelada') {
+                $statusProduto = 'Disponível';
+                // Se a compra foi cancelada por completo, desvincula tudo ou libera os produtos
+                Produto::whereIn('id_produto', $novosProdutos)->update(['status' => 'Disponível']);
             } else {
-                $statusIntermediaria = $req->status; // 'Carrinho' ou 'Reservado'
-                $novoStatusProduto = 'Reservado';
+                $statusProduto = $request->status == 'Carrinho' ? 'Carrinho' : 'Reservado';
+                Produto::whereIn('id_produto', $novosProdutos)->update(['status' => $statusProduto]);
             }
 
-            ProdutoReserva::create([
-                'fk_id_produto' => $idProduto,
-                'fk_id_compra'  => $id,
-                'status'        => $statusIntermediaria
-            ]);
-
-            Produto::where('id_produto', $idProduto)->update(['status' => $novoStatusProduto]);
+            if ($request->status != 'Cancelada') {
+                Produto::whereIn('id_produto', $novosProdutos)->update(['status' => $statusProduto]);
+            }
         }
-
-        return redirect()->route('admin.reservas')->with('sucesso', 'Reserva e sincronismo de estoque atualizados perfeitamente!');
+        
+        $compra->update([
+            'fk_compra_id_usuario' => $request->id_usuario,
+            'status'               => $request->status
+        ]);
+        
+        return redirect()->route('admin.reservas')->with('sucesso', 'Reserva e estoque atualizados com sucesso!');
     }
 }

@@ -1,33 +1,110 @@
 @extends('layout.site')
 
+
 @push('estilos')
     <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
 @endpush
 
+
 @section('titulo', 'Meu Perfil')
 
+
 @section('conteudo')
-    {{-- 
-      Exibe o painel principal do perfil do usuário logado (GET /perfil/meuPerfil)
-      
-      O QUE DEVE TER NO BLADE DESTA VIEW CONFORME O PROTÓTIPO:
-      - Título principal h2 ou h3: "Meu Perfil"
-      - Mensagem de boas-vindas: "Olá, seja bem - vindo!"
-      
-      - Um grid ou bloco contendo os 6 botões cinzas arredondados com bordas escuras organizados em duas linhas:
-        
-        Linha 1 (Contadores):
-        1. Botão "Reservas : {{ $totalReservas }}" -> Exibe a quantidade de reservas concluídas
-        2. Botão "Doações : {{ $totalDoacoes }}"   -> Exibe a quantidade de doações concluídas
-        3. Botão "Administrador"   -> @if($usuario->admin) <a href="{{ route('admin.gerenciar') }}" class="perfil-menu-btn">Administrador</a> @endif
-        
-        Linha 2 (Navegação):
-        4. Botão "Meus Dados"       -> <a href="{{ route('perfil.meusDados') }}" class="perfil-menu-btn">Meus Dados</a>
-        5. Botão "Minhas Reservas"  -> <a href="{{ route('perfil.minhasReservas') }}" class="perfil-menu-btn">Minhas Reservas</a>
-        6. Botão "Minhas Doações"   -> <a href="{{ route('perfil.minhasDoacoes') }}" class="perfil-menu-btn">Minhas Doações</a>
+<div class="perfil-wrapper">
+   
+    {{-- Mensagem de sucesso flutuante --}}
+    @if (session('sucesso'))
+        <div class="alert-success">
+            <i class="material-icons">check_circle</i>
+            <span>{{ session('sucesso') }}</span>
+        </div>
+    @endif
+
+
+    <div class="perfil-grid">
+       
+        <div class="perfil-card">
+            <div class="avatar-container">
+                <i class="material-icons">account_circle</i>
+            </div>
+            <h3 class="perfil-card-title">{{ Auth::user()->name }}</h3>
            
-      - Um botão centralizado de destaque (Amarelo) para efetuar o logout:
-        <a href="{{ route('login.sair') }}" class="btn-perfil-action-yellow">Sair</a>
-        Lembrar que tudo tem que ser reponsivo
-    --}}
+            <p class="perfil-card-subtitle">
+                @if(Auth::user()->admin)
+                    Administrador
+                @else
+                    Cliente Brecharme
+                @endif
+            </p>
+           
+            <hr class="perfil-separator">
+           
+            <div class="user-stats">
+                <p class="user-stat">
+                    <i class="material-icons">shopping_bag</i>
+                    <strong>Reservas:</strong> {{ Auth::user()->reservas?->count() ?? 0 }}
+                </p>
+                <p class="user-stat">
+                    <i class="material-icons">volunteer_activism</i>
+                    <strong>Doações:</strong> {{ Auth::user()->doacoes?->count() ?? 0 }}
+                </p>
+            </div>
+
+
+            <a href="{{ route('perfil.meusDados') }}" class="btn-meus-dados">
+                <i class="material-icons">manage_accounts</i>
+                Meus Dados
+            </a>
+        </div>
+
+
+        <div class="perfil-dashboard">
+           
+            <div class="welcome-box">
+                <h4>Olá, {{ explode(' ', Auth::user()->name)[0] }}!</h4>
+                <p>Bem-vindo ao seu espaço Brecharme. Aqui você pode acompanhar suas intenções de doação e verificar suas reservas feitas na nossa vitrine solidária.</p>
+            </div>
+
+
+            <div class="actions-grid">
+               
+                <div class="action-card">
+                    <div>
+                        <i class="material-icons action-card-icon">history</i>
+                        <h5 class="action-card-title">Minhas Doações</h5>
+                        <p class="action-card-text">Acompanhe o status e o histórico dos desapegos que você trouxe para o brechó.</p>
+                    </div>
+                    <a href="{{ route('perfil.minhasDoacoes') }}" class="action-card-link">
+                        Ver minhas doações <i class="material-icons">arrow_forward</i>
+                    </a>
+                </div>
+
+
+                <div class="action-card">
+                    <div>
+                        <i class="material-icons action-card-icon">receipt_long</i>
+                        <h5 class="action-card-title">Minhas Reservas</h5>
+                        <p class="action-card-text">Gerencie as peças de roupas que você selecionou e separou na vitrine.</p>
+                    </div>
+                    <a href="{{ route('perfil.minhasReservas') }}" class="action-card-link">
+                        Ver minhas reservas <i class="material-icons">arrow_forward</i>
+                    </a>
+                </div>
+
+
+            </div>
+
+
+            <div class="logout-container">
+                <a href="{{ route('login.sair') }}" class="btn-sair-dourado">
+                    Sair
+                </a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
 @endsection

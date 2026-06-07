@@ -345,8 +345,58 @@
 
 /* Estados de linhas desativadas ou vazias */
 .row-user-inactive {
-    background-color: #FAFAFA !important;
-    opacity: 0.65;
+    background-color: #f8f9fa !important;
+    opacity: 0.6 !important;
+}
+
+.text-danger-bold {
+    color: #e71d36;
+    font-size: 0.85rem;
+}
+
+.text-muted-bold {
+    color: #d90429;
+    font-size: 0.85rem;
+}
+
+.badge-arquivado {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge-user-arquivado {
+    background-color: #6c757d;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.badge-user-admin {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.badge-user-cliente {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.btn-action.check {
+    background-color: #2ec4b6;
+    color: white;
+}
+
+.btn-action.check:hover {
+    background-color: #1fa89c;
 }
 
 .empty-table {
@@ -613,4 +663,36 @@
 
 @media (max-width: 360px) {
     .btn-pill-admin { max-width: 100%; font-size: 15px; padding: 12px 15px; }
+}
+
+/* Indicadores textuais para Soft Delete / Arquivados */
+.text-danger-bold {
+    font-size: 11px;
+    display: block;
+    color: #c0392b;
+    font-weight: bold;
+}
+
+.text-muted-bold {
+    font-size: 11px;
+    display: block;
+    color: #7f8c8d;
+    font-weight: bold;
+}
+
+/* Badges de Roles/Tipos de Usuários */
+.badge-user-admin {
+    background-color: #8e44ad;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.badge-user-cliente {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
 }

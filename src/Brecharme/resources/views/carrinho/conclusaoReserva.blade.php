@@ -8,12 +8,13 @@
 
 @section('conteudo')
 <div class="sucesso-container">
+    {{-- $cliente->name funcionará perfeitamente vindo do Auth::user() do Controller --}}
     <h1 class="carrinho-title centralizado">Confirmação de Reserva - {{ $cliente->name ?? 'Cliente' }}</h1>
 
     <div class="sucesso-block">
         <div class="sucesso-header-flex">
             <div class="sucesso-badge-icon">
-                <i class="fa-solid fa-check">✔</i>
+                <i class="material-icons">check_circle</i>
             </div>
             <div class="sucesso-text-content">
                 <h2>Reserva confirmada!</h2>
@@ -30,8 +31,7 @@
             @php $itemReservados = false; @endphp
 
             @foreach($produtosReservados as $reservaConfirmada)
-                {{-- Como ->produto é uma coleção via hasManyThrough, iteramos sobre ela --}}
-                @foreach($reservaConfirmada->produto as $produto)
+                @foreach($reservaConfirmada->produtos as $produto)
                     @php $itemReservados = true; @endphp
                     <div class="detalhe-produto-linha">
                         <span>

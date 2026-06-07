@@ -11,23 +11,29 @@
     </select>
 </div>
 
+{{-- Campo de Seleção Múltipla de Produtos --}}
 <div class="form-group">
-    <label for="id_produto">Produtos da Reserva (Segure CTRL para selecionar/desmarcar)</label>
-    <select name="id_produto[]" id="id_produto" multiple required class="multiselect-tall">
+    <label for="id_produto">Produtos da Reserva (Segure CTRL no Windows ou CMD no Mac para selecionar/desmarcar)</label>
+    <select name="id_produto[]" id="id_produto" multiple required class="multiselect-tall multiselect-reservas">
         @foreach($produtos as $produto)
             @php
-                // Checa se o produto atual já está vinculado a esta compra através dos itens
                 $jaSelecionado = false;
-                if(isset($linha) && isset($linha->itens)) {
-                    $jaSelecionado = $linha->itens->contains('fk_id_produto', $produto->id_produto);
+                if(isset($linha) && isset($linha->produtos)) {
+                    $jaSelecionado = $linha->produtos->contains('id_produto', $produto->id_produto);
                 }
             @endphp
             <option value="{{ $produto->id_produto }}" {{ $jaSelecionado ? 'selected' : '' }}>
-                {{ $produto->nome }} - R$ {{ number_format($produto->valor, 2, ',', '.') }} 
-                {{ $jaSelecionado ? '📌 (Já selecionado)' : '' }}
+                @if($jaSelecionado)
+                    📌 [RESERVADO NESTA COMPRA] - {{ $produto->nome }} (R$ {{ number_format($produto->valor, 2, ',', '.') }})
+                @else
+                    {{ $produto->nome }} (R$ {{ number_format($produto->valor, 2, ',', '.') }})
+                @endif
             </option>
         @endforeach
     </select>
+    <small class="form-text text-muted form-text-helper">
+        Aviso: Itens desmarcados que já pertenciam a esta reserva voltarão automaticamente a ficar disponíveis após salvar.
+    </small>
 </div>
 
 @if(isset($linha))
@@ -46,5 +52,3 @@
         <option value="Cancelada" {{ (isset($linha) && $linha->status == 'Cancelada') ? 'selected' : '' }}>Cancelada</option>
     </select>
 </div>
-
-<input type="hidden" name="sessao" value="{{ $linha->sessao ?? session()->getId() }}">

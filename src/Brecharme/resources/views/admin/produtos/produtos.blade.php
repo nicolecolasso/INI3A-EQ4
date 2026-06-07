@@ -40,45 +40,49 @@
                         </td>
                         <td data-label="Nome">
                             <strong>{{ $linha->nome }}</strong>
-                            <div class="admin-subtext" title="{{ $linha->descricao }}">
-                                {{ Str::limit($linha->descricao, 40, '...') }}
-                            </div>
-                        </td>
-                        <td data-label="Categoria">{{ $linha->categoria ?? 'Geral' }}</td>
-                        <td data-label="Preço" class="product-price">R$ {{ number_format($linha->valor, 2, ',', '.') }}</td>
-                        
-                        <td data-label="Status">
                             @if($linha->excluido)
-                                <span class="badge badge-inactive">Inativo / Removido</span>
-                            @else
-                                <span class="badge badge-user">{{ $linha->status ?? 'Disponível' }}</span>
+                                <br><span class="text-danger-bold">(Desativado)</span>
                             @endif
                         </td>
-                        
+                        <td data-label="Categoria">{{ $linha->categoria }}</td>
+                        <td data-label="Preço">R$ {{ number_format($linha->valor, 2, ',', '.') }}</td>
+                        <td data-label="Status">
+                            @if($linha->excluido)
+                                <span class="badge badge-arquivado">Inativo</span>
+                            @else
+                                <span class="badge badge-{{ strtolower($linha->status) }}">{{ $linha->status }}</span>
+                            @endif
+                        </td>
                         <td data-label="Ações">
                             <div class="action-buttons-flex">
-                                <a href="{{ route('admin.produtos.editarProduto', $linha->id_produto) }}" class="btn-action edit" title="Editar Produto">
-                                    <i class="material-icons">edit</i>
-                                </a>
+                                
                                 
                                 @if(!$linha->excluido)
+                                    <a href="{{ route('admin.produtos.editarProduto', $linha->id_produto) }}" class="btn-action edit" title="Editar Produto">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    {{-- Botão de Desativar --}}
                                     <a href="{{ route('admin.produtos.excluir', $linha->id_produto) }}" 
                                        class="btn-action delete" 
-                                       onclick="return confirm('Tem certeza que deseja desativar este produto?');" 
+                                       onclick="return confirm('Tem certeza que deseja desativar este produto do catálogo público?');" 
                                        title="Desativar Produto">
                                         <i class="material-icons">block</i>
                                     </a>
                                 @else
-                                    <button class="btn-action delete disabled" title="Produto já desativado" disabled>
-                                        <i class="material-icons">clear</i>
-                                    </button>
+                                    {{--  Botão de Reativar se o produto estiver oculto --}}
+                                    <a href="{{ route('admin.produtos.ativar', $linha->id_produto) }}" 
+                                       class="btn-action check" 
+                                       onclick="return confirm('Deseja reativar este produto e torná-lo visível na vitrine novamente?');" 
+                                       title="Reativar Produto / Voltar para Vitrine">
+                                        <i class="material-icons">settings_backup_restore</i>
+                                    </a>
                                 @endif
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="empty-table">Nenhum produto cadastrado no acervo do Brecharme.</td>
+                        <td colspan="7" class="empty-table">Nenhum produto cadastrado.</td>
                     </tr>
                 @endforelse
             </tbody>
