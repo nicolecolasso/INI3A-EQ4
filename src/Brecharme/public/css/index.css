@@ -1,3 +1,7 @@
+/* ==========================================================================
+   ESTILOS DA PÁGINA INICIAL (INDEX) - BRECHARME
+   ========================================================================== */
+
 .home-wrapper {
     width: 100%;
     max-width: 1100px;
@@ -6,6 +10,9 @@
     background-color: #F0F0F0;
 }
 
+/* ==========================================================================
+   CARROSSEL PRINCIPAL (HERO BANNER)
+   ========================================================================== */
 .hero-carousel {
     width: 100%;
     margin-bottom: 40px;
@@ -50,11 +57,6 @@
     gap: 8px;
 }
 
-.sem-produtos {
-    font-family: var(--fonte-texto);
-    color: var(--cinza-detalhe);
-}
-
 .carousel-dots .dot {
     width: 10px;
     height: 10px;
@@ -69,6 +71,9 @@
     opacity: 1;
 }
 
+/* ==========================================================================
+   SEÇÃO: ITENS EM DESTAQUE (PRODUTOS SLIDER)
+   ========================================================================== */
 .featured-items {
     width: 100%;
     margin-bottom: 50px;
@@ -81,6 +86,11 @@
     color: var(--preto-puro);
     font-weight: normal;
     margin-bottom: 30px;
+}
+
+.sem-produtos {
+    font-family: var(--fonte-texto);
+    color: var(--cinza-detalhe);
 }
 
 .items-slider {
@@ -121,12 +131,12 @@
     width: 100%;
     overflow-x: auto;
     scroll-behavior: smooth;
-    scrollbar-width: none;
+    scrollbar-width: none; /* Esconde a barra nativa no Firefox */
     padding: 10px 0; /* Pequeno respiro para a sombra do card */
 }
 
 .items-grid::-webkit-scrollbar {
-    display: none;
+    display: none; /* Esconde a barra nativa no Chrome/Safari */
 }
 
 .item-card {
@@ -136,7 +146,6 @@
     background: #f0f0f0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
-    
     flex: 0 0 240px; 
     width: 240px;
 }
@@ -154,7 +163,6 @@
     text-decoration: none;
 }
 
-/*  Limita o tamanho máximo da foto no container */
 .item-card-image {
     width: 100%;
     height: 280px; /* Altura ideal de foto estilo e-commerce */
@@ -174,7 +182,6 @@
     transform: scale(1.04); /* Efeito sutil de zoom ao passar o mouse */
 }
 
-/* Ajuste do Overlay de informações fixado abaixo da imagem */
 .item-info-overlay {
     position: absolute;
     bottom: 0;
@@ -190,7 +197,7 @@
 
 .item-name {
     font-family: var(--fonte-texto);
-    font-size: 14px; /* Aumentado de 12px para melhorar visualização */
+    font-size: 14px; 
     font-weight: 600;
     color: #f0f0f0;
     margin: 0 0 4px 0;
@@ -207,7 +214,9 @@
     overflow: hidden;
 }
 
-/*BANNERS DUPLOS LADO A LADO*/
+/* ==========================================================================
+   BANNERS DUPLOS INTERATIVOS (CÁRITAS E LOCALIZAÇÃO)
+   ========================================================================== */
 .banners-double-row {
     display: flex;
     justify-content: space-between;
@@ -262,13 +271,8 @@
     gap: 8px;
 }
 
-.label-caritas {
-    color: #E30613;
-}
-
-.label-find {
-    color: var(--amarelo-brecho);
-}
+.label-caritas { color: #E30613; }
+.label-find { color: var(--amarelo-brecho); }
 
 .label-find .material-icons {
     font-size: 20px;
@@ -291,30 +295,9 @@
     background-color: #FF0000;
 }
 
-/* RESPONSIVIDADE (MOBILE) */
-@media (max-width: 992px) {
-    .hero-image { height: 220px; }
-    .section-title { font-size: 26px; }
-    .slider-arrow .material-icons { font-size: 40px; }
-    
-    .item-card { 
-        flex: 0 0 120px; 
-        height: 120px; 
-    }
-
-    .item-info-overlay{
-        display: none;
-    }
-    
-    .banners-double-row { 
-        flex-direction: column; 
-        gap: 20px; 
-    }
-    
-    .banner-bg-img { height: 150px; }
-}
-
-
+/* ==========================================================================
+   SEÇÃO: QUEM SOMOS
+   ========================================================================== */
 .quem-somos-container {
     width: 100%;
     max-width: 800px;
@@ -360,26 +343,56 @@
     text-align: justify;
 }
 
-@media (max-width: 768px) {
-    .quem-somos-titulo {
-        font-size: 32px;
-    }
-    
-    .quem-somos-subtitulo {
-        font-size: 28px;
-    }
-
-    .quem-somos-card {
-        padding: 20px;
-    }
-
-    .quem-somos-card p {
-        font-size: 14px;
-    }
-}
-
-.quem-somos-card li{
+.quem-somos-card li {
     margin-left: 10px;
     margin-bottom: 5px;
     list-style-type: circle;
+}
+
+/* ==========================================================================
+   📱 CONFIGURAÇÕES RESPONSIVAS (MEDIA QUERIES MÓVEL)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .hero-image { height: 220px; }
+    .section-title { font-size: 26px; }
+    .slider-arrow .material-icons { font-size: 40px; }
+    
+    /* CORRIGIDO: Largura e altura preservadas fluidamente para o carrossel deslizar */
+    .item-card { 
+        flex: 0 0 200px; 
+        width: 200px;
+        height: auto; 
+    }
+
+    .item-card-image {
+        height: 230px;
+    }
+
+    /* Adicionado suporte macio para gestos com os dedos (swipe manual) */
+    .items-grid {
+        -webkit-overflow-scrolling: touch;
+        gap: 15px;
+    }
+
+    /* Mantém as informações ativas sob a foto em telas menores para melhor UX */
+    .item-info-overlay {
+        display: block;
+        position: relative;
+        background: rgba(0, 0, 0, 0.85);
+        padding: 10px;
+    }
+    
+    .banners-double-row { 
+        flex-direction: column; 
+        gap: 20px; 
+    }
+    
+    .banner-bg-img { height: 150px; }
+}
+
+@media (max-width: 768px) {
+    .quem-somos-titulo { font-size: 32px; }
+    .quem-somos-subtitulo { font-size: 28px; }
+    .quem-somos-card { padding: 20px; }
+    .quem-somos-card p { font-size: 14px; }
 }

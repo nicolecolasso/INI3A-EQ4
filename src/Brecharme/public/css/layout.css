@@ -165,13 +165,23 @@ main {
 @media (max-width: 992px) {
     .brecharme-navbar {
         padding: 15px 20px;
-        flex-wrap: wrap;
-        gap: 10px;
+        display: flex;
+        justify-content: flex-start; /* Alinha tudo no começo (esquerda) */
+        align-items: center;
+        gap: 15px; /* Espaçamento idêntico entre o botão e a logo */
     }
 
+    /* Força o botão de hambúrguer a ser o PRIMEIRO elemento da linha */
+    .sidenav-trigger {
+        display: block; 
+        order: 1; /* Primeiro da fila */
+    }
+
+    /* Força a logo a ser o SEGUNDO elemento da linha */
     .brand-logo-container {
+        display: flex;
+        order: 2; /* Segundo da fila */
         flex-shrink: 0;
-        gap: 10px;
     }
 
     .logo-img {
@@ -186,29 +196,26 @@ main {
     .navbar-links {
         display: none; 
     }
-
-    .sidenav-trigger {
-        display: block; 
-    }
 }
 
 /* Gaveta Lateral Mobile Amarela */
 .sidenav {
     position: fixed;
     top: 0;
-    left: -280px;
+    left: -280px; /* Escondido totalmente para fora da tela no lado esquerdo */
     width: 260px;
     height: 100%;
     background-color: var(--amarelo-brecho);
-    box-shadow: 3px 0 10px rgba(0,0,0,0.15);
+    box-shadow: 3px 0 10px rgba(0,0,0,0.15); /* Sombra projetada para a direita */
     z-index: 9999;
-    transition: left 0.3s ease;
+    transition: left 0.3s ease; /* Transição suave deslizando a partir da esquerda */
     padding: 40px 20px;
     list-style: none !important;
 }
 
 .sidenav.active {
-    left: 0; 
+    left: 0; /* Desliza para dentro da tela, fixando-se na borda esquerda */
+    right: auto; /* Anula qualquer propriedade antiga de lado direito */
 }
 
 .sidenav li {
