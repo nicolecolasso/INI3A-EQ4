@@ -17,8 +17,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('login') }}" class="icon-circle" title="Carrinho">
-                    <i class="material-icons">shopping_cart</i>
+                <a href="{{ route('institucional.index') }}" class="icon-circle" title="Home">
+                    <i class="material-icons">home</i>
                 </a>
             </li>
         @endguest
@@ -44,6 +44,11 @@
             <li>
                 <a href="{{ route('carrinho') }}" class="icon-circle" title="Carrinho">
                     <i class="material-icons">shopping_cart</i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('institucional.index') }}" class="icon-circle" title="Home">
+                    <i class="material-icons">home</i>
                 </a>
             </li>
             <li><a href="{{ route('login.sair') }}" class="btn-sair">Sair</a></li>

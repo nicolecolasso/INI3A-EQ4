@@ -262,5 +262,11 @@ Route::group(['prefix' => 'perfil', 'middleware' => ['auth']], function () {
     ]);
 });
 
-Route::get('/', ['as' => 'institucional.index', 'uses' => 'App\Http\Controllers\InstitucionalController@index']);
-Route::get('/quemSomos', ['as' => 'institucional.quemSomos', 'uses' => 'App\Http\Controllers\InstitucionalController@quemSomos']);
+Route::get('/', [
+    'as' => 'institucional.index', 
+    'uses' => 'App\Http\Controllers\InstitucionalController@index'
+    ]);
+Route::get('/quemSomos', [
+    'as' => 'institucional.quemSomos', 
+    'uses' => 'App\Http\Controllers\InstitucionalController@quemSomos'
+]);
