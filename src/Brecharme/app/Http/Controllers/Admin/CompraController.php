@@ -51,7 +51,7 @@ class CompraController extends Controller
         $linha = Compra::with('produtos')->findOrFail($id);
         $usuarios = User::all();
 
-        // Traz os produtos que estão disponíveis ou que pertencem a esta compra específica
+        // Produtos que estão disponíveis ou que pertencem a esta compra específica
         $produtos = Produto::where('status', 'Disponível')
             ->orWhereHas('compras', function ($query) use ($id) {
                 $query->where('compras.id_compra', $id);
@@ -87,7 +87,6 @@ class CompraController extends Controller
         // 4. Atualizar o estoque dos itens que permaneceram ou entraram o catálogo
         if (!empty($novosProdutos)) {
             
-            // O bloco IF apenas descobre e define qual deve ser o status do produto
             if ($request->status == 'Concluída') {
                 $statusProduto = 'Vendido';
             } elseif ($request->status == 'Cancelada') {
@@ -96,7 +95,6 @@ class CompraController extends Controller
                 $statusProduto = $request->status == 'Carrinho' ? 'Carrinho' : 'Reservado';
             }
 
-            // Executa a QUERY no banco de dados UMA ÚNICA VEZ para todos os casos
             Produto::whereIn('id_produto', $novosProdutos)->update(['status' => $statusProduto]);
         }
         
