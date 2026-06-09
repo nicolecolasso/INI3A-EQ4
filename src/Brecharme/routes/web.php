@@ -165,15 +165,42 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
 });
 
 Route::group(['prefix' => 'login'], function () {
-    Route::get('/', ['as' => 'login', 'uses' => 'App\Http\Controllers\LoginController@index']);
-    Route::post('/', ['as' => 'login.entrar', 'uses' => 'App\Http\Controllers\LoginController@entrar']);
-    Route::get('/sair', ['as' => 'login.sair', 'uses' => 'App\Http\Controllers\LoginController@sair']);
-    Route::get('/novoCadastro', ['as' => 'login.novoCadastro', 'uses' => 'App\Http\Controllers\LoginController@registrar']);
-    Route::post('/salvarCadastro', ['as' => 'login.salvarCadastro', 'uses' => 'App\Http\Controllers\LoginController@salvar']);
-    Route::get('/esqueciSenha', ['as' => 'login.esqueciSenha', 'uses' => 'App\Http\Controllers\LoginController@esqueciSenha']);
-    Route::post('/enviarLink', ['as' => 'password.email', 'uses' => 'App\Http\Controllers\LoginController@enviarLinkRecuperacao']);
-    Route::get('/recuperarSenha/{token}', ['as' => 'password.reset', 'uses' => 'App\Http\Controllers\LoginController@mostrarTelaRecuperarSenha']);
-    Route::post('/atualizarSenha', ['as' => 'password.update', 'uses' => 'App\Http\Controllers\LoginController@atualizarSenha']);
+    Route::get('/', [
+        'as' => 'login', 
+        'uses' => 'App\Http\Controllers\LoginController@index'
+        ]);
+    Route::post('/', [
+        'as' => 'login.entrar', 
+        'uses' => 'App\Http\Controllers\LoginController@entrar'
+        ]);
+    Route::get('/sair', [
+        'as' => 'login.sair', 
+        'uses' => 'App\Http\Controllers\LoginController@sair'
+    ]);
+    Route::get('/novoCadastro', [
+        'as' => 'login.novoCadastro', 
+        'uses' => 'App\Http\Controllers\LoginController@registrar'
+    ]);
+    Route::post('/salvarCadastro', [
+        'as' => 'login.salvarCadastro', 
+        'uses' => 'App\Http\Controllers\LoginController@salvar'
+    ]);
+    Route::get('/esqueciSenha', [
+        'as' => 'login.esqueciSenha', 
+        'uses' => 'App\Http\Controllers\LoginController@esqueciSenha'
+    ]);
+    Route::post('/enviarLink', [
+        'as' => 'password.email', 
+        'uses' => 'App\Http\Controllers\LoginController@enviarLinkRecuperacao'
+    ]);
+    Route::get('/recuperarSenha/{token}', [
+        'as' => 'password.reset', 
+        'uses' => 'App\Http\Controllers\LoginController@mostrarTelaRecuperarSenha'
+    ]);
+    Route::post('/atualizarSenha', [
+        'as' => 'password.update', 
+        'uses' => 'App\Http\Controllers\LoginController@atualizarSenha'
+    ]);
 });
 
 Route::group(['prefix' => 'produtos'], function () {
@@ -220,7 +247,6 @@ Route::group(['prefix' => 'carrinho', 'middleware' => ['auth']], function () {
         'uses' => 'App\Http\Controllers\CarrinhoController@conclusaoReserva'
     ]);
 
-    // ✨ CORREÇÃO SEMÂNTICA: Mudamos para GET para permitir remoções rápidas via link no carrinho
     Route::get('/remover/{id_produto}', [
         'as'   => 'carrinho.remover',
         'uses' => 'App\Http\Controllers\CarrinhoController@remover'

@@ -61,13 +61,13 @@ class UsuarioController extends Controller
    
     public function excluir($id)
     {
-        // 1. Localiza as compras ativas deste utilizador que prendem stock unificado
+        // Localiza as compras ativas deste utilizador
         $comprasAtivas = Compra::where('fk_compra_id_usuario', $id)
             ->whereIn('status', ['Carrinho', 'Reservado'])
             ->get();
 
         foreach ($comprasAtivas as $compra) {
-            // Busca as linhas intermediárias da tabela pivot
+            // Busca as linhas intermediárias da tabela intermediária
             $itens = ProdutoReserva::where('fk_id_compra', $compra->id_compra)->get();
             
             foreach ($itens as $item) {
@@ -79,11 +79,10 @@ class UsuarioController extends Controller
                 $item->update(['status' => 'Cancelado']);
             }
 
-            // Atualiza o status da compra mãe
+            // Atualiza o status da compra 
             $compra->update(['status' => 'Cancelada']);
         }
 
-        // 2. Executa a exclusão lógica do utilizador com segurança
         User::find($id)->update([
             'excluido' => true,
             'data_exclusao' => now()

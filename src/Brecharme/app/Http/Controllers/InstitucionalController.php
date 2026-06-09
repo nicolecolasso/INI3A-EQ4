@@ -8,7 +8,7 @@ class InstitucionalController
     public function index()
     {
         $produtos = Produto::where('status', 'Disponível')
-                            ->where('excluido', false) // Evita exibir os deletados logicamente
+                            ->where('excluido', false) 
                             ->take(8) // Limita a quantidade para encaixar no layout horizontal
                             ->get();
 

@@ -37,7 +37,15 @@ class CompraController extends Controller
             'data_compra'          => now()
         ]);
 
-        $compra->produtos()->sync($request->id_produto);
+        $statusIntermediaria = $request->status == 'Concluída' ? 'Concluído' : ($request->status == 'Cancelada' ? 'Cancelado' : $request->status);
+    
+        $vinculoIntermediaria = [];
+        foreach ($request->id_produto as $idProd) {
+            $vinculoIntermediaria[$idProd] = ['status' => $statusIntermediaria];
+        }
+        
+        // O sync recebe um array estruturado
+        $compra->produtos()->sync($vinculoIntermediaria);
 
         // Atualiza o status dos produtos inseridos baseado no status da compra
         $statusProduto = $request->status == 'Concluída' ? 'Vendido' : ($request->status == 'Carrinho' ? 'Carrinho' : 'Reservado');
@@ -75,13 +83,33 @@ class CompraController extends Controller
         $produtosAntigos = $compra->produtos()->pluck('id_produto')->toArray();
         $novosProdutos = $request->input('id_produto', []);
         
-        // 2. Sincronizar relacionamento na tabela intermediária
-        $compra->produtos()->sync($novosProdutos);
-        
+        // Define os status correspondentes para a vitrine e para a tabela intermediária
+        if ($request->status == 'Concluída') {
+            $statusProduto = 'Vendido';
+            $statusIntermediaria   = 'Concluído';
+        } elseif ($request->status == 'Cancelada') {
+            $statusProduto = 'Disponível';
+            $statusIntermediaria   = 'Cancelado';
+        } else {
+            $statusProduto = $request->status; // 'Carrinho' ou 'Reservado'
+            $statusIntermediaria = $request->status;
+        }
+
+        // 2. Montar estrutura de sincronização salvando o histórico correto na intermediária
+        $vinculoIntermediaria = [];
+        foreach ($novosProdutos as $idProd) {
+            $vinculoIntermediaria[$idProd] = ['status' => $statusIntermediaria];
+        }
+
         // 3. Devolver produtos removidos  (Voltam a ficar Disponíveis)
         $removidos = array_diff($produtosAntigos, $novosProdutos);
         if (!empty($removidos)) {
+            // Atualiza a tabela principal e intermediária 
             Produto::whereIn('id_produto', $removidos)->update(['status' => 'Disponível']);
+            
+            foreach ($removidos as $idRemovido) {
+                $compra->produtos()->attach($idRemovido, ['status' => 'Cancelado']);
+            }
         }
         
         // 4. Atualizar o estoque dos itens que permaneceram ou entraram o catálogo

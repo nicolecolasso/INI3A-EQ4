@@ -14,7 +14,7 @@ class CheckAdmin
 
         if (!$usuarioLogado || $usuarioLogado->admin == false) {
 
-            return redirect()->route('institucional.index')->with('erro', 'Você não é admin.');
+            return redirect()->route('institucional.index')->with('erro', 'Você não é admin ou não está logado.');
         }
        
         return $next($request);

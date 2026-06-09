@@ -20,8 +20,7 @@ class ProdutoController extends Controller
 
     public function novoProduto()
     {
-        $doacoes = Doacao::all(); 
-        return view('admin.produtos.novoProduto', compact('doacoes'));
+        return view('admin.produtos.novoProduto');
     }
 
     private function ajusteDados(Request $req)
@@ -52,8 +51,7 @@ class ProdutoController extends Controller
     public function editarProduto($id)
     {
         $linha = Produto::where('id_produto', $id)->where('excluido', false)->firstOrFail();
-        $doacoes = Doacao::all(); 
-        return view('admin.produtos.editarProduto', compact('linha', 'doacoes'));
+        return view('admin.produtos.editarProduto', compact('linha'));
     }
 
     public function atualizar(Request $req, $id)
@@ -72,27 +70,37 @@ class ProdutoController extends Controller
 
     public function excluir($id)
     {
-        // 1. Localiza se o produto de peça única estava em algum carrinho/reserva aberta de usuários
-        $vinculosAtivos = ProdutoReserva::where('fk_id_produto', $id)->get();
+        $produto = Produto::where('id_produto', $id)->where('excluido', false)->firstOrFail();
 
-        foreach ($vinculosAtivos as $vinculo) {
-            $idCompra = $vinculo->fk_id_compra;
-            $vinculo->delete(); // Remove o item da transação pivot imediatamente
+        // Descobre IDs de compras possuem este produto associado em carrinhos/reservas
+        $idsComprasAfetadas = \App\Models\ProdutoReserva::where('fk_id_produto', $id)
+            ->whereIn('status', ['Carrinho', 'Reservado'])
+            ->pluck('fk_id_compra')
+            ->unique();
 
-            // Se a compra associada ficar vazia, ela é cancelada
-            $restantes = ProdutoReserva::where('fk_id_compra', $idCompra)->count();
-            if ($restantes === 0) {
-                Compra::where('id_compra', $idCompra)->update(['status' => 'Cancelada']);
+        if ($idsComprasAfetadas->isNotEmpty()) {
+            // Modifica o status na tabela pivô (intermediária) para 'Cancelado'
+            $produto->compras()->updateExistingPivotIds($idsComprasAfetadas, ['status' => 'Cancelado']);
+
+            // Verifica se as compras afetadas estão sem nenhum item ativo
+            foreach ($idsComprasAfetadas as $idCompra) {
+                $itensAtivos = \App\Models\ProdutoReserva::where('fk_id_compra', $idCompra)
+                    ->whereIn('status', ['Carrinho', 'Reservado'])
+                    ->count();
+
+                // Se não sobrou nenhum item ativo, a compra geral também é cancelada
+                if ($itensAtivos === 0) {
+                    Compra::where('id_compra', $idCompra)->update(['status' => 'Cancelada']);
+                }
             }
         }
 
-        // 2. Aplica a exclusão lógica respeitando perfeitamente o seu Enum de produtos
-        Produto::where('id_produto', $id)->update([
+        $produto->update([
             'excluido' => true,
-            'status'   => 'Reservado' // Alinhado com seu Enum ['Disponível', 'Carrinho', 'Vendido', 'Reservado']
+            'data_exclusao' => now()   
         ]);
 
-        return redirect()->route('admin.produtos')->with('sucesso', 'Produto removido com sucesso e carrinhos atualizados.');
+        return redirect()->route('admin.produtos')->with('sucesso', 'Produto excluído com sucesso. Vínculos atualizados para Cancelado.');
     }
 
     public function ativar($id)

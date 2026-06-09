@@ -29,7 +29,7 @@ class VitrineController extends Controller
         $produto = Produto::where('id_produto', $id)
                         ->where('excluido', false)
                         ->where('status', 'Disponível')
-                        ->firstOrFail(); // Se foi excluído ou reservado/vendido, dá erro 404 automaticamente
+                        ->firstOrFail(); 
 
         return view('produtos.produto', compact('produto'));
     }
@@ -46,8 +46,7 @@ class VitrineController extends Controller
         if ($req->hasFile('caminho_img')) {
             $imagem = $req->file('caminho_img');
             
-            // Gera um nome único baseado em texto aleatório (ex: 40 caracteres + .jpg)
-            // Isso evita completamente o risco de uma imagem sobrescrever outra
+            // Evita o risco de uma imagem sobrescrever outra
             $nomeImagem = $imagem->hashName(); 
 
             $targetPath = public_path('img/doacoes');

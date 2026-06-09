@@ -62,7 +62,7 @@ class DoacaoController extends Controller
     {
         $linha = Doacao::findOrFail($id);
 
-        // 🔒 TRAVA: Se já virou produto, gerencia na aba de produtos
+        // Se já virou produto não edita em doações
         if ($linha->status === 'Retirada') {
             return redirect()->route('admin.doacoes')
                 ->with('erro', 'Esta doação já foi retirada e virou um produto. Gerencie-a na aba de Produtos.');
@@ -75,13 +75,13 @@ class DoacaoController extends Controller
     {
         $doacao = Doacao::findOrFail($id);
         
-        // 🔒 TRAVA: Impede atualizações se já foi integrada ao estoque
+        // Impede atualizações se já foi integrada ao estoque
         if ($doacao->status === 'Retirada') {
             return redirect()->route('admin.doacoes')
                 ->with('erro', 'Não é possível alterar uma doação cujo produto já está no estoque.');
         }
 
-        // Se a requisição veio do botão rápido (só o status: Analise -> Aprovada / Rejeitada)
+        // Se a requisição veio do botão simplficicado
         if ($req->has('status') && !$req->has('nome')) {
             $dados = ['status' => $req->status];
         } else {
@@ -91,7 +91,6 @@ class DoacaoController extends Controller
             }
         }
 
-        // ✨ LÓGICA CORRETA: Apenas atualiza a doação. O produto não existe ainda!
         $doacao->update($dados);
 
         return redirect()->route('admin.doacoes')->with('sucesso', 'Doação atualizada com sucesso.');
@@ -122,7 +121,7 @@ class DoacaoController extends Controller
             File::copy($caminhoDoacaoFisico, $caminhoProdutoFisico);
         }
 
-        // Aqui nasce o produto real no estoque público
+        // Produto real no estoque público
         Produto::create([
             'nome'        => $doacao->nome,
             'descricao'   => $doacao->descricao,

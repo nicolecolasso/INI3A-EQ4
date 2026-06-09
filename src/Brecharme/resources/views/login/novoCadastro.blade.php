@@ -66,7 +66,7 @@
 
 
             <div class="native-input-group">
-                <label for="telefone" class="native-label">Telefone <span style="font-size: 0.8rem; opacity: 0.7;">(Opcional)</span></label>
+                <label for="telefone" class="native-label">Telefone <span class="optional-note">(Opcional)</span></label>
                 <div class="input-with-icon">
                     <i class="material-icons input-icon">phone</i>
                     <input
@@ -94,6 +94,21 @@
                 </div>
             </div>
 
+            <div class="native-input-group">
+                <label for="password_confirmation" class="native-label">Confirme a Senha</label>
+                <div class="input-with-icon">
+                    <i class="material-icons input-icon">lock_reset</i>
+                    <input
+                        type="password"
+                        id="password_confirmation"
+                        name="password_confirmation"
+                        placeholder="Repita a senha digitada"
+                        minlength="6"
+                        required>
+                    <i class="material-icons toggle-password-btn" id="toggle-password-confirm">visibility_off</i>
+                </div>
+            </div>
+
 
             <button type="submit" class="btn-login-premium">
                 Cadastrar
@@ -114,17 +129,4 @@
     </div>
 </div>
 
-
-<script>
-    document.getElementById('toggle-password')?.addEventListener('click', function () {
-        const passwordInput = document.getElementById('password');
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            this.textContent = 'visibility';
-        } else {
-            passwordInput.type = 'password';
-            this.textContent = 'visibility_off';
-        }
-    });
-</script>
 @endsection

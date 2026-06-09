@@ -16,14 +16,13 @@ use App\Models\User;
 
 class LoginController extends Controller
 {
-    /* Exibe a visão que pede usuário e senha (GET /login)*/
     public function index()
     {
         return view('login.login');
     }
 
 
-    /* Processa e autentica o formulário de login (POST /login)*/
+    /* Processa e autentica o formulário de login */
     public function entrar(Request $request)
     {
         $request->validate([
@@ -37,11 +36,12 @@ class LoginController extends Controller
             'password' => $request->input('senha')
         ];
 
-
+        /* Verifica se o usuário deseja permanecer logado */
         $remember = $request->has('remember');
 
 
         if (Auth::attempt($credenciais, $remember)) {
+            /* Regenera o ID da sessão por prevenção */
             $request->session()->regenerate();
 
 
@@ -56,15 +56,13 @@ class LoginController extends Controller
     }
 
 
-    /* Encerra a sessão do usuário (GET /login/sair) */
+    /* Encerra a sessão do usuário */
     public function sair(Request $request)
     {
         Auth::logout();
 
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
 
         return redirect()->route('institucional.index');
     }
@@ -76,16 +74,12 @@ class LoginController extends Controller
         return view('login.novoCadastro');
     }
 
-
-    /**
-     * Salva o novo usuário no banco de dados (POST /novo-cadastro)
-     */
     public function salvar(Request $request)
     {
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|confirmed',
             'telefone' => 'nullable|string|max:20'
         ]);
 
@@ -93,13 +87,11 @@ class LoginController extends Controller
         $user = new User();
         $user->name     = $request->input('name');
         $user->email    = $request->input('email');
-        $user->password = Hash::make($request->input('password')); // Hash seguro nativo do Laravel
+        $user->password = Hash::make($request->input('password')); // Hash nativo do Laravel
         $user->telefone = $request->input('telefone');
         $user->save();
 
-
-        Auth::login($user);
-
+        Auth::login($user); //Função nativa do Laravel para logar o usuário
 
         return redirect()->route('perfil.meuPerfil')->with('sucesso', 'Cadastro realizado com sucesso.');
     }
@@ -112,22 +104,15 @@ class LoginController extends Controller
         return view('login.esqueciSenha');
     }
 
-
-    /**
-     * Processa o pedido de recuperação e envia o e-mail (POST /recuperar-senha)
-     */
     public function enviarLinkRecuperacao(Request $request)
     {
         $request->validate(['email' => 'required|email']);
 
-
         $user = User::where('email', $request->email)->first();
-
 
         if (!$user) {
             return redirect()->back()->with('erro', 'Não encontramos nenhum usuário com este e-mail.');
         }
-
 
         // Gera um token aleatório único e salva na tabela padrão 'password_reset_tokens' do Laravel
         $token = Str::random(60);
@@ -136,8 +121,7 @@ class LoginController extends Controller
             ['token' => Hash::make($token), 'created_at' => now()]
         );
 
-
-        // Monta o link que será enviado por e-mail para o usuário clicar
+        // Link que será enviado por e-mail para o usuário clicar
         $link = route('password.reset', ['token' => $token, 'email' => $request->email]);
 
 
@@ -148,11 +132,8 @@ class LoginController extends Controller
                     ->html("<h3>Você solicitou a alteração de senha</h3><p>Clique no link abaixo para redefinir sua senha:</p><a href='{$link}'>Redefinir Minha Senha</a>");
         });
 
-
         return redirect()->back()->with('status', 'Enviamos um e-mail com o link de recuperação de senha!');
     }
-
-
 
 
     public function mostrarTelaRecuperarSenha(Request $request, $token)
@@ -164,13 +145,8 @@ class LoginController extends Controller
         ]);
     }
 
-
-    /**
-     * Valida os campos e altera de fato a senha no banco (POST /atualizar-senha)
-     */
     public function atualizarSenha(Request $request)
     {
-        // O Laravel valida automaticamente se 'password' é igual a 'password_confirmation' usando o 'confirmed'
         $request->validate([
             'token'    => 'required',
             'email'    => 'required|email',

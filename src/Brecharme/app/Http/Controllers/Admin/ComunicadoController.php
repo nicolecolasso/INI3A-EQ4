@@ -24,14 +24,13 @@ class ComunicadoController extends Controller
             'mensagem'             => $request->input('mensagem'),
             'data_envio'           => now(),
             'status'               => Comunicado::STATUS_PENDENTE,
-            'fk_comunicado_id_usuario' => Auth::id() // Quem enviou (o admin logado)
+            'fk_comunicado_id_usuario' => Auth::id() 
         ]);
         return redirect()->route('admin.gerenciar')->with('successo', 'Comunicado salvo e logo será enviado!');
     }
 
     public function reenviarComunicado()
     {
-        // Carrega todos os comunicados já enviados organizados pelo mais recente
         $comunicadosAntigos = Comunicado::orderBy('data_envio', 'desc')->get();
         
         return view('admin.comunicados.reenviarComunicado', compact('comunicadosAntigos'));
