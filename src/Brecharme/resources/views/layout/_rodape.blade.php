@@ -17,7 +17,7 @@
 
         <div class="footer-column">
             <h5>Siga-nos</h5>
-            <p><a href="https://instagram.com/brecharme" target="_blank" class="footer-link">@brecharme</a></p>
+            <p><a href="https://www.instagram.com/brecharme_caritasbauru/" target="_blank" class="footer-link">@brecharme_caritasbauru</a></p>
         </div>
 
         <div class="footer-column">
