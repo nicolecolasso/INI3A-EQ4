@@ -62,7 +62,7 @@ class CompraController extends Controller
         // Produtos que estão disponíveis ou que pertencem a esta compra específica
         $produtos = Produto::where('status', 'Disponível')
             ->orWhereHas('compras', function ($query) use ($id) {
-                $query->where('compras.id_compra', $id);
+                $query->where('produto_reserva.fk_id_compra', $id);
             })
             ->get();
 

@@ -33,7 +33,7 @@ class CarrinhoController extends Controller
 
         // Carrega as peças vinculadas para mudar o status de 'Carrinho' para 'Reservado'
         $produtosId = $compra->produtos()->pluck('id_produto')->toArray();
-        $compra->produtos()->updateExistingPivotIds($produtosId, ['status' => 'Reservado']);
+        $compra->produtos()->whereIn('id_produto', $produtosId)->update(['status' => 'Reservado']);
 
         Produto::whereIn('id_produto', $produtosId)->update(['status' => 'Reservado']);
 
@@ -51,7 +51,7 @@ class CarrinhoController extends Controller
             ->orderBy('data_compra', 'desc')
             ->get();
 
-        return view('conclusaoReserva', compact('cliente', 'produtosReservados'));
+        return view('carrinho.conclusaoReserva', compact('cliente', 'produtosReservados'));
     }
 
     public function remover($id_produto)

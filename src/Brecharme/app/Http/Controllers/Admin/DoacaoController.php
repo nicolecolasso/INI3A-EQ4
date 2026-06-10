@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Doacao;
 use App\Models\Produto;
 use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\Auth;
 
 class DoacaoController extends Controller
 {
@@ -54,6 +55,7 @@ class DoacaoController extends Controller
     public function salvar(Request $req)
     {
         $dados = $this->ajusteDados($req);
+        $dados['fk_doacao_id_usuario'] = Auth::id();
         Doacao::create($dados);
         return redirect()->route('admin.doacoes');
     }

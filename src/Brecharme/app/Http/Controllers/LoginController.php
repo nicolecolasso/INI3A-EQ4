@@ -33,7 +33,8 @@ class LoginController extends Controller
 
         $credenciais = [
             'email'    => $request->input('email'),
-            'password' => $request->input('senha')
+            'password' => $request->input('senha'),
+            'excluido' => false
         ];
 
         /* Verifica se o usuário deseja permanecer logado */
@@ -108,7 +109,8 @@ class LoginController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        $user = User::where('email', $request->email)->first();
+        // Altere no método enviarLinkRecuperacao:
+        $user = User::where('email', $request->email)->where('excluido', false)->first();
 
         if (!$user) {
             return redirect()->back()->with('erro', 'Não encontramos nenhum usuário com este e-mail.');

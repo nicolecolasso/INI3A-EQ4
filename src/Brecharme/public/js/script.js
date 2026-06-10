@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ==========================================================================
-   X. ESCUTAS DE CLIQUE ADICIONAIS EXTERNOS (FECHAMENTO DE OVERLAYS)
+   10. ESCUTAS DE CLIQUE ADICIONAIS EXTERNOS (FECHAMENTO DE OVERLAYS)
    ========================================================================== */
 document.addEventListener('click', function (event) {
     const filtroContainer = document.querySelector('.filtrar-container');
@@ -293,5 +293,36 @@ document.addEventListener('click', function (event) {
     const modalReserva = document.getElementById("modalDetalhesReserva");
     if (modalReserva && event.target === modalReserva) {
         modalReserva.classList.remove("modal-active");
+    }
+});
+
+/*
+* 11. PREVISUALIZAÇÃO DE COMUNICADOS ANTIGOS NO FORMULÁRIO DE CRIAÇÃO/EDIÇÃO DE COMUNICADOS  
+*/
+
+document.addEventListener('DOMContentLoaded', function () {
+    const selectHistorico = document.getElementById('comunicado_historico');
+    const inputAssunto = document.getElementById('assunto');
+    const textareaMensagem = document.getElementById('mensagem');
+
+    if (selectHistorico && inputAssunto && textareaMensagem) {
+        selectHistorico.addEventListener('change', function () {
+            // Pega a opção que foi selecionada pelo usuário
+            const opcaoSelecionada = this.options[this.selectedIndex];
+
+            if (opcaoSelecionada && opcaoSelecionada.value !== "") {
+                // Captura os dados guardados nos atributos 'data-' da option
+                const assuntoAntigo = opcaoSelecionada.getAttribute('data-assunto');
+                const mensagemAntiga = opcaoSelecionada.getAttribute('data-mensagem');
+
+                // Injeta os dados capturados diretamente nos inputs do seu _form.blade.php
+                inputAssunto.value = assuntoAntigo;
+                textareaMensagem.value = mensagemAntiga;
+            } else {
+                // Se o usuário selecionar a opção padrão "Selecione um comunicado", limpa os campos
+                inputAssunto.value = '';
+                textareaMensagem.value = '';
+            }
+        });
     }
 });

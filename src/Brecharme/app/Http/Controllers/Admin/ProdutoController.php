@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Produto;
-use App\Models\Doacao;
-use App\Models\ProdutoReserva;
 use App\Models\Compra;
 use Illuminate\Support\Facades\File;
 

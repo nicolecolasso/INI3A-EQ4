@@ -83,7 +83,7 @@
                 <div class="action-card">
                     <div>
                         <i class="material-icons action-card-icon">receipt_long</i>
-                        <h5 class="action-card-title">Minhas Reservas</h5>
+                        <h5 class="action-card-title">Minhas Compras</h5>
                         <p class="action-card-text">Gerencie as peças de roupas que você selecionou e separou na vitrine.</p>
                     </div>
                     <a href="{{ route('perfil.minhasReservas') }}" class="action-card-link">
