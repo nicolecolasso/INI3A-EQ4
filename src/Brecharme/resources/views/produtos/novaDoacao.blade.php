@@ -20,20 +20,20 @@
             </div>
 
             <div class="form-group">
-                <label for="categoria">Selecione uma categoria</label>
-                <div class="select-wrapper">
-                    <select name="categoria" id="categoria" required>
-                        <option value="" disabled selected>Selecione</option>
-                        <option value="Roupas">Roupas</option>
-                        <option value="Calçados">Calçados</option>
-                        <option value="Acessórios">Acessórios</option>
-                        <option value="Eletrônicos">Eletrônicos</option>
-                        <option value="Móveis">Móveis</option>
-                        <option value="Brinquedos">Brinquedos</option>
-                        <option value="Outros">Outros</option>
-                    </select>
-                    <i class="material-icons select-icon">expand_more</i>
-                </div>
+                <label for="categoria_nome">Categoria da Doação</label>
+                <input type="text" 
+                    name="categoria_nome" 
+                    id="categoria_nome" 
+                    list="categorias_salvas" 
+                    value="{{ $doacao->categoria->nome ?? '' }}" 
+                    required 
+                    placeholder="Digite para buscar ou criar uma nova...">
+                
+                <datalist id="categorias_salvas">
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->nome }}">
+                    @endforeach
+                </datalist>
             </div>
 
             <div class="form-group">
@@ -52,9 +52,14 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group checkbox-field">
+                <input type="checkbox" name="necessita_retirada" id="necessita_retirada" value="1">
+                <label for="necessita_retirada">Solicitar que a equipe do Brechó faça a retirada no meu endereço</label>
+            </div> 
+
+            <div class="form-group" id="box-localizacao">
                 <label for="localizacao">Localização para retirada</label>
-                <input type="text" name="localizacao" id="localizacao" placeholder="Rua, número, bairro e cidade" required>
+                <input type="text" name="localizacao" id="localizacao" placeholder="Rua, número, bairro e cidade" >
             </div>
 
             <div class="form-actions">

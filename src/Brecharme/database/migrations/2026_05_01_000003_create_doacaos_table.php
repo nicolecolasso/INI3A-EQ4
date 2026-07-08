@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('doacao', function (Blueprint $table) {
             $table->increments('id_doacao');
             $table->string('nome');
-            $table->enum('categoria', ['Roupas', 'Calçados', 'Acessórios', 'Eletrônicos', 'Móveis', 'Brinquedos', 'Outros'])->default('Outros');
             $table->text('descricao');
             $table->string('caminho_img');
-            $table->string('localizacao');
-            $table->enum('status', ['Analise', 'Aprovada', 'Rejeitada', 'Retirada', 'Cancelada'])->default('Analise');
+            $table->string('localizacao')->nullable();
+            $table->enum('status', ['Em Análise', 'Aprovada', 'Integrada ao Estoque', 'Recusada', 'Cancelada'])->default('Em Análise');
             $table->timestamp('data_doacao')->useCurrent();
 
             $table->foreignId('fk_doacao_id_usuario')->references('id')->on('users')->onDelete('cascade');
-            
+            $table->foreignId('fk_id_categoria')->constrained('categorias', 'id_categoria');
+
             $table->timestamps();
         });
     }

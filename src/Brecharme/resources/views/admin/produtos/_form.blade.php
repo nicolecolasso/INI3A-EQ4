@@ -4,19 +4,21 @@
 </div>
 
 <div class="form-group">
-    <label for="categoria">Categoria</label>
-    <div class="select-wrapper">
-        <select name="categoria" id="categoria" required>
-            <option value="Outros" {{ (isset($linha->categoria) && $linha->categoria == 'Outros') ? 'selected' : '' }}>Outros</option>
-            <option value="Roupas" {{ (isset($linha->categoria) && $linha->categoria == 'Roupas') ? 'selected' : '' }}>Roupas</option>
-            <option value="Calçados" {{ (isset($linha->categoria) && $linha->categoria == 'Calçados') ? 'selected' : '' }}>Calçados</option>
-            <option value="Acessórios" {{ (isset($linha->categoria) && $linha->categoria == 'Acessórios') ? 'selected' : '' }}>Acessórios</option>
-            <option value="Eletrônicos" {{ (isset($linha->categoria) && $linha->categoria == 'Eletrônicos') ? 'selected' : '' }}>Eletrônicos</option>
-            <option value="Móveis" {{ (isset($linha->categoria) && $linha->categoria == 'Móveis') ? 'selected' : '' }}>Móveis</option>
-            <option value="Brinquedos" {{ (isset($linha->categoria) && $linha->categoria == 'Brinquedos') ? 'selected' : '' }}>Brinquedos</option>
-        </select>
-        <i class="material-icons select-icon">expand_more</i>
-    </div>
+    <label for="categoria_nome">Categoria do Produto</label>
+    <input type="text" 
+           name="categoria_nome" 
+           id="categoria_nome" 
+           list="categorias_salvas" 
+           value="{{ $linha->categoria->nome ?? '' }}" 
+           required 
+           placeholder="Digite para buscar ou criar uma nova...">
+    
+    {{-- Auto-complete --}}
+    <datalist id="categorias_salvas">
+        @foreach($categorias as $categoria)
+            <option value="{{ $categoria->nome }}">
+        @endforeach
+    </datalist>
 </div>
 
 <div class="form-group">

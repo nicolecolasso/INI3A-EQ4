@@ -8,7 +8,7 @@
 
 @section('conteudo')
 <div class="form-container-admin">
-    <h3 class="form-titulo">Editar Doação: {{ $linha->categoria }}</h3>
+    <h3 class="form-titulo">Editar Doação: {{ $linha->nome }}</h3>
     
     <div class="row-form">
         <form action="{{ route('admin.doacoes.atualizar', ['id' => $linha->id_doacao]) }}" method="post" enctype="multipart/form-data">

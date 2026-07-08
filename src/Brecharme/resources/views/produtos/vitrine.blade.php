@@ -8,26 +8,53 @@
 
 @section('conteudo')
 <div class="vitrine-container">
+    <h1 class="vitrine-title">Produtos</h1>
+    
     <div class="vitrine-header">
-        <h1 class="vitrine-title">Produtos</h1>
-       
-        <div class="filtrar-container">
-            <button class="filtrar-btn" type="button">
+        <form action="{{ route('produtos.buscar') }}" method="GET" class="vitrine-search-filter-inline-form">
+            
+            {{-- 1. Campo de Busca Principal --}}
+            <div class="inline-search-box">
+                <input type="search" id="campo-busca" name="q" value="{{ request('q') }}" placeholder="Digite o que procura...">
+                <button type="submit" class="inline-search-btn">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>
+
+            {{-- 2. Seletor Compacto de Categorias --}}
+            <div class="inline-filter-select-wrapper">
+                <select name="categoria" id="categoria">
+                    <option value="">Todas as categorias</option>
+                    @foreach($categorias as $cat)
+                        <option value="{{ $cat->id_categoria }}" {{ request('categoria') == $cat->id_categoria ? 'selected' : '' }}>
+                            {{ $cat->nome }}
+                        </option>
+                    @endforeach
+                </select>
+                <i class="material-icons inline-select-seta">expand_more</i>
+            </div>
+
+            {{-- 3. Inputs Compactos de Preço Lado a Lado --}}
+            <div class="inline-price-range-group">
+                <input type="number" name="preco_min" id="preco_min" min="0" step="0.01" value="{{ request('preco_min') }}" placeholder="Min R$">
+                <span class="inline-price-separator">até</span>
+                <input type="number" name="preco_max" id="preco_max" min="0" step="0.01" value="{{ request('preco_max') }}" placeholder="Max R$">
+            </div>
+
+            {{-- 4. Botão de Ação --}}
+            <button type="submit" class="btn-inline-filtrar" title="Aplicar Filtros">
                 <i class="material-icons">tune</i>
                 <span>Filtrar</span>
             </button>
-           
-            <div class="filtro-dropdown" id="filtroDropdown">
-                <a href="{{ route('produtos.vitrine') }}" class="filtro-item">Todos</a>
-                <a href="{{ route('produtos.vitrine', ['categoria' => 'Roupas']) }}" class="filtro-item">Roupas</a>
-                <a href="{{ route('produtos.vitrine', ['categoria' => 'Calçados']) }}" class="filtro-item">Calçados</a>
-                <a href="{{ route('produtos.vitrine', ['categoria' => 'Acessórios']) }}" class="filtro-item">Acessórios</a>
-                <a href="{{ route('produtos.vitrine', ['categoria' => 'Eletrônicos']) }}" class="filtro-item">Eletrônicos</a>
-                <a href="{{ route('produtos.vitrine', ['categoria' => 'Móveis']) }}" class="filtro-item">Móveis</a>
-                <a href="{{ route('produtos.vitrine', ['categoria' => 'Brinquedos']) }}" class="filtro-item">Brinquedos</a>
-                <a href="{{ route('produtos.vitrine', ['categoria' => 'Outros']) }}" class="filtro-item">Outros</a>
-            </div>
-        </div>
+
+            {{-- 5. Link de Limpar (Se houver filtros ativos) --}}
+            @if(request()->filled('categoria') || request()->filled('preco_min') || request()->filled('preco_max') || request()->filled('q'))
+                <a href="{{ route('produtos.buscar') }}" class="btn-inline-limpar" title="Limpar Tudo">
+                    <i class="material-icons">clear</i>
+                </a>
+            @endif
+
+        </form>
     </div>
 
     <div class="produtos-grid">

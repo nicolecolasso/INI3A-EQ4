@@ -16,6 +16,52 @@
         </a>
     </header>
 
+    <div class="admin-filters-wrapper">
+        <form action="{{ route('admin.reservas.buscar') }}" method="GET" class="filters-form">
+
+            <div class="filter-field">
+                <label for="filter-termo">Cliente ou email</label>
+                <div class="filter-input-icon">
+                    <i class="material-icons">search</i>
+                    <input type="text" name="termo" id="filter-termo" value="{{ request('termo') }}" placeholder="Nome ou e-mail...">
+                </div>
+            </div>
+
+            <div class="filter-field">
+                <label for="filter-status">Status</label>
+                <div class="filter-input-icon">
+                    <i class="material-icons">assignment</i>
+                    <select name="status" id="filter-status">
+                        <option value="">Todos os status</option>
+                        <option value="Reservado" {{ request('status') === 'Reservado' ? 'selected' : '' }}>Reservado</option>
+                        <option value="Carrinho" {{ request('status') === 'Carrinho' ? 'selected' : '' }}>No Carrinho</option>
+                        <option value="Concluída" {{ request('status') === 'Concluída' ? 'selected' : '' }}>Concluída</option>
+                        <option value="Cancelada" {{ request('status') === 'Cancelada' ? 'selected' : '' }}>Cancelada</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-field">
+                <label for="meuCalendario">Data</label>
+                <div class="filter-input-icon">
+                    <i class="material-icons">calendar_today</i>
+                    <input type="date" name="data" id="meuCalendario" value="{{ request('data') }}">
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="btn-filter-submit" title="Filtrar Resultados">
+                    <i class="material-icons">search</i> Filtrar
+                </button>
+                @if(request()->filled('termo') || request()->filled('status') || request()->filled('data'))
+                    <a href="{{ route('admin.reservas') }}" class="btn-filter-clear" title="Limpar Filtros">
+                        <i class="material-icons">clear</i>
+                    </a>
+                @endif
+            </div>
+        </form>
+    </div>
+
     <div class="table-responsive">
         <table class="admin-table">
             <thead>

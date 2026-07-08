@@ -15,6 +15,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@doacoes'
     ]);
 
+    Route::get('doacoes/buscar', [
+        'as'   => 'admin.doacoes.buscar',
+        'uses' => 'App\Http\Controllers\Admin\DoacaoController@buscar'
+    ]);
+
     Route::get('doacoes/novaDoacao', [
         'as'   => 'admin.doacoes.novaDoacao',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@novaDoacao'
@@ -36,9 +41,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@atualizar'
     ]);
 
-    Route::post('doacoes/retirar/{id}', [
-        'as'   => 'admin.doacoes.retirar',
-        'uses' => 'App\Http\Controllers\Admin\DoacaoController@retirar'
+    Route::post('doacoes/integrar/{id}', [
+        'as'   => 'admin.doacoes.integrar',
+        'uses' => 'App\Http\Controllers\Admin\DoacaoController@integrar'
     ]);
 
     Route::post('doacoes/rejeitar/{id}', [
@@ -46,11 +51,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@rejeitar'
     ]);
 
+    Route::post('doacoes/aceitar/{id}', [
+        'as'   => 'admin.doacoes.aceitar',
+        'uses' => 'App\Http\Controllers\Admin\DoacaoController@aceitar'
+    ]);
+
 
     // Produtos - Painel Administrativo
     Route::get('produtos/produtos', [
         'as'   => 'admin.produtos',
         'uses' => 'App\Http\Controllers\Admin\ProdutoController@produtos'
+    ]);
+
+    Route::get('produtos/buscar', [
+        'as'   => 'admin.produtos.buscar',
+        'uses' => 'App\Http\Controllers\Admin\ProdutoController@buscar'
     ]);
 
     Route::get('produtos/novoProduto', [
@@ -89,6 +104,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\CompraController@reservas'
     ]);
 
+    Route::get('reservas/buscar', [
+        'as'   => 'admin.reservas.buscar',
+        'uses' => 'App\Http\Controllers\Admin\CompraController@buscar'
+    ]);
+
     Route::get('reservas/novaReserva', [
         'as'   => 'admin.reservas.novaReserva',
         'uses' => 'App\Http\Controllers\Admin\CompraController@novaReserva'
@@ -114,6 +134,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
     Route::get('usuarios/usuarios', [
         'as'   => 'admin.usuarios',
         'uses' => 'App\Http\Controllers\Admin\UsuarioController@usuarios'
+    ]);
+
+    Route::get('usuarios/buscar', [
+        'as'   => 'admin.usuarios.buscar',
+        'uses' => 'App\Http\Controllers\Admin\UsuarioController@buscar'
     ]);
 
     Route::get('usuarios/novoUsuario', [
@@ -207,6 +232,11 @@ Route::group(['prefix' => 'produtos'], function () {
     Route::get('/vitrine', [
         'as' => 'produtos.vitrine',
         'uses' => 'App\Http\Controllers\VitrineController@vitrine'
+    ]);
+
+    Route::get('/buscar', [
+        'as' => 'produtos.buscar',
+        'uses' => 'App\Http\Controllers\VitrineController@buscar'
     ]);
 
     Route::group(['middleware' => ['auth']], function () {

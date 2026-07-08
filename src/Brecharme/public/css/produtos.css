@@ -22,96 +22,207 @@
     width: 100%;
 }
 
+.vitrine-title {
+    font-family: var(--fonte-titulo) !important;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
 /* Header da Vitrine */
 .vitrine-header {
+    width: 100%;
+    margin-bottom: 35px;
+    box-sizing: border-box;
+}
+
+/* 
+   BARRA DE FILTROS E BUSCA 
+ */
+
+.vitrine-search-filter-inline-form {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 1rem;
+    gap: 12px;
+    width: 100%;
+    background-color: #fafafa;
+    border: 1px solid #000000;
+    border-radius: 50px; /* Formato pílula englobando todo o conjunto */
+    padding: 6px 12px 6px 6px;
+    box-sizing: border-box;
 }
 
-/* Título Principal (Fonte elegante "The Seasons") */
-.vitrine-title {
-    font-family: var(--fonte-titulo), serif !important;
-    font-size: 2.5rem;
-    font-weight: normal;
-    letter-spacing: 0.05em;
-    margin: 0;
-    color: #333;
-}
-
-/* Container do Filtro */
-.filtrar-container {
+.inline-search-box {
     position: relative;
-}
-
-/* Botão Filtrar (Fonte legível "Montserrat") */
-.filtrar-btn {
+    flex: 2; /* Ganha mais espaço proporcional na barra */
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border: 2px solid #333;
-    border-radius: 25px;
-    background-color: transparent;
-    color: #333;
-    font-size: 1rem;
-    font-weight: 500;
-    font-family: var(--fonte-texto), sans-serif !important;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.filtrar-btn:hover {
-    background-color: #f5f5f5;
+.inline-search-box input[type="search"] {
+    width: 100%;
+    height: 40px;
+    padding: 0 40px 0 16px;
+    border: none;
+    background: transparent;
+    font-family: var(--fonte-texto), sans-serif;
+    font-size: 0.95rem;
+    color: #333333;
+    box-sizing: border-box;
 }
 
-.filtrar-btn i {
-    font-size: 1.25rem;
+.inline-search-box input[type="search"]:focus {
+    outline: none;
 }
 
-/* Dropdown de Categorias do Filtro */
-.filtro-dropdown {
+.inline-search-btn {
     position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: white;
-    border: 2px solid #333;
-    border-radius: 8px;
-    min-width: 200px;
-    margin-top: 0.5rem;
-    display: none;
-    flex-direction: column;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-}
-
-.filtro-dropdown.ativo {
+    right: 8px;
+    background: none;
+    border: none;
+    color: #000000;
+    cursor: pointer;
     display: flex;
+    align-items: center;
 }
 
-.filtro-item {
-    padding: 0.75rem 1.5rem;
+/* 2. Wrapper do Select de Categorias */
+.inline-filter-select-wrapper {
+    position: relative;
+    flex: 1;
+    border-left: 1px solid #dddddd; /* Divisor sutil entre busca e categoria */
+    padding-left: 12px;
+}
+
+.inline-filter-select-wrapper select {
+    width: 100%;
+    height: 40px;
+    padding: 0 28px 0 8px;
+    border: none;
+    background: transparent;
+    font-family: var(--fonte-texto), sans-serif;
+    font-size: 0.9rem;
+    color: #333333;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.inline-filter-select-wrapper select:focus {
+    outline: none;
+}
+
+.inline-select-seta {
+    position: absolute;
+    right: 4px;
+    top: 9px;
+    color: #555555;
+    pointer-events: none;
+    font-size: 22px;
+}
+
+/* 3. Grupo de Faixa de Preço */
+.inline-price-range-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-left: 1px solid #dddddd; /* Divisor sutil entre categoria e preço */
+    padding-left: 12px;
+    flex: 1.2;
+}
+
+.inline-price-range-group input[type="number"] {
+    width: 100%;
+    height: 36px;
+    padding: 0 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #ffffff;
+    font-family: var(--fonte-texto), sans-serif;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.inline-price-range-group input[type="number"]:focus {
+    border-color: var(--amarelo-brecho);
+    outline: none;
+}
+
+.inline-price-separator {
+    font-size: 0.8rem;
+    color: #777777;
+    font-family: var(--fonte-texto), sans-serif;
+}
+
+/* 4. Botão Filtrar Redondo/Pílula */
+.btn-inline-filtrar {
+    height: 40px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    padding: 0 18px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: var(--fonte-texto), sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+}
+
+.btn-inline-filtrar:hover {
+    background-color: #222222;
+}
+
+/* 5. Botão Limpar Rápido */
+.btn-inline-limpar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e2e2e2;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    color: #333;
-    font-size: 1rem;
-    transition: background-color 0.2s ease;
-    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.2s;
 }
 
-.filtro-item:hover {
-    background-color: #f5f5f5;
+.btn-inline-limpar:hover {
+    background-color: #ff3b30;
+    color: #ffffff;
 }
 
-.filtro-item:last-child {
-    border-bottom: none;
-}
+/* Responsividade completa para telas menores (Celular) */
+@media (max-width: 850px) {
+    .vitrine-search-filter-inline-form {
+        flex-direction: column;
+        border-radius: 12px;
+        padding: 12px;
+        gap: 14px;
+    }
+    
+    .inline-filter-select-wrapper,
+    .inline-price-range-group {
+        border-left: none;
+        padding-left: 0;
+        width: 100%;
+    }
+    
+    .inline-filter-select-wrapper {
+        border-bottom: 1px solid #eeeeee;
+        padding-bottom: 8px;
+    }
 
-/* ==================================================================
-   📦 3. GRID E CRIAÇÃO DOS CARDS DE PRODUTOS
-   ================================================================== */
+    .btn-inline-filtrar {
+        width: 100%;
+        justify-content: center;
+    }
+}
 
 /* Grid Principal */
 .produtos-grid {

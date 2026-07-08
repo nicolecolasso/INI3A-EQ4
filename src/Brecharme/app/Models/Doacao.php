@@ -12,13 +12,13 @@ class Doacao extends Model
 
     protected $fillable = [
         'nome',
-        'categoria',
         'descricao',
         'caminho_img',
         'localizacao',
         'status',
         'data_doacao',
         'fk_doacao_id_usuario', 
+        'fk_id_categoria',
     ];
 
     protected $casts = [
@@ -33,5 +33,10 @@ class Doacao extends Model
     public function produtoGerado()
     {
         return $this->hasOne(Produto::class, 'fk_produto_id_doacao', 'id_doacao');
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'fk_id_categoria', 'id_categoria');
     }
 }

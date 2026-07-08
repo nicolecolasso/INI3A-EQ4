@@ -17,6 +17,39 @@ class UsuarioController extends Controller
         return view('admin.usuarios.usuarios', compact('linhas'));
     }
 
+    public function buscar(Request $request)
+    {
+        $query = User::query();
+
+        if ($request->filled('nome')) {
+            $query->where('name', 'ilike', '%' . $request->input('nome') . '%')->orderBy('name', 'asc');
+        }
+
+        if ($request->filled('email')) {
+            $query->where('email', 'ilike', '%' . $request->input('email') . '%')->orderBy('email', 'asc');
+        }
+
+        if ($request->filled('status')) {
+            if ($request->input('status') === 'ativo') {
+                $query->where('excluido', false)->orderBy('id', 'desc');
+            } elseif ($request->input('status') === 'inativo') {
+                $query->where('excluido', true)->orderBy('data_exclusao', 'desc');
+            }
+        }
+
+        if($request->filled('admin')) {
+            if ($request->input('admin') === 'sim') {
+                $query->where('admin', true)->orderBy('id', 'desc');
+            } elseif ($request->input('admin') === 'nao') {
+                $query->where('admin', false)->orderBy('id', 'desc');
+            }
+        }
+
+        $linhas = $query->get();
+
+        return view('admin.usuarios.usuarios', compact('linhas'));
+    }
+
     public function novoUsuario()
     {
         return view('admin.usuarios.novoUsuario');

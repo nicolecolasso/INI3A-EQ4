@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Compra;
+use App\Models\Categoria;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 
 class ProdutoController extends Controller
@@ -13,12 +15,45 @@ class ProdutoController extends Controller
     public function produtos()
     {
         $linhas = Produto::orderBy('id_produto', 'desc')->get();
-        return view('admin.produtos.produtos', compact('linhas'));
+        $categorias = Categoria::orderBy('nome', 'asc')->get();
+        return view('admin.produtos.produtos', compact('linhas', 'categorias'));
+    }
+
+    public function buscar(Request $request)
+    {
+        $query = Produto::query();
+
+        if ($request->filled('nome')) {
+            $query->where('nome', 'ilike', '%' . $request->input('nome') . '%')->orderBy('nome', 'asc');
+        }
+
+        if ($request->filled('categoria')) {
+            $query->where('fk_id_categoria', $request->input('categoria'));
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        if ($request->filled('excluido')) {
+            if ($request->input('excluido') === 'ativo') {
+                $query->where('excluido', false);
+            } elseif ($request->input('excluido') === 'inativo') {
+                $query->where('excluido', true);
+            }
+        }
+
+        $linhas = $query->orderBy('id_produto', 'desc')->get();
+        
+        $categorias = Categoria::orderBy('nome', 'asc')->get();
+
+        return view('admin.produtos.produtos', compact('linhas', 'categorias'));
     }
 
     public function novoProduto()
     {
-        return view('admin.produtos.novoProduto');
+        $categorias = Categoria::orderBy('nome', 'asc')->get();
+        return view('admin.produtos.novoProduto', compact('categorias'));
     }
 
     private function ajusteDados(Request $req)
@@ -41,29 +76,64 @@ class ProdutoController extends Controller
 
     public function salvar(Request $req)
     {
+        $req->validate([
+            'nome'           => 'required|string',
+            'valor'          => 'required|numeric',
+            'categoria_nome' => 'required|string|max:255',
+            'descricao'      => 'required|string',
+            'caminho_img'    => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         $dados = $this->ajusteDados($req);
+
+        $categoria = Categoria::firstOrCreate([
+            'nome' => Str::title(trim($req->input('categoria_nome')))
+        ]);
+
+        $dados['status'] = 'Disponível';
+
+        $dados['fk_id_categoria'] = $categoria->id_categoria;
+
         Produto::create($dados);
+
         return redirect()->route('admin.produtos');
     }
 
     public function editarProduto($id)
     {
         $linha = Produto::where('id_produto', $id)->where('excluido', false)->firstOrFail();
-        return view('admin.produtos.editarProduto', compact('linha'));
+        $categorias = Categoria::orderBy('nome', 'asc')->get();
+
+        return view('admin.produtos.editarProduto', compact('linha', 'categorias'));
     }
 
     public function atualizar(Request $req, $id)
     {
         $produto = Produto::where('id_produto', $id)->where('excluido', false)->firstOrFail();
         $dados = $this->ajusteDados($req);
+
+        $req->validate([
+            'nome'           => 'required|string',
+            'valor'          => 'required|numeric',
+            'categoria_nome' => 'required|string|max:255',
+            'descricao'      => 'required|string',
+            'caminho_img'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'status'         => 'required|in:Disponível,Carrinho,Reservado,Vendido'
+        ]);
         
         if (!$req->hasFile('caminho_img')) {
             $dados['caminho_img'] = $produto->caminho_img;
         }
 
+        $categoria = Categoria::firstOrCreate([
+            'nome' => Str::title(trim($req->input('categoria_nome')))
+        ]);
+
+        $dados['fk_id_categoria'] = $categoria->id_categoria;
+
         $produto->update($dados);
 
-        return redirect()->route('admin.produtos')->with('sucesso', 'Produto updated successfully!');
+        return redirect()->route('admin.produtos')->with('sucesso', 'Produto atualizado com sucesso!');
     }
 
     public function excluir($id)

@@ -234,17 +234,17 @@ document.addEventListener("DOMContentLoaded", function () {
        9. MODAL DE PRECIFICAÇÃO E RETIRADA DE DOAÇÕES (ADMIN)
        ========================================================================== */
     const modalPreco = document.getElementById('modalPreco');
-    const formRetirar = document.getElementById('formRetirarPreco');
+    const formIntegrarPreco = document.getElementById('formIntegrarPreco');
     const textoItem = document.getElementById('modalTextoItem');
 
-    if (modalPreco && formRetirar && textoItem) {
+    if (modalPreco && formIntegrarPreco && textoItem) {
         document.querySelectorAll('.btn-abrir-modal, .btn-open-modal-ship').forEach(botao => {
             botao.addEventListener('click', function () {
                 const id = this.dataset.id || this.dataset.doacaoId;
                 const nome = this.dataset.nome || this.dataset.doacaoNome;
                 
                 textoItem.innerText = "Defina o valor de mercado para o item: " + nome;
-                formRetirar.action = `${window.location.origin}/admin/doacoes/retirar/${id}`;
+                formIntegrarPreco.action = `${window.location.origin}/admin/doacoes/integrar/${id}`;
                 modalPreco.style.display = "flex";
 
                 const inputPreco = document.getElementById('preco_venda');
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('.btn-close-modal').forEach(botao => {
             botao.addEventListener('click', () => {
                 modalPreco.style.display = "none";
-                formRetirar.reset();
+                formIntegrarPreco.reset();
             });
         });
     }
@@ -286,7 +286,7 @@ document.addEventListener('click', function (event) {
     const modalPreco = document.getElementById('modalPreco');
     if (modalPreco && event.target === modalPreco) {
         modalPreco.style.display = "none";
-        const form = document.getElementById('formRetirarPreco');
+        const form = document.getElementById('formIntegrarPreco');
         if (form) form.reset();
     }
 
@@ -325,4 +325,27 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+});
+
+/*
+* 12. VISUALIZAÇÃO DO CAMPO DE LOCALIZAÇÃO NO FORMULÁRIO DE DOAÇÕES 
+*/
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('necessita_retirada');
+    const boxLocalizacao = document.getElementById('box-localizacao');
+    const inputLocalizacao = document.getElementById('localizacao');
+
+    function alternarVisibilidade() {
+        if (checkbox.checked) {
+            boxLocalizacao.style.display = 'block';
+            inputLocalizacao.setAttribute('required', 'required');
+        } else {
+            boxLocalizacao.style.display = 'none';
+            inputLocalizacao.removeAttribute('required');
+            inputLocalizacao.value = '';
+        }
+    }
+
+    checkbox.addEventListener('change', alternarVisibilidade);
+    alternarVisibilidade(); 
 });

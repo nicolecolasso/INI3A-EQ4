@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Doacao;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
@@ -15,13 +17,56 @@ class VitrineController extends Controller
         $query = Produto::where('status', 'Disponível')
                         ->where('excluido', false);
 
-        if ($request->has('categoria') && $request->categoria != '') {
-            $query->where('categoria', $request->categoria);
+        if ($request->filled('categoria')) {
+            $query->where('fk_id_categoria', $request->categoria);
+        }
+
+        if ($request->filled('preco_min')) {
+            $query->where('valor', '>=', $request->preco_min);
+        }
+
+        if ($request->filled('preco_max')) {
+            $query->where('valor', '<=', $request->preco_max);
         }
 
         $produtos = $query->paginate(12);
+        $categorias = Categoria::orderBy('nome')->get();
 
-        return view('produtos.vitrine', compact('produtos'));
+        return view('produtos.vitrine', compact('produtos', 'categorias'));
+    }
+
+    public function buscar(Request $request)
+    {
+        $query = Produto::where('status', 'Disponível')
+                        ->where('excluido', false);
+
+        if ($request->filled('q')) {
+            $searchTerm = $request->q;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('nome', 'ilike', "%{$searchTerm}%")
+                  ->orWhere('descricao', 'ilike', "%{$searchTerm}%")
+                  ->orWhereHas('categoria', function ($categoriaQuery) use ($searchTerm) {
+                      $categoriaQuery->where('nome', 'ilike', "%{$searchTerm}%" );
+                  });
+            });
+        }
+
+        if ($request->filled('categoria')) {
+            $query->where('fk_id_categoria', $request->categoria);
+        }
+
+        if ($request->filled('preco_min')) {
+            $query->where('valor', '>=', $request->preco_min);
+        }
+
+        if ($request->filled('preco_max')) {
+            $query->where('valor', '<=', $request->preco_max);
+        }
+
+        $produtos = $query->paginate(12)->appends($request->query());
+        $categorias = Categoria::orderBy('nome')->get();
+
+        return view('produtos.vitrine', compact('produtos', 'categorias'));
     }
 
     public function detalheProduto($id)
@@ -36,7 +81,8 @@ class VitrineController extends Controller
 
     public function novaDoacao()
     {
-        return view('produtos.novaDoacao');
+        $categorias = Categoria::orderBy('nome', 'asc')->get();
+        return view('produtos.novaDoacao', compact('categorias'));
     }
 
     private function ajusteDados(Request $req)
@@ -64,11 +110,23 @@ class VitrineController extends Controller
 
     public function salvarDoacao(Request $request)
     {
+        $request->validate([
+            'nome'           => 'required|string',
+            'categoria_nome' => 'required|string|max:255',
+            'descricao'      => 'nullable|string',
+            'caminho_img'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'localizacao'    => $request->input('necessita_retirada') == '1' ? 'required|string' : 'nullable|string',
+        ]);
+
         $dados = $this->ajusteDados($request);
 
         $dados['fk_doacao_id_usuario'] = Auth::id();
+        $categoria = Categoria::firstOrCreate([
+                'nome' => Str::title(trim($request->input('categoria_nome')))
+            ]);
+        $dados['fk_id_categoria'] = $categoria->id_categoria;
         $dados['data_doacao'] = now();
-        $dados['status']      = 'Analise'; 
+        $dados['status']      = 'Em Análise'; 
 
         Doacao::create($dados);
 

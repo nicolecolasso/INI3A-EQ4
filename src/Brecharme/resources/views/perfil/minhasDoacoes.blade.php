@@ -49,7 +49,7 @@
                         <div class="doacao-item-meta">
                             <span class="label-meta-doacao">Categoria:</span>
                             <span class="badge-meta-dados">
-                                {{ $doacao->categoria ?? 'Geral' }}
+                                {{ $doacao->categoria->nome ?? 'Geral' }}
                             </span>
                         </div>
                         <div class="doacao-item-meta">
@@ -67,13 +67,13 @@
                             {{-- Classes dinâmicas injetadas com as cores originais do seu projeto --}}
                             @php
                                 $statusClass = 'status-default';
-                                if($doacao->status === 'Analise') {
+                                if($doacao->status === 'Em Análise') {
                                     $statusClass = 'status-analise-custom';
-                                } elseif($doacao->status === 'Aprovado') {
+                                } elseif($doacao->status === 'Aprovada' || $doacao->status === 'Integrada ao Estoque') {
                                     $statusClass = 'status-aprovado-custom';
-                                } elseif($doacao->status === 'Rejeitado') {
+                                } elseif($doacao->status === 'Recusada') {
                                     $statusClass = 'status-rejeitado-custom';
-                                } elseif(strtolower($doacao->status) === 'Cancelada') { 
+                                } elseif($doacao->status === 'Cancelada') { 
                                     $statusClass = 'status-cancelada-custom';
                                 }
                             @endphp
@@ -84,7 +84,7 @@
                         </div>
 
                         {{-- Botão de Cancelar se estiver em Análise --}}
-                        @if($doacao->status === 'Analise')
+                        @if($doacao->status === 'Em Análise')
                           <a href="{{ route('perfil.minhasDoacoes.cancelar', $doacao->id_doacao) }}" 
                             class="btn-cancelar-perfil-action" 
                             onclick="return confirm('Tem certeza que deseja cancelar esta proposta de doação?')">

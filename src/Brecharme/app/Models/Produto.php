@@ -15,11 +15,11 @@ class Produto extends Model
         'descricao',
         'valor',
         'caminho_img',
-        'categoria',
         'data_exclusao',
         'excluido',
         'status',
         'fk_produto_id_doacao',
+        'fk_id_categoria',
     ];
 
     protected $casts = [
@@ -43,5 +43,10 @@ class Produto extends Model
     public function reservas()
     {
         return $this->hasMany(ProdutoReserva::class, 'fk_id_produto', 'id_produto');
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'fk_id_categoria', 'id_categoria');
     }
 }

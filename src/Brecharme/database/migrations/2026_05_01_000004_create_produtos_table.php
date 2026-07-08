@@ -17,13 +17,13 @@ return new class extends Migration
             $table->text('descricao');
             $table->decimal('valor', 8, 2);
             $table->string('caminho_img');
-            $table->enum('categoria', ['Roupas', 'Calçados', 'Acessórios', 'Eletrônicos', 'Móveis', 'Brinquedos', 'Outros'])->default('Outros');
             $table->timestamp('data_exclusao')->nullable();
             $table-> boolean('excluido')->default(false);
             $table->enum('status', ['Disponível', 'Carrinho', 'Vendido', 'Reservado'])->default('Disponível');
 
             $table->unsignedInteger('fk_produto_id_doacao')->nullable();
             $table->foreign('fk_produto_id_doacao')->references('id_doacao')->on('doacao')->onDelete('cascade');
+            $table->foreignId('fk_id_categoria')->constrained('categorias', 'id_categoria');
 
             $table->timestamps();
         });

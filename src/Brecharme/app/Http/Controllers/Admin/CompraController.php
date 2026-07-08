@@ -16,6 +16,31 @@ class CompraController extends Controller
         return view('admin.reservas.reservas', compact('linhas'));
     }
 
+    public function buscar(Request $request){
+        $query = Compra::with(['usuario', 'produtos']);
+
+        if ($request->filled('termo')) {
+            $termo = '%' . $request->input('termo') . '%';
+            
+            $query->whereHas('usuario', function ($q) use ($termo) {
+                $q->where('name', 'ilike', $termo)
+                  ->orWhere('email', 'ilike', $termo);
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        if ($request->filled('data')) {
+            $query->whereDate('data_compra', $request->input('data'));
+        }
+
+        $linhas = $query->orderBy('data_compra', 'desc')->get();
+
+        return view('admin.reservas.reservas', compact('linhas'));
+    }
+
     public function novaReserva()
     {
         $usuarios = User::where('excluido', false)->get();

@@ -16,6 +16,62 @@
         </a>
     </header>
 
+    <div class="admin-filters-wrapper">
+        <form action="{{ route('admin.usuarios.buscar') }}" method="GET" class="filters-form">
+    
+            <div class="filter-field">
+                <label for="filter-nome">Nome</label>
+                <div class="filter-input-icon">
+                    <i class="material-icons">person</i>
+                    <input type="text" name="nome" id="filter-nome" value="{{ request('nome') }}" placeholder="Buscar por nome...">
+                </div>
+            </div>
+
+            <div class="filter-field">
+                <label for="filter-email">E-mail</label>
+                <div class="filter-input-icon">
+                    <i class="material-icons">email</i>
+                    <input type="text" name="email" id="filter-email" value="{{ request('email') }}" placeholder="Buscar por e-mail...">
+                </div>
+            </div>
+
+            <div class="filter-field">
+                <label for="filter-status">Status</label>
+                <div class="filter-input-icon">
+                    <i class="material-icons">toggle_on</i>
+                    <select name="status" id="filter-status">
+                        <option value="">Todos os usuários</option>
+                        <option value="ativo" {{ request('status') === 'ativo' ? 'selected' : '' }}>Apenas Ativos</option>
+                        <option value="inativo" {{ request('status') === 'inativo' ? 'selected' : '' }}>Apenas Inativos</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-field">
+                <label for="filter-admin">Tipo</label>
+                <div class="filter-input-icon">
+                    <i class="material-icons">admin_panel_settings</i>
+                    <select name="admin" id="filter-admin">
+                        <option value="">Todos os tipos</option>
+                        <option value="sim" {{ request('admin') === 'sim' ? 'selected' : '' }}>Apenas Admins</option>
+                        <option value="nao" {{ request('admin') === 'nao' ? 'selected' : '' }}>Apenas Clientes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="btn-filter-submit" title="Aplicar filtros">
+                    <i class="material-icons">search</i> Filtrar
+                </button>
+                @if(request()->filled('nome') || request()->filled('email') || request()->filled('status'))
+                    <a href="{{ route('admin.usuarios') }}" class="btn-filter-clear" title="Limpar Filtros">
+                        <i class="material-icons">clear</i>
+                    </a>
+                @endif
+            </div>
+        </form>
+    </div>
+
     <div class="table-responsive">
         <table class="admin-table">
             <thead>
