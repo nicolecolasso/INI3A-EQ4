@@ -125,7 +125,7 @@
 
 .items-grid {
     display: flex;
-    justify-content: flex-start; /* Alinha os itens do carrossel à esquerda */
+    justify-content: center;
     align-items: stretch;
     gap: 20px;
     width: 100%;
@@ -135,9 +135,14 @@
     padding: 10px 0; /* Pequeno respiro para a sombra do card */
 }
 
+.items-grid.has-items {
+    justify-content: flex-start;
+}
+
 .items-grid::-webkit-scrollbar {
     display: none; /* Esconde a barra nativa no Chrome/Safari */
 }
+
 
 .item-card {
     position: relative;

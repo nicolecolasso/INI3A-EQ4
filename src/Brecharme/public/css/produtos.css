@@ -236,6 +236,9 @@
 /* Aviso de Categoria Vazia (Alinhado ao centro do Grid) */
 .sem-produtos {
     grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     padding: 3rem 1rem;
     width: 100%;
@@ -246,6 +249,8 @@
     font-size: 1.2rem;
     color: var(--cinza-detalhe);
     margin: 0;
+    max-width: 600px;
+    width: 100%;
 }
 
 /* Moldura do Card */

@@ -26,6 +26,10 @@
         <a href="{{ route('admin.doacoes') }}" class="btn-pill-admin dark-border">
             Doações
         </a>
+
+        <a href="{{ route('admin.banners') }}" class="btn-pill-admin dark-border">
+            Banners
+        </a>
         
         <a href="{{ route('admin.comunicados.novoComunicado') }}" class="btn-pill-admin yellow-border">
             Novo Comunicado

@@ -12,9 +12,16 @@
     <section class="hero-carousel">
         <div class="carousel-inner">
             <div class="carousel-images">
-                <img src="{{ asset('img/brecharme1.png') }}" alt="Loja Brecharme" class="hero-image active">
-                <img src="{{ asset('img/brecharme2.png') }}" alt="Loja Brecharme" class="hero-image">
-                <img src="{{ asset('img/brecharme3.png') }}" alt="Loja Brecharme" class="hero-image">
+                @forelse($banners as $banner)
+                    <img src="{{ asset($banner->caminho_img) }}" 
+                        alt="Loja Brecharme" 
+                        class="hero-image {{ $loop->first ? 'active' : '' }}">
+                @empty
+                    {{-- Fallback estático caso não existam registros no banco --}}
+                    <img src="{{ asset('img/brecharme1.png') }}" alt="Loja Brecharme" class="hero-image active">
+                    <img src="{{ asset('img/brecharme2.png') }}" alt="Loja Brecharme" class="hero-image">
+                    <img src="{{ asset('img/brecharme3.png') }}" alt="Loja Brecharme" class="hero-image">
+                @endforelse
             </div>
             <div class="carousel-dots">
                 <span class="dot active"></span>
@@ -32,7 +39,7 @@
                 <i class="material-icons">chevron_left</i>
             </button>
             
-            <div class="items-grid">
+            <div class="items-grid {{ $produtos->isEmpty() ? 'empty' : 'has-items' }}">
                 {{-- Loop dinâmico usando os atributos reais do seu Model Produto --}}
                 @forelse($produtos as $produto)
                     <div class="item-card">

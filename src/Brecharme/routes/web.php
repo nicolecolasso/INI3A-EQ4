@@ -9,6 +9,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\AdminController@gerenciar'
     ]);
 
+    // Banners - Painel Administrativo
+
+    Route::get('/banners', [
+       'as'   => 'admin.banners',
+        'uses' => 'App\Http\Controllers\Admin\BannerController@index'
+    ]);
+
+    Route::post('/banners/update/{ordem}', [
+        'as'   => 'admin.banners.update',
+        'uses' => 'App\Http\Controllers\Admin\BannerController@update'
+    ]);
+
     // Doações - Painel Administrativo
     Route::get('doacoes/doacoes', [
         'as'   => 'admin.doacoes',
