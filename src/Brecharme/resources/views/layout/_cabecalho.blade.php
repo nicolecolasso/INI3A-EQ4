@@ -7,6 +7,7 @@
     
     <ul class="navbar-links">
         <li><a href="{{ route('institucional.quemSomos') }}">Quem Somos</a></li>
+        <li><a href="{{ route('institucional.galeria') }}">Galeria</a></li>
         <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>
 
         @guest
@@ -64,6 +65,7 @@
 <ul class="sidenav" id="mobile-menu">
     <li><a href="{{ route('institucional.index') }}">Home</a></li>
     <li><a href="{{ route('institucional.quemSomos') }}">Quem Somos</a></li>
+    <li><a href="{{ route('institucional.galeria') }}">Galeria</a></li>
     <li><a href="{{ route('produtos.vitrine') }}">Vitrine</a></li>    
     @guest
         <li><a href="{{ route('login') }}">Doe Já</a></li>

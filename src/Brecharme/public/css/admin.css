@@ -7,6 +7,7 @@
 }
 
 .gerenciar-titulo {
+    color: var(--amarelo-brecho) !important;
     font-family: var(--fonte-titulo);
     font-size: 36px;
     font-weight: normal;
@@ -961,4 +962,382 @@
 
 .btn-upload-customizado input[type="file"] {
     display: none;
+}
+
+/* Galeria */
+.admin-bazar-container {
+    max-width: 960px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    font-family: var(--fonte-texto);
+    color: #000000;
+}
+
+.admin-header {
+    margin-bottom: 2.5rem;
+    text-align: left;
+}
+
+.admin-header h1 {
+    color: var(--amarelo-brecho);
+    font-family: var(--fonte-titulo);
+    font-weight: normal !important;
+    font-size: 2.2rem;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.5rem 0;
+}
+
+.admin-header p {
+    color: #666666;
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Alertas de Feedback */
+.alert-sucesso {
+    background-color: #f4fbf7;
+    color: #137333;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    margin-bottom: 2.5rem;
+    border: 2px solid #137333;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.admin-secao-box {
+    background: #fafafa;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.admin-secao-box h2 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    color: var(--amarelo-brecho);
+    font-family: var(--fonte-titulo);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 0.5rem 0;
+}
+
+.admin-secao-box h2 .material-icons {
+    font-size: 1.6rem;
+}
+
+.instrucao {
+    font-size: 0.9rem;
+    color: #666666;
+    margin: 0 0 1.75rem 0;
+    line-height: 1.4;
+}
+
+.form-alinhado {
+    margin-bottom: 2.5rem;
+}
+
+.input-grupo {
+    display: flex;
+    gap: 12px;
+}
+
+.input-grupo input[type="url"] {
+    flex: 1;
+    height: 48px;
+    border: 1px solid #000000;
+    border-radius: 50px;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.input-grupo input[type="url"]:focus {
+    outline: none;
+    background: #f0f0f0;
+}
+
+.input-grupo ::placeholder, #titulo_evento::placeholder {
+    color: #999999;
+    font-size: 0.95rem;
+    font-family: var(--fonte-texto);
+    font-style: italic;
+}
+
+.input-grupo button, .btn-pilula-preta, .btn-bloco {
+    font-family: var(--fonte-texto);
+    font-style: italic;
+}
+
+.form-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.form-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-campo label {
+    font-weight: normal;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.form-campo input[type="text"] {
+    height: 48px;
+    border: 1px solid #000000;
+    border-radius: 14px;
+    padding: 0 1rem;
+    font-size: 1rem;
+    background: #ffffff;
+}
+
+/* Upload de Imagem Customizado */
+.btn-upload-local {
+    border: 2px dashed #a0a0a0;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 1rem 1.5rem; /* Diminuído o padding vertical de 2rem para 1rem */
+    display: inline-flex;  /* Deixa o botão do tamanho exato do texto interno */
+    flex-direction: row;   /* Coloca o ícone e o texto lado a lado para economizar altura */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    width: auto;           /* Impede que ele force 100% da largura desnecessariamente */
+    max-width: 280px;      /* Define um limite máximo elegante */
+    margin: 10px auto 0 auto; /* Centraliza o botão abaixo do preview */
+}
+
+.btn-upload-local:hover {
+    border-color: #000000;
+    background: #fdfdfd;
+}
+
+.btn-upload-local input[type="file"] {
+    display: none;
+}
+
+.btn-pilula-preta {
+    height: 48px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 0 2rem;
+    font-size: 0.95rem;
+    font-weight: 400;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.btn-pilula-preta:hover {
+    background-color: #222222;
+}
+
+.btn-bloco {
+    width: 100%;
+}
+
+ 
+.subtitulo-lista {
+    font-size: 1.1rem;
+    font-weight: normal;
+    padding-bottom: 0.5rem;
+    margin: 0 0 1.25rem 0;
+}
+
+/* Listagem de Links do Instagram */
+.lista-itens-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 50px;
+    padding: 0.5rem 0.75rem 0.5rem 1.5rem;
+}
+
+.link-truncado {
+    font-size: 0.9rem;
+    color: #444444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+}
+
+.btn-deletar-icone {
+    background: none;
+    border: none;
+    color: #ff3b30;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.btn-deletar-icone:hover {
+    background: #ffebe6;
+}
+
+/* Listagem da Galeria de Fotos Local */
+.galeria-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+}
+
+.galeria-admin-card {
+    border: 1px solid #000000;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.galeria-admin-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-bottom: 1px solid #000000;
+    display: block;
+}
+
+.galeria-card-rodape {
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.galeria-card-rodape span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 75%;
+}
+
+.btn-deletar-card {
+    background: none;
+    border: none;
+    color: #ff3b30;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.sem-dados {
+    font-size: 0.9rem;
+    color: #888888;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .admin-bazar-container, 
+    .admin-header, 
+    .admin-secao-box {
+        box-sizing: border-box; /* Força o navegador a calcular borda/padding dentro do tamanho total */
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .admin-header {
+        margin-bottom: 2rem;
+        padding: 0 0.5rem; /* Margem interna para o texto não colar na quina da tela */
+        overflow-wrap: break-word; /* Suporte extra para quebra de palavras compridas */
+        word-break: break-word;
+    }
+
+    .admin-header h1 {
+        font-size: 1.6rem !important; /* Força o tamanho compacto no mobile */
+        line-height: 1.3;
+        font-weight: normal;
+        color: var(--amarelo-brecho);
+        margin: 0 0 0.5rem 0;
+        display: block;
+        width: 100%;
+    }
+
+    .admin-header p {
+        color: #666666;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        margin: 0;
+    }
+
+    .input-grupo {
+        display: flex !important;
+        flex-direction: column !important; /* Força um embaixo do outro */
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Faz o input ocupar a linha toda sozinho */
+    .input-grupo input,
+    .input-grupo button {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .input-grupo input {
+        flex: unset !important;
+        height: 48px !important;
+        padding: 0 1rem !important;
+    }
+
+    /* Faz o botão ocupar a linha de baixo inteira */
+    .btn-pilula-preta {
+        width: 100% !important;
+        display: block !important;
+        text-align: center;
+    }
+}
+
+.preview-container {
+    display: none;
+    width: 100%;
+    max-height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+.preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }

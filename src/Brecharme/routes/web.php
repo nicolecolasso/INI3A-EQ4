@@ -21,6 +21,28 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\BannerController@update'
     ]);
 
+    // Galeria - Painel Administrativo
+    Route::get('/galeria', [
+        'as'   => 'admin.galeria',
+        'uses' => 'App\Http\Controllers\Admin\GaleriaController@index'
+    ]);
+    Route::post('/galeria/salvarInstagram', [
+        'as'   => 'admin.galeria.salvarInsta',
+        'uses' => 'App\Http\Controllers\Admin\GaleriaController@salvarInsta'
+    ]);
+    Route::post('/galeria/excluirInstagram/{id}', [
+        'as'   => 'admin.galeria.excluirInsta',
+        'uses' => 'App\Http\Controllers\Admin\GaleriaController@excluirInsta'
+    ]);
+    Route::post('/galeria/salvarFoto', [
+        'as'   => 'admin.galeria.salvarFoto',
+        'uses' => 'App\Http\Controllers\Admin\GaleriaController@salvarFoto'
+    ]);
+    Route::post('/galeria/excluirFoto/{id}', [
+        'as'   => 'admin.galeria.excluirFoto',
+        'uses' => 'App\Http\Controllers\Admin\GaleriaController@excluirFoto'
+    ]);
+        
     // Doações - Painel Administrativo
     Route::get('doacoes/doacoes', [
         'as'   => 'admin.doacoes',
@@ -337,4 +359,9 @@ Route::get('/', [
 Route::get('/quemSomos', [
     'as' => 'institucional.quemSomos', 
     'uses' => 'App\Http\Controllers\InstitucionalController@quemSomos'
+]);
+
+Route::get('/galeria', [
+    'as' => 'institucional.galeria', 
+    'uses' => 'App\Http\Controllers\InstitucionalController@galeria'
 ]);

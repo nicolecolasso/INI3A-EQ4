@@ -1,0 +1,426 @@
+.bazar-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    font-family: var(--fonte-texto);
+    color: #000;
+}
+
+.bazar-secao-titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: .5rem;
+    font-family: var(--fonte-titulo);
+    font-size: 2.2rem;
+    font-weight: normal;
+    color: var(--amarelo-brecho);
+}
+
+.bazar-secao-titulo .material-icons{
+    font-size:2.4rem;
+}
+
+.bazar-secao-subtitulo{
+    margin-bottom:2.5rem;
+    font-size:1.05rem;
+    line-height:1.5;
+}
+
+.bazar-divisor{
+    margin:5rem 0;
+    border:none;
+    height:2px;
+    background:var(--cinza-detalhe);
+}
+
+/* ==========================================================
+   SLIDER INSTAGRAM
+   ========================================================== */
+
+.insta-feed-section .items-slider{
+    position:relative;
+    overflow:hidden;
+    padding:0 40px;
+}
+
+.insta-embeds-grid.items-grid{
+
+    display:flex;
+    flex-wrap:nowrap;
+
+    gap:24px;
+
+    width:100%;
+    padding:10px 0;
+
+    overflow-x:auto;
+    overflow-y:hidden;
+
+    scroll-behavior:smooth;
+
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
+}
+
+.insta-embeds-grid.items-grid::-webkit-scrollbar{
+    display:none;
+}
+
+/* CARD */
+
+.insta-embed-card.item-card{
+    flex:0 0 350px;
+    height:500px;
+    width:350px;
+    max-width:350px;
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    padding:0;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    transition:.25s;
+
+}
+
+.insta-embed-card.item-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+/* Blockquote do Instagram */
+
+.instagram-media{
+
+    margin:0 !important;
+
+    width:100% !important;
+
+    max-width:100% !important;
+
+    min-width:100% !important;
+
+    border:none !important;
+
+}
+
+/* iframe criado pelo script */
+
+.insta-embed-card iframe{
+
+    display:block;
+
+    width:100% !important;
+
+    min-width:100% !important;
+
+    border:none !important;
+
+    border-radius:0 !important;
+
+}
+
+/* BOTÕES */
+
+.insta-feed-section .slider-arrow{
+position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+
+    background:transparent;
+    border:none;
+
+    color:var(--amarelo-brecho);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    padding:10px;
+
+    transition:transform .2s ease;
+
+    z-index:20;
+}
+
+.insta-feed-section .slider-arrow:hover{
+
+    transform:translateY(-50%) scale(1.15);
+
+}
+
+
+.insta-feed-section .slider-arrow.prev{
+    left: -20px;
+}
+
+.insta-feed-section .slider-arrow.next{
+    right: -20px;
+}
+
+.insta-feed-section .slider-arrow .material-icons{
+    font-size:56px;
+    font-weight:bold;
+}
+
+.galeria-fotos-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:2rem;
+
+}
+
+.galeria-item-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+}
+
+.galeria-item-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.galeria-img-wrapper{
+
+    width:100%;
+
+    aspect-ratio:4/3;
+
+    overflow:hidden;
+
+    background:#f3f3f3;
+
+}
+
+.galeria-img-wrapper img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.35s;
+
+}
+
+.galeria-item-card:hover img{
+
+    transform:scale(1.05);
+
+}
+
+.galeria-item-info{
+
+    padding:18px;
+
+    text-align:center;
+
+}
+
+.galeria-item-info span{
+
+    font-size:1rem;
+
+    color:#000;
+
+}
+
+.sem-registros{
+
+    grid-column:1/-1;
+
+    padding:3rem;
+
+    border:2px dashed #ccc;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    color:#777;
+
+    background:#fafafa;
+
+}
+
+/* ==========================================================
+   TABLETS
+   ========================================================== */
+
+@media (max-width:1024px){
+
+    .bazar-container{
+
+        max-width:100%;
+
+        padding:0 1.5rem;
+
+    }
+
+    .insta-embed-card.item-card{
+
+        flex:0 0 320px;
+
+        width:320px;
+
+        max-width:320px;
+
+    }
+
+    .galeria-fotos-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+/* ==========================================================
+   CELULARES
+   ========================================================== */
+
+@media (max-width:768px){
+
+    
+    .insta-feed-section .slider-arrow .material-icons{
+
+        font-size:42px;
+
+    }
+
+    .insta-feed-section .slider-arrow.prev{
+
+        left:-8px;
+
+    }
+
+    .insta-feed-section .slider-arrow.next{
+
+        right:-8px;
+
+    }
+
+
+    .bazar-container{
+
+        margin:2rem auto;
+
+        padding:0 2rem;
+
+    }
+
+    .bazar-secao-titulo{
+
+        font-size:1.8rem;
+
+    }
+
+    .bazar-secao-subtitulo{
+
+        margin-bottom:2rem;
+
+        font-size:.95rem;
+
+    }
+
+    .insta-feed-section .slider-arrow{
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+    .insta-feed-section .slider-arrow.prev{
+
+        left:4px;
+
+    }
+
+    .insta-feed-section .slider-arrow.next{
+
+        right:4px;
+
+    }
+
+    .insta-embeds-grid.items-grid{
+
+        gap:16px;
+
+        padding:10px 0;
+
+    }
+
+    .insta-embed-card.item-card{
+        flex:0 0 270px;
+        width:270px;
+        max-width:270px;
+        height:520px;
+    }
+
+    .galeria-fotos-grid{
+
+        grid-template-columns:1fr;
+
+        gap:1.5rem;
+
+    }
+
+}
+
+/* ==========================================================
+   CELULARES PEQUENOS
+   ========================================================== */
+
+@media (max-width:480px){
+
+    .bazar-container{
+
+        padding:0 1.5rem;
+
+    }
+
+    .bazar-secao-titulo{
+
+        font-size:1.55rem;
+
+    }
+
+    .insta-embed-card.item-card{
+
+        flex:0 0 calc(100vw - 40px);
+
+        width:calc(100vw - 40px);
+
+        max-width:none;
+
+    }
+
+    .insta-feed-section .slider-arrow{
+
+        display:none;
+
+    }
+}

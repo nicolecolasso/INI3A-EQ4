@@ -30,6 +30,10 @@
         <a href="{{ route('admin.banners') }}" class="btn-pill-admin dark-border">
             Banners
         </a>
+
+        <a href="{{ route('admin.galeria') }}" class="btn-pill-admin dark-border">
+            Galeria
+        </a>
         
         <a href="{{ route('admin.comunicados.novoComunicado') }}" class="btn-pill-admin yellow-border">
             Novo Comunicado
