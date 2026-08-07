@@ -9,7 +9,7 @@ Fluxo normal:
 3. Voluntário insere a foto do produto 
 4. Sistema valida as informações e salva o produto no acervo 
 5. Sistema confirma o cadastro do produto com sucesso 
-        Extensões:
+Extensões:
 2a - Se campos obrigatórios não forem preenchidos, solicitar preenchimento 
 3a - Se o formato da imagem for inválido, solicitar novo arquivo de imagem 
 4a - Se houver falha ao salvar no banco de dados, informar erro e permitir nova tentativa 
@@ -52,8 +52,6 @@ Fluxo normal:
 3. Sistema libera o acesso às funcionalidades administrativas 
 Extensões: 
 2a - Se o e-mail ou senha estiverem incorretos, informar credenciais inválidas e solicitar nova tentativa 
-
-
 
 
 5. Autenticar Usuário (Caso de Uso Incluído) 
