@@ -107,14 +107,18 @@ class CarrinhoController extends Controller
             ->wherePivot('status', 'Carrinho')
             ->exists();
 
+
         if (!$jaNoCarrinho) {
             // Insere na tabela intermediária 
             $compra->produtos()->attach($id_produto, ['status' => 'Carrinho']);
             
             // Atualiza o produto principal
             $produto->update(['status' => 'Carrinho']);
-        }
+            return redirect()->route('carrinho')->with('sucesso', 'Produto adicionado ao carrinho!');
 
-        return redirect()->route('carrinho')->with('sucesso', 'Produto adicionado ao carrinho!');
+        }
+        return redirect()->route('carrinho')->with('erro', 'Este produto já está no seu carrinho.');
+
+
     }
 }

@@ -63,9 +63,12 @@
                            
                             <td data-label="Status">
                                 @php
+                                    $statusLower = strtolower($compra->status);
                                     $statusClass = 'status-reservado';
-                                    if(strtolower($compra->status) == 'carrinho') $statusClass = 'status-carrinho';
-                                    if(strtolower($compra->status) == 'concluída' || strtolower($compra->status) == 'concluida') $statusClass = 'status-concluida';
+                                    
+                                    if($statusLower == 'carrinho') $statusClass = 'status-carrinho';
+                                    if($statusLower == 'concluída' || $statusLower == 'concluida') $statusClass = 'status-concluida';
+                                    if($statusLower == 'cancelada') $statusClass = 'status-cancelada-custom';
                                 @endphp
                                 <span class="status-badge-reserva {{ $statusClass }}">
                                     {{ $compra->status }}

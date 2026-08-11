@@ -114,7 +114,7 @@ class VitrineController extends Controller
             'nome'           => 'required|string',
             'categoria_nome' => 'required|string|max:255',
             'descricao'      => 'nullable|string',
-            'caminho_img'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'caminho_img'    => 'nullable|image',
             'localizacao'    => $request->input('necessita_retirada') == '1' ? 'required|string' : 'nullable|string',
         ]);
 

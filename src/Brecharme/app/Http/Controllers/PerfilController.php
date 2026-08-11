@@ -93,7 +93,7 @@ class PerfilController extends Controller
         }
 
         // Permite cancelar se estiver em Análise
-        if ($doacao->status === 'Analise') {
+        if ($doacao->status === 'Em Análise') {
             
             $doacao->update(['status' => 'Cancelada']); 
 

@@ -75,7 +75,9 @@ class DoacaoController extends Controller
             ->orderBy('data_doacao', 'desc')
             ->get();
 
-        return view('admin.doacoes.doacoes', compact('linhas'));
+        $categorias = Categoria::orderBy('nome', 'asc')->get();
+
+        return view('admin.doacoes.doacoes', compact('linhas', 'categorias'));
     }
 
     public function novaDoacao()
@@ -108,7 +110,7 @@ class DoacaoController extends Controller
             'nome'           => 'required|string',
             'categoria_nome' => 'required|string|max:255',
             'descricao'      => 'required|string',
-            'caminho_img'    => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'caminho_img'    => 'required|image',
             'localizacao'    => $req->input('necessita_retirada') == '1' ? 'required|string' : 'nullable|string',
         ]);
 
@@ -160,7 +162,7 @@ class DoacaoController extends Controller
                 'nome'           => 'required|string',
                 'categoria_nome' => 'required|string|max:255',
                 'descricao'      => 'required|string',
-                'caminho_img'    => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'caminho_img'    => 'required|image',
                 'localizacao'    => $req->input('necessita_retirada') == '1' ? 'required|string' : 'nullable|string',
                 'status'         => 'required|in:Em Análise,Aprovada,Integrada ao Estoque,Recusada,Cancelada'
             ]);
@@ -183,6 +185,11 @@ class DoacaoController extends Controller
     public function integrar(Request $req, $id)
     {
         $doacao = Doacao::findOrFail($id);
+
+        $req->validate([
+            'preco' => 'required|numeric|min:0'
+        ]);
+
         $precoDigitado = $req->input('preco'); 
 
         if ($doacao->status === 'Integrada ao Estoque') {

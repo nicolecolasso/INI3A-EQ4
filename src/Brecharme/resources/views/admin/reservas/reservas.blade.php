@@ -16,6 +16,20 @@
         </a>
     </header>
 
+    @if (session('sucesso'))
+        <div class="alert-success-custom" style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb; display: flex; align-items: center; gap: 8px;">
+            <i class="material-icons">check_circle</i>
+            <span>{{ session('sucesso') }}</span>
+        </div>
+    @endif
+
+    @if (session('erro'))
+        <div class="alert-error-custom" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb; display: flex; align-items: center; gap: 8px;">
+            <i class="material-icons">error_outline</i>
+            <span>{{ session('erro') }}</span>
+        </div>
+    @endif
+
     <div class="admin-filters-wrapper">
         <form action="{{ route('admin.reservas.buscar') }}" method="GET" class="filters-form">
 

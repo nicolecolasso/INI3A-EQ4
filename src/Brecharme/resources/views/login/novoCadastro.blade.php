@@ -109,6 +109,19 @@
                 </div>
             </div>
 
+            <div class="native-input-group">
+                <label for="receber_avisos" class="native-label">Deseja receber avisos e novidades?</label>
+                <div class="input-with-icon">
+                    <i class="material-icons input-icon">notifications</i>
+                    <input
+                        type="checkbox"
+                        id="receber_avisos"
+                        name="receber_avisos"
+                        value="1"
+                        checked>
+                </div>
+            </div>
+
 
             <button type="submit" class="btn-login-premium">
                 Cadastrar

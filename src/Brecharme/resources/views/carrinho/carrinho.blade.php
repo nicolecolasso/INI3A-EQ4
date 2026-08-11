@@ -16,6 +16,13 @@
         </div>
     @endif
 
+    @if(session('erro'))
+        <div class="alert-danger">
+            <i class="material-icons">error_outline</i>
+            <span>{{ session('erro') }}</span>
+        </div>
+    @endif
+
     <div class="carrinho-grid">
         @php $temProdutos = false; @endphp
 

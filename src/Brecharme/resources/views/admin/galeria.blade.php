@@ -17,6 +17,16 @@
         <div class="alert-sucesso">{{ session('sucesso') }}</div>
     @endif
 
+    @if ($errors->any())
+        <div class="alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+            <ul style="margin: 0; padding-left: 20px;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     {{-- INSTAGRAM --}}
     <section class="admin-secao-box">
         <h2><i class="material-icons">star</i> Adicionar Post do Instagram</h2>
@@ -35,8 +45,7 @@
             @forelse($postsInstagram as $post)
                 <div class="item-linha">
                     <span class="link-truncado">{{ $post->link_post }}</span>
-                    <form action="{{ route('admin.galeria.excluirInsta', $post->id_destaque) }}" method="POST">
-                        @csrf 
+                    <form action="{{ route('admin.galeria.excluirInsta', $post->id_destaque) }}" method="POST" onsubmit="return confirm('Deseja remover este destaque do Instagram?');">                        @csrf 
                         <button type="submit" class="btn-deletar-icone"><i class="material-icons">delete</i></button>
                     </form>
                 </div>
@@ -49,7 +58,7 @@
     {{-- GALERIA LOCAL --}}
     <section class="admin-secao-box">
         <h2><i class="material-icons">collections</i> Enviar Foto para a Galeria</h2>
-        <form action="{{ route('admin.galeria.salvarFoto') }}" method="POST" enctype="multipart/form-data" class="form-vertical">
+        <form action="{{ route('admin.galeria.salvarFoto') }}" method="POST" enctype="multipart/form-data" class="form-vertical" >
             @csrf
             <div class="form-campo">
                 <label for="titulo_evento">Título do Evento (Opcional)</label>
@@ -76,7 +85,7 @@
                     <img src="{{ asset($foto->caminho_img) }}" alt="Preview">
                     <div class="galeria-card-rodape">
                         <span>{{ $foto->titulo_evento ?? 'Sem título' }}</span>
-                        <form action="{{ route('admin.galeria.excluirFoto', $foto->id_galeria) }}" method="POST">
+                        <form action="{{ route('admin.galeria.excluirFoto', $foto->id_galeria) }}" method="POST" onsubmit="return confirm('Deseja realmente excluir esta foto da galeria?');">
                             @csrf
                             <button type="submit" class="btn-deletar-card"><i class="material-icons">delete</i></button>
                         </form>

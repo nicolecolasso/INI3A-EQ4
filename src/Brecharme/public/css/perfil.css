@@ -1845,3 +1845,24 @@
     font-weight: bold;
     color: #333;
 }
+
+/* Alinhamento do Checkbox em Meus Dados */
+.checkbox-container {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-field {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #EFB810;
+}
+
+.label-checkbox {
+    cursor: pointer;
+    margin: 0;
+    user-select: none;
+}

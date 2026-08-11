@@ -9,27 +9,30 @@
 @section('conteudo')
 <div class="perfil-wrapper dados-wrapper-layout">
    
-    {{-- Mensagem de Sucesso --}}
+    {{-- Alerta de Sucesso no Perfil --}}
     @if (session('sucesso'))
-        <div class="alert-success alert-custom-sucesso">
+        <div class="alert-success">
             <i class="material-icons">check_circle</i>
             <span>{{ session('sucesso') }}</span>
         </div>
     @endif
 
-    {{-- Mensagem de Erro Geral ou de Senha Incorreta vinda do Controller --}}
+    {{-- Alerta de Erro no Perfil --}}
     @if (session('erro'))
-        <div class="alert-error alert-custom-erro">
+        <div class="alert-danger">
             <i class="material-icons">error_outline</i>
             <span>{{ session('erro') }}</span>
         </div>
     @endif
 
-    {{-- Validação de erros nativos do Laravel ($errors) --}}
+    {{-- Lista de Erros de Validação (Ex: E-mail em uso, senha muito curta) --}}
     @if ($errors->any())
-        <div class="alert-error alert-custom-erro">
-            <i class="material-icons">error_outline</i>
-            <span>{{ $errors->first() }}</span>
+        <div class="alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
 
@@ -58,6 +61,7 @@
                 @csrf                
                 <div class="form-sections-grid grid-form-colunas">
                    
+                    {{-- Coluna 1: Dados Pessoais --}}
                     <div class="form-column coluna-form-bloco">
                         <h4 class="subtitulo-secao-form">Dados pessoais</h4>
                        
@@ -75,8 +79,14 @@
                             <label for="telefone" class="label-dados-form">Telefone:</label>
                             <input type="text" id="telefone" name="telefone" value="{{ old('telefone', $usuario->telefone) }}" class="input-field input-montserrat" placeholder="(14) 99999-9999">
                         </div>
+
+                        <div class="input-block bloco-input-layout checkbox-container">
+                            <input type="checkbox" id="receber_avisos" name="receber_avisos" value="1" {{ old('receber_avisos', $usuario->receber_avisos) ? 'checked' : '' }} class="checkbox-field">
+                            <label for="receber_avisos" class="label-dados-form label-checkbox">Desejo receber mensagens</label>
+                        </div>
                     </div>
 
+                    {{-- Coluna 2: Alterar Senha (Opcional) --}}
                     <div class="form-column coluna-form-bloco">
                         <h4 class="subtitulo-secao-form">Alterar Senha:</h4>
                        

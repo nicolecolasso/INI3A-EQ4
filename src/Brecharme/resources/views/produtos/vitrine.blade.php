@@ -72,8 +72,10 @@
                 </a>
             </div>
         @empty
-            <div class="sem-produtos">
-                <p>Nenhum produto encontrado nesta categoria.</p>
+            <div class="sem-produtos" style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                <i class="material-icons" style="font-size: 48px; color: #999;">search_off</i>
+                <p>Nenhum produto encontrado {{ request('q') ? 'para "'.request('q').'"' : 'com os filtros aplicados' }}.</p>
+                <a href="{{ route('produtos.vitrine') }}" class="btn-voltar-vitrine" style="display: inline-block; margin-top: 10px;">Ver todos os produtos</a>
             </div>
         @endforelse
     </div>

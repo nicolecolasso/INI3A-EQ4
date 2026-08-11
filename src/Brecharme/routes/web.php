@@ -69,7 +69,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], func
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@editarDoacao'
     ]);
 
-    // Deixamos explicitamente PUT para o formulário e POST para ações rápidas de status
+    //PUT para o formulário e POST para ações rápidas de status
     Route::put('doacoes/atualizar/{id}', [
         'as'   => 'admin.doacoes.atualizar',
         'uses' => 'App\Http\Controllers\Admin\DoacaoController@atualizar'
@@ -256,9 +256,13 @@ Route::group(['prefix' => 'login'], function () {
         'as' => 'password.reset', 
         'uses' => 'App\Http\Controllers\LoginController@mostrarTelaRecuperarSenha'
     ]);
-    Route::post('/atualizarSenha', [
+    Route::post('/recuperarSenha', [
         'as' => 'password.update', 
-        'uses' => 'App\Http\Controllers\LoginController@atualizarSenha'
+        'uses' => 'App\Http\Controllers\LoginController@recuperarSenha'
+    ]);
+    Route::post('/atualizarDados', [
+        'as' => 'perfil.atualizarDados', 
+        'uses' => 'App\Http\Controllers\LoginController@atualizarDados'
     ]);
 });
 

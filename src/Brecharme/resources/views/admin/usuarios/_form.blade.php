@@ -14,8 +14,13 @@
 </div>
 
 <div class="input-field">
-    <label for="password">Senha</label>
-    <input type="password" name="password" id="password" {{ isset($linha) ? '' : 'required' }} placeholder="{{ isset($linha) ? 'Deixe em branco para não alterar' : 'Digite uma senha segura' }}">
+    <label for="senha">Senha</label>
+    <input type="password" name="senha" id="senha" {{ isset($linha) ? '' : 'required' }} placeholder="{{ isset($linha) ? 'Deixe em branco para não alterar' : 'Digite uma senha segura' }}">
+</div>
+
+<div class="input-field">
+    <label for="receber_avisos">Deseja receber mensagens?</label>
+    <input type="checkbox" name="receber_avisos" id="receber_avisos" value="1" {{ (isset($linha->receber_avisos) && $linha->receber_avisos) ? 'checked' : '' }}>
 </div>
 
 <div class="input-field-checkbox">

@@ -81,7 +81,7 @@ class ProdutoController extends Controller
             'valor'          => 'required|numeric',
             'categoria_nome' => 'required|string|max:255',
             'descricao'      => 'required|string',
-            'caminho_img'    => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'caminho_img'    => 'required|image',
         ]);
 
         $dados = $this->ajusteDados($req);
@@ -96,7 +96,7 @@ class ProdutoController extends Controller
 
         Produto::create($dados);
 
-        return redirect()->route('admin.produtos');
+        return redirect()->route('admin.produtos')->with('sucesso', 'Produto cadastrado no catálogo com sucesso!');    
     }
 
     public function editarProduto($id)
@@ -110,16 +110,17 @@ class ProdutoController extends Controller
     public function atualizar(Request $req, $id)
     {
         $produto = Produto::where('id_produto', $id)->where('excluido', false)->firstOrFail();
-        $dados = $this->ajusteDados($req);
 
         $req->validate([
             'nome'           => 'required|string',
             'valor'          => 'required|numeric',
             'categoria_nome' => 'required|string|max:255',
             'descricao'      => 'required|string',
-            'caminho_img'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'caminho_img'    => 'nullable|image',
             'status'         => 'required|in:Disponível,Carrinho,Reservado,Vendido'
         ]);
+
+        $dados = $this->ajusteDados($req);
         
         if (!$req->hasFile('caminho_img')) {
             $dados['caminho_img'] = $produto->caminho_img;

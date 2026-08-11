@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
+            $table->boolean('receber_avisos')->default(true);
             $table->string('telefone')->nullable();
             $table->boolean('admin')->default(false); 
             $table->boolean('excluido')->default(false); 

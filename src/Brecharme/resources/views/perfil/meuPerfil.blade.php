@@ -42,11 +42,11 @@
             <div class="user-stats">
                 <p class="user-stat">
                     <i class="material-icons">shopping_bag</i>
-                    <strong>Reservas:</strong> {{ Auth::user()->reservas?->count() ?? 0 }}
+                    <strong>Reservas:</strong> {{ $totalReservas }}
                 </p>
                 <p class="user-stat">
                     <i class="material-icons">volunteer_activism</i>
-                    <strong>Doações:</strong> {{ Auth::user()->doacoes?->count() ?? 0 }}
+                    <strong>Doações:</strong> {{ $totalDoacoes }}
                 </p>
             </div>
 

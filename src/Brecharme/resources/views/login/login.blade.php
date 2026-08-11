@@ -22,7 +22,7 @@
         @if ($errors->any())
             <div class="alert-error-login">
                 <i class="material-icons">error_outline</i>
-                <span>{{ $errors->first() ?? session('erro') }}</span>
+                <span>{{ $errors->first() }}</span>
             </div>
         @endif
 
@@ -30,6 +30,13 @@
             <div class="alert-error-login">
                 <i class="material-icons">error_outline</i>
                 <span>{{ session('erro') }}</span>
+            </div>
+        @endif
+
+        @if (session('sucesso'))
+            <div class="alert-success-login" style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; border: 1px solid #c3e6cb;">
+                <i class="material-icons">check_circle</i>
+                <span>{{ session('sucesso') }}</span>
             </div>
         @endif
 

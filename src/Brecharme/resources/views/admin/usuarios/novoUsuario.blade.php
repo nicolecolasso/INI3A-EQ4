@@ -15,6 +15,16 @@
             {{ csrf_field() }}
             
             @include('admin.usuarios._form')
+
+            @if ($errors->any())
+                <div class="alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+                    <ul style="margin: 0; padding-left: 20px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             
             <div class="form-actions">
                 <button class="btn-submit dark-style">Salvar Usuário</button>

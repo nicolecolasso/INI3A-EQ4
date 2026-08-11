@@ -18,7 +18,8 @@ class User extends Authenticatable
         'password',      
         'telefone',      
         'admin',         
-        'excluido',     
+        'excluido',   
+        'receber_avisos',  
         'data_exclusao' 
     ];
 

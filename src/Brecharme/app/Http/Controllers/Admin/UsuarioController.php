@@ -57,8 +57,19 @@ class UsuarioController extends Controller
 
     public function salvar(Request $req)
     {
-        $dados = $req->all();
+        $req->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|max:255|unique:users,email',
+            'senha'    => 'required|string|min:6',
+            'telefone' => 'nullable|string|max:20',
+            'admin'    => 'boolean',
+            'receber_avisos' => 'boolean'
+        ]);
         
+        $dados = $req->all();
+        $dados['admin'] = $req->has('admin');
+        $dados['receber_avisos'] = $req->has('receber_avisos');
+
         if (!empty($dados['senha'])) {
             $dados['password'] = bcrypt($dados['senha']); 
         }
@@ -66,7 +77,7 @@ class UsuarioController extends Controller
         unset($dados['senha']);
 
         User::create($dados);
-        return redirect()->route('admin.usuarios');
+        return redirect()->route('admin.usuarios')->with('sucesso', 'Usuário cadastrado com sucesso!');
     }
 
     public function editarUsuario($id)
@@ -77,7 +88,19 @@ class UsuarioController extends Controller
 
     public function atualizar(Request $req, $id)
     {
+        $req->validate([
+            'name'           => 'required|string|max:255',
+            'email'          => 'required|email|max:255|unique:users,email,' . $id,
+            'senha'          => 'nullable|string|min:6',
+            'telefone'       => 'nullable|string|max:20',
+            'admin'          => 'boolean',
+            'receber_avisos' => 'boolean'
+        ]);
+        
         $dados = $req->all();
+
+        $dados['admin'] = $req->has('admin');
+        $dados['receber_avisos'] = $req->has('receber_avisos');
 
         if (!empty($dados['senha'])) {
             $dados['password'] = bcrypt($dados['senha']); 

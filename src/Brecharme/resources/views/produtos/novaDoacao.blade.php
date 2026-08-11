@@ -11,6 +11,16 @@
     <div class="doacao-card">
         <h1 class="doacao-title">Faça uma nova doação e contribua para o brechó!</h1>
 
+        @if ($errors->any())
+            <div class="alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('produtos.salvarDoacao') }}" method="POST" enctype="multipart/form-data" class="doacao-form">
             @csrf
            

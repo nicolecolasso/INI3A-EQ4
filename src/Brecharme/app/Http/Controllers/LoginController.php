@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 
 
 class LoginController extends Controller
@@ -81,7 +82,8 @@ class LoginController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'telefone' => 'nullable|string|max:20'
+            'telefone' => 'nullable|string|max:20',
+            'receber_avisos' => 'boolean'
         ]);
 
 
@@ -90,15 +92,15 @@ class LoginController extends Controller
         $user->email    = $request->input('email');
         $user->password = Hash::make($request->input('password')); // Hash nativo do Laravel
         $user->telefone = $request->input('telefone');
+        $user->receber_avisos = $request->has('receber_avisos');
+        $user->admin          = false;
+        $user->excluido       = false;
         $user->save();
 
         Auth::login($user); //Função nativa do Laravel para logar o usuário
 
         return redirect()->route('perfil.meuPerfil')->with('sucesso', 'Cadastro realizado com sucesso.');
     }
-
-
-
 
     public function esqueciSenha()
     {
@@ -147,35 +149,80 @@ class LoginController extends Controller
         ]);
     }
 
-    public function atualizarSenha(Request $request)
+    public function atualizarDados(Request $request)
     {
+        $usuario = User::find(Auth::id());
+
+        // Validação dos dados
+        $request->validate([
+            'name'       => 'required|string|max:255',
+            'email'      => ['required', 'email', 'max:255', Rule::unique('users')->ignore($usuario->id)],
+            'telefone'   => 'nullable|string|max:20',
+            'senha_atual' => 'nullable|required_with:nova_senha|string',
+            'nova_senha'  => 'nullable|min:6|confirmed',
+        ], [
+            'required' => 'O campo :attribute é obrigatório.',
+            'email.unique' => 'Este e-mail já está em uso por outro usuário.',
+            'nova_senha.confirmed' => 'A confirmação da nova senha não confere.',
+            'nova_senha.min' => 'A nova senha deve ter pelo menos 6 caracteres.',
+        ]);
+
+        // Atualiza dados cadastrais
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        $usuario->telefone = $request->input('telefone');
+        $usuario->receber_avisos = $request->has('receber_avisos');
+
+        // Se informou a senha atual para alterar a senha
+        if ($request->filled('nova_senha')) {
+            if (!Hash::check($request->senha_atual, $usuario->password)) {
+                return redirect()->back()->with('erro', 'A senha atual informada está incorreta.');
+            }
+
+            $usuario->password = Hash::make($request->nova_senha);
+        }
+
+        $usuario->save();
+
+        return redirect()->back()->with('sucesso', 'Dados atualizados com sucesso!');
+    }
+
+    public function recuperarSenha(Request $request)
+    {
+        // 1. Validação dos campos vindos do formulário
         $request->validate([
             'token'    => 'required',
             'email'    => 'required|email',
-            'password' => 'required|string|min:6|confirmed', // 'confirmed' obriga o campo password_confirmation existir e ser idêntico
+            'password' => 'required|string|min:6|confirmed',
+        ], [
+            'password.confirmed' => 'A confirmação da nova senha não confere.',
+            'password.min'       => 'A nova senha deve ter pelo menos 6 caracteres.',
         ]);
 
+        // 2. Busca o registro do token para este e-mail
+        $dadosReset = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->first();
 
-        // Busca o registro do token na tabela auxiliar do Laravel
-        $registroToken = DB::table('password_reset_tokens')->where('email', $request->email)->first();
-
-
-        // Verifica se o token existe e bate com o hash salvo
-        if (!$registroToken || !Hash::check($request->token, $registroToken->token)) {
-            return redirect()->route('login')->with('erro', 'Este link de recuperação é inválido ou expirou.');
+        // 3. Valida se o token existe e é válido
+        if (!$dadosReset || !Hash::check($request->token, $dadosReset->token)) {
+            return redirect()->route('login.esqueciSenha')->with('erro', 'Token de redefinição inválido ou expirado.');
         }
 
+        // 4. Localiza o usuário no banco
+        $user = User::where('email', $request->email)->where('excluido', false)->first();
 
-        // Atualiza a senha do usuário
-        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return redirect()->back()->with('erro', 'Usuário não encontrado.');
+        }
+
+        // 5. Atualiza a senha e remove o token usado
         $user->password = Hash::make($request->password);
         $user->save();
 
-
-        // Deleta o token para ele não ser usado de novo por segurança
         DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
-
-        return redirect()->route('login')->with('sucesso', 'Sua senha foi alterada com sucesso! Faça login.');
+        // 6. Redireciona para o login com mensagem de sucesso
+        return redirect()->route('login')->with('sucesso', 'Senha alterada com sucesso! Faça login com a nova senha.');
     }
 }

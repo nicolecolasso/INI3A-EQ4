@@ -47,7 +47,7 @@
 </div>
 
 {{-- Este bloco começará oculto por padrão se o checkbox não estiver marcado --}}
-<div class="input-field" id="box-localizacao" style="display: none;">
+<div class="input-field" id="box-localizacao" @if(!isset($linha->localizacao) || !$linha->localizacao) style="display: none;" @endif>
     <label for="localizacao">Endereço Completo para Retirada</label>
     <input type="text" name="localizacao" id="localizacao" value="{{ $linha->localizacao ?? '' }}" placeholder="Rua, número, bairro e ponto de referência">
 </div>
