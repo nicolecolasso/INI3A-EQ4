@@ -1,0 +1,64 @@
+﻿Casos de Uso - Brecharme
+
+
+1. Cadastrar Produto no Brechó 
+Ator: Voluntário Cáritas
+Fluxo normal: 
+1. Autenticar Voluntário
+2. Voluntário informa os dados do produto (nome, categoria e preço) 
+3. Voluntário insere a foto do produto 
+4. Sistema valida as informações e salva o produto no acervo 
+5. Sistema confirma o cadastro do produto com sucesso 
+Extensões:
+2a - Se campos obrigatórios não forem preenchidos, solicitar preenchimento 
+3a - Se o formato da imagem for inválido, solicitar novo arquivo de imagem 
+4a - Se houver falha ao salvar no banco de dados, informar erro e permitir nova tentativa 
+
+
+2. Reservar Produto 
+Ator: Usuário do Sistema 
+Fluxo normal: 
+1. Autenticar Usuário 
+2. Usuário visualiza o catálogo e seleciona o produto desejado 
+3. Usuário clica na opção de reservar o produto 
+4. Sistema adiciona o produto ao carrinho de reservas 
+5. Usuário acessa o carrinho e confirma a solicitação de reserva 
+6. Sistema altera o status do produto para "Reservado" no estoque 
+7. Sistema exibe o comprovante de reserva com as instruções de pagamento e retirada presencial no Brecharme 
+Extensões:
+1a - Se o usuário não possuir cadastro, solicitar realização de cadastro prévio antes de permitir a reserva 
+3a - Se o produto já tiver sido reservado por outro cliente enquanto o usuário navegava, informar indisponibilidade do item 
+5a - Se o usuário optar por remover o produto do carrinho antes de confirmar, o sistema remove o item e encerra o fluxo sem alterar o estoque 
+
+
+3. Enviar Notificações sobre Eventos
+Ator: Voluntário do Bazar
+Fluxo normal: 
+1. Autenticar Usuário 
+2. Voluntário escreve o texto e título do comunicado sobre o evento do bazar
+3. Voluntário confirma o envio para a lista de contatos
+4. Sistema insere as mensagens na fila de disparos em segundo plano
+5. Sistema confirma o agendamento das notificações para o voluntário 
+Extensões:
+2a - Se a mensagem (ou título) estiver em branco, solicitar digitação do conteúdo
+3a - Se não houver contatos cadastrados no sistema, informar ausência de destinatários e cancelar o envio
+
+
+4. Autenticar Voluntário (Caso de Uso Incluído)
+Ator: Voluntário do Bazar 
+Fluxo normal: 
+1.  Voluntário informa seu e-mail e senha de acesso 
+2. Sistema valida as credenciais 
+3. Sistema libera o acesso às funcionalidades administrativas 
+Extensões: 
+2a - Se o e-mail ou senha estiverem incorretos, informar credenciais inválidas e solicitar nova tentativa 
+
+
+5. Autenticar Usuário (Caso de Uso Incluído) 
+Ator: Usuário do Sistema 
+Fluxo normal:
+1. Usuário informa seu e-mail e senha de acesso
+2. Sistema valida as credenciais de acesso 
+3. Sistema libera o acesso do usuário para realizar reservas e doações
+Extensões:
+2a - Se os dados de acesso estiverem incorretos, informar erro e solicitar novas credenciais
