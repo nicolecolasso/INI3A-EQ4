@@ -22,16 +22,32 @@ class ComunicadoController extends Controller
     {
         $request->validate([
             'assunto'  => 'required|string|max:255',
-            'mensagem' => 'required|string',
+            'mensagem' => 'required|string|max:1000',
         ]);
+
+        // Grava o comunicado no histórico (log de quem disparou)
         Comunicado::create([
-            'assunto'              => $request->input('assunto'),
-            'mensagem'             => $request->input('mensagem'),
-            'data_envio'           => now(),
-            'status'               => Comunicado::STATUS_PENDENTE,
-            'fk_comunicado_id_usuario' => Auth::id() 
+            'assunto'                  => $request->assunto,
+            'mensagem'                 => $request->mensagem,
+            'data_envio'               => now(),
+            'status'                   => Comunicado::STATUS_PENDENTE,
+            'fk_comunicado_id_usuario' => Auth::id(),
         ]);
-        return redirect()->route('admin.gerenciar')->with('successo', 'Comunicado salvo e logo será enviado!');
+
+        // Busca os destinatários elegíveis
+        $destinatarios = User::where('receber_avisos', true)
+            ->where('excluido', false)
+            ->whereNotNull('telefone')
+            ->get();
+
+        $delayEmSegundos = 0;
+        foreach ($destinatarios as $contato) {
+            EnviarWhatsAppJob::dispatch($contato->telefone, $request->mensagem)
+                ->delay(now()->addSeconds($delayEmSegundos));
+            $delayEmSegundos += 8;
+        }
+
+        return redirect()->route('admin.gerenciar')->with('successo', 'Comunicado salvo e está sendo enviado!');
     }
 
     public function reenviarComunicado()

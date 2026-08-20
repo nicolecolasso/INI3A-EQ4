@@ -109,17 +109,16 @@
                 </div>
             </div>
 
-            <div class="native-input-group">
-                <label for="receber_avisos" class="native-label">Deseja receber avisos e novidades?</label>
-                <div class="input-with-icon">
-                    <i class="material-icons input-icon">notifications</i>
-                    <input
-                        type="checkbox"
-                        id="receber_avisos"
-                        name="receber_avisos"
-                        value="1"
+            <div class="remember-me-wrapper">
+                <label for="receber_avisos" class="remember-me-label">
+                    <input 
+                        type="checkbox" 
+                        id="receber_avisos" 
+                        name="receber_avisos" 
+                        value="1" 
                         checked>
-                </div>
+                    <span>Deseja receber avisos e novidades?</span>
+                </label>
             </div>
 
 

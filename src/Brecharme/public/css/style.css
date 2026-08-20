@@ -1,0 +1,60 @@
+:root {
+  /* CORES PRIMITIVAS */
+  
+  /* Cores Principais */
+  --color-brand-primary: #efb810;       /* Amarelo do Brechó */
+  --color-brand-secondary: #ff1700;     /* Vermelho da Cáritas*/
+  
+  /* Escala de Tons Neutros */
+  --color-neutral-0: #ffffff;           /* Branco Puro */
+  --color-neutral-100: #f0f0f0;         /* Cinza Claro */
+  --color-neutral-300: #b3b3b3;         /* Cinza Médio */
+  --color-neutral-900: #000000;         /* Preto Absoluto */
+
+  /* Atalhos para o Projeto */
+  --amarelo-brecho: var(--color-brand-primary);
+  --vermelho-caritas: var(--color-brand-secondary);
+  --cinza-medio: var(--color-neutral-300);
+  --cinza-fundo: var(--color-neutral-100);
+  --preto-abs: var(--color-neutral-900);
+  --branco-puro: var(--color-neutral-0);
+
+
+  /* CORES DE APLICAÇÃO */
+  
+  --fundo-da-pagina: var(--cinza-fundo); /* Fundo geral */
+  --fundo-do-card: var(--branco-puro);   /* Fundo de quadros e cartões */
+  --fundo-do-campo: var(--branco-puro);  /* Fundo de caixas de digitação */
+  --fundo-da-barra: var(--cinza-fundo);  /* Fundo de barras e filtros */
+  
+  --borda-principal: var(--preto-abs);   /* Bordas marcantes em preto */
+  --borda-suave: var(--cinza-medio);     /* Linhas divisórias em cinza */
+
+
+  /* TIPOGRAFIA (FONTES E TAMANHOS) */
+  
+  /* Famílias de Fontes */
+  --fonte-titulo: 'The Seasons';        /* Para Títulos Principais */
+  --fonte-corpo: 'Montserrat';          /* Para Textos, Botões, Inputs, etc */
+
+  /* Tamanhos de Texto */
+  --texto-pequeno: 0.85rem;             /* Legendas e filtros */
+  --texto-padrao: 1rem;                 /* Texto normal de leitura */
+  --texto-medio: 1.25rem;               /* Subtítulos e destaques */
+  --texto-grande: 1.8rem;               /* Títulos de seções */
+  --texto-gigante: 2.5rem;              /* Título principal das páginas */
+
+
+  /* ESPAÇAMENTOS E LAYOUT */
+  
+  --espaco-pp: 0.5rem;   
+  --espaco-p:  0.75rem;  
+  --espaco-m:  1rem;     
+  --espaco-g:  1.5rem; 
+  --espaco-gg: 2.5rem; 
+
+  /* Arredondamento de Bordas */
+  --raio-borda-suave: 8px;             /* Ex.: cards e imagens */
+  --raio-borda-redonda: 25px;          /* Ex.: botões e campos */
+  --raio-borda-pilula: 9999px;         /* Ex.: barra de busca redonda */
+}

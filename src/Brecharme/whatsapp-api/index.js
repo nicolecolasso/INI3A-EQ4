@@ -53,7 +53,7 @@ client.initialize().catch((error) => {
 });
 
 // Inicia o servidor HTTP na porta 3000
-const PORT = 3000;
+const PORT = 56828;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor da API do WhatsApp rodando na porta ${PORT}`);
 });

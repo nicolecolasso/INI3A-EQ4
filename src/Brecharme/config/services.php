@@ -18,6 +18,10 @@ return [
         'key' => env('POSTMARK_API_KEY'),
     ],
 
+    'whatsapp' => [
+        'url' => env('WHATSAPP_API_URL', 'http://127.0.0.1:3000/send-message')
+    ],
+
     'resend' => [
         'key' => env('RESEND_API_KEY'),
     ],
