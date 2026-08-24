@@ -31,22 +31,20 @@ class EnviarWhatsAppJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // IP ou URL da sua API de WhatsApp que está rodando no Node/PM2
-        $apiUrl = config('services.whatsapp.url', 'http://127.0.0.1:3000/send-message');
+        $apiUrl = config('services.whatsapp.url', 'http://127.0.0.1:56828/send-message');
+
+        echo "\n---> Tentando enviar para: " . $apiUrl . "\n";
 
         try {
-            $response = Http::post($apiUrl, [
+            $response = Http::withoutVerifying()->post($apiUrl, [
                 'phone' => $this->telefone,
                 'message' => $this->mensagem,
             ]);
 
-            if ($response->successful()) {
-                Log::info("WhatsApp enviado com sucesso para: {$this->telefone}");
-            } else {
-                Log::error("Falha ao enviar WhatsApp para {$this->telefone}: " . $response->body());
-            }
+            echo "---> Resposta do Node (Status " . $response->status() . "): " . $response->body() . "\n";
+
         } catch (\Exception $e) {
-            Log::error("Erro na requisição para API de WhatsApp: " . $e->getMessage());
+            echo "---> ERRO DE CONEXÃO PHP -> NODE: " . $e->getMessage() . "\n";
         }
     }
 }

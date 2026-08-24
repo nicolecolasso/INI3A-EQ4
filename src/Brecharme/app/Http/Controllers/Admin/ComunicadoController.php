@@ -40,14 +40,16 @@ class ComunicadoController extends Controller
             ->whereNotNull('telefone')
             ->get();
 
+        $mensagemCompleta = "*{$request->assunto}*\n\n{$request->mensagem}";
+
         $delayEmSegundos = 0;
         foreach ($destinatarios as $contato) {
-            EnviarWhatsAppJob::dispatch($contato->telefone, $request->mensagem)
+            EnviarWhatsAppJob::dispatch($contato->telefone, $mensagemCompleta)
                 ->delay(now()->addSeconds($delayEmSegundos));
             $delayEmSegundos += 8;
         }
 
-        return redirect()->route('admin.gerenciar')->with('successo', 'Comunicado salvo e está sendo enviado!');
+        return redirect()->route('admin.gerenciar')->with('sucesso', 'Comunicado salvo e está sendo enviado!');
     }
 
     public function reenviarComunicado()
@@ -65,7 +67,10 @@ class ComunicadoController extends Controller
         ]);
 
         // Busca os contatos que aceitaram receber comunicados
-        $destinatarios = User::where('receber_avisos', true)->get();
+        $destinatarios = User::where('receber_avisos', true)
+            ->where('excluido', false)
+            ->whereNotNull('telefone')
+            ->get();
 
         $delayEmSegundos = 0;
 

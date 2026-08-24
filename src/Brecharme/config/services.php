@@ -19,7 +19,7 @@ return [
     ],
 
     'whatsapp' => [
-        'url' => env('WHATSAPP_API_URL', 'http://127.0.0.1:3000/send-message')
+        'url' => env('WHATSAPP_API_URL', 'http://localhost:56828/send-message')
     ],
 
     'resend' => [

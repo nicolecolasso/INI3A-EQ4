@@ -6,6 +6,13 @@
 
 @section('conteudo')
 <div class="gerenciar-mobile-container">
+
+    @if (session('sucesso'))
+        <div class="alert-sucesso">
+            <i class="material-icons">check_circle</i>
+            {{ session('sucesso') }}
+        </div>
+    @endif
     
     <h1 class="gerenciar-titulo">Gerenciar</h1>
 
