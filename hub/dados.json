@@ -1,0 +1,63 @@
+{
+  "nome": "Nome do Seu Projeto",
+  "slogan": "Uma frase curta e marcante que resume a proposta de valor do projeto.",
+  "ano": 2026,
+  "turma": "A",
+  "curso": "Técnico em Informática",
+  "tecnologia_principal": "Laravel",
+  "tecnologias": [
+    "PHP",
+    "Laravel",
+    "PostgreSQL",
+    "TailwindCSS",
+    "JavaScript"
+  ],
+  "objetivo": "Descreva aqui em um ou dois parágrafos qual problema real o projeto resolve e qual o público-alvo beneficiado.",
+  "video_url": "https://www.youtube.com/watch?v=exemplo-video-comercial",
+  "repositorio_url": "https://github.com/usuario/nome-do-repositorio",
+  "deploy_url": "https://exemplo.projetoscti.com.br",
+  "url_atual": null,
+  "autores": [
+    {
+      "nome": "Nome do Aluno 1",
+      "email": "aluno1@unesp.br",
+      "papel": "Product Owner (PO)"
+    },
+    {
+      "nome": "Nome do Aluno 2",
+      "email": "aluno2@unesp.br",
+      "papel": "Scrum Master"
+    },
+    {
+      "nome": "Nome do Aluno 3",
+      "email": "aluno3@unesp.br",
+      "papel": "Tech Leader"
+    },
+    {
+      "nome": "Nome do Aluno 4",
+      "email": "aluno4@unesp.br",
+      "papel": "Desenvolvedor"
+    },
+    {
+      "nome": "Nome do Aluno 5",
+      "email": "aluno5@unesp.br",
+      "papel": "Desenvolvedor"
+    },
+    {
+      "nome": "Nome do Aluno 6",
+      "email": "aluno6@unesp.br",
+      "papel": "Desenvolvedor"
+    },
+    {
+      "nome": "Nome do Aluno 7",
+      "email": "aluno7@unesp.br",
+      "papel": "Desenvolvedor"
+    }
+  ],
+  "orientadores": [
+    {
+      "nome": "Prof. Nome do Orientador",
+      "email": "orientador@unesp.br"
+    }
+  ]
+}
