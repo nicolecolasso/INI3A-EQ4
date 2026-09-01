@@ -265,6 +265,15 @@ Route::group(['prefix' => '/26-brecharme'], function () {
             'as' => 'perfil.atualizarDados', 
             'uses' => 'App\Http\Controllers\LoginController@atualizarDados'
         ]);
+
+        Route::get('/google', [
+            'as'   => 'login.google',
+            'uses' => 'App\Http\Controllers\Auth\GoogleController@redirectToGoogle'
+        ]);
+        Route::get('/google/callback', [
+            'as'   => 'login.google.callback',
+            'uses' => 'App\Http\Controllers\Auth\GoogleController@handleGoogleCallback'
+        ]);
     });
 
     Route::group(['prefix' => 'produtos'], function () {

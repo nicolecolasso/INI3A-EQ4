@@ -231,26 +231,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* ==========================================================================
-       9. MODAL DE PRECIFICAÇÃO E RETIRADA DE DOAÇÕES (ADMIN)
-       ========================================================================== */
+    9. MODAL DE PRECIFICAÇÃO E RETIRADA DE DOAÇÕES (ADMIN)
+    ========================================================================== */
     const modalPreco = document.getElementById('modalPreco');
     const formIntegrarPreco = document.getElementById('formIntegrarPreco');
     const textoItem = document.getElementById('modalTextoItem');
 
     if (modalPreco && formIntegrarPreco && textoItem) {
         document.querySelectorAll('.btn-abrir-modal, .btn-open-modal-ship').forEach(botao => {
-            botao.addEventListener('click', function () {
-                const id = this.dataset.id || this.dataset.doacaoId;
-                const nome = this.dataset.nome || this.dataset.doacaoNome;
-                
-                textoItem.innerText = "Defina o valor de mercado para o item: " + nome;
-                formIntegrarPreco.action = `${window.location.origin}/admin/doacoes/integrar/${id}`;
-                modalPreco.style.display = "flex";
+        botao.addEventListener('click', function () {
+            const id = this.dataset.id || this.dataset.doacaoId;
+            const nome = this.dataset.nome || this.dataset.doacaoNome;
 
-                const inputPreco = document.getElementById('preco_venda');
-                if (inputPreco) inputPreco.focus();
-            });
+            textoItem.innerText = "Defina o valor de mercado para o item: " + nome;
+
+            // Usa a URL já correta que o Laravel gerou, só troca o placeholder pelo id real
+            const urlTemplate = this.dataset.url;
+            formIntegrarPreco.action = urlTemplate.replace(':id', id);
+
+            modalPreco.style.display = "flex";
+
+            const inputPreco = document.getElementById('preco_venda');
+            if (inputPreco) inputPreco.focus();
         });
+    });
 
         document.querySelectorAll('.btn-close-modal').forEach(botao => {
             botao.addEventListener('click', () => {

@@ -425,3 +425,74 @@
         transform: translateY(0);
     }
 }
+
+/* Divisor "ou" entre login normal e login com Google */
+.login-divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: #b3b3b3;
+    font-family: var(--fonte-texto), 'Montserrat', sans-serif;
+    font-size: 13px;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.login-divider span {
+    padding: 0 12px;
+}
+
+/* Botão "Entrar com o Google" — mesma pílula do botão Entrar */
+.btn-google-login {
+    width: 100%;
+    height: 48px;
+    background-color: var(--amarelo-brecho);
+    color: #F0F0F0 !important;
+    border: 1.5px solid var(--amarelo-brecho);
+    border-radius: 30px;
+    font-family: var(--fonte-texto), 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-top: 10px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none !important;
+}
+
+.btn-google-login:visited,
+.btn-google-login:hover,
+.btn-google-login:active {
+    text-decoration: none !important;
+    color: #F0F0F0 !important;
+}
+
+.btn-google-login:hover {
+    background-color: #f0f0f0 !important;
+    border-color: #000000 !important;
+    color: var(--amarelo-brecho) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.btn-google-login .google-icon {
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 2px;
+    box-sizing: border-box;
+}

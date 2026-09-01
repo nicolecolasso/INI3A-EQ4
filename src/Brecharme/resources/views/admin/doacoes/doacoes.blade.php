@@ -155,6 +155,7 @@
                                             class="btn-action inventory btn-abrir-modal" 
                                             data-id="{{ $linha->id_doacao }}" 
                                             data-nome="{{ $linha->nome }}"
+                                            data-url="{{ route('admin.doacoes.integrar', ':id') }}"
                                             title="Definir Preço e Mandar para Vitrine">
                                         <i class="material-icons">storefront</i>
                                     </button>
