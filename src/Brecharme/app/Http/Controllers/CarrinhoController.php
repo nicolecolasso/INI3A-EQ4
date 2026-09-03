@@ -6,6 +6,8 @@ use App\Models\ProdutoReserva;
 use App\Models\Compra;
 use App\Models\Produto;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class CarrinhoController extends Controller
 {
@@ -31,13 +33,52 @@ class CarrinhoController extends Controller
             'data_compra' => now()
         ]);
 
-        // Carrega as peças vinculadas para mudar o status de 'Carrinho' para 'Reservado'
         $produtosId = $compra->produtos()->pluck('id_produto')->toArray();
         $compra->produtos()->whereIn('id_produto', $produtosId)->update(['status' => 'Reservado']);
-
         Produto::whereIn('id_produto', $produtosId)->update(['status' => 'Reservado']);
 
+        $usuario = Auth::user();
+        $nomesProdutos = Produto::whereIn('id_produto', $produtosId)->pluck('nome')->implode(', ');
+
+        $this->notificarAdminsNovaReserva($compra, $usuario);
+        $this->confirmarReservaUsuario($compra, $usuario, $nomesProdutos);
+
         return redirect()->route('carrinho.conclusaoReserva')->with('sucesso', 'Sua reserva foi efetuada com sucesso!');
+    }
+
+    private function notificarAdminsNovaReserva(Compra $compra, ?User $usuario)
+    {
+        $admins = User::where('admin', true)->where('excluido', false)->pluck('email');
+
+        if ($admins->isEmpty()) {
+            return;
+        }
+
+        $nomeCliente = $usuario->name ?? 'Cliente';
+
+        Mail::send([], [], function ($message) use ($admins, $compra, $nomeCliente) {
+            $message->to($admins->toArray())
+                    ->subject('Nova reserva registrada - Brechó')
+                    ->html("<h3>Uma nova reserva foi registrada</h3>
+                            <p><strong>Cliente:</strong> {$nomeCliente}</p>
+                            <p><strong>Status:</strong> {$compra->status}</p>");
+        });
+    }
+
+    private function confirmarReservaUsuario(Compra $compra, ?User $usuario, string $nomesProdutos)
+    {
+        if (!$usuario || !$usuario->receber_avisos) {
+            return;
+        }
+
+        Mail::send([], [], function ($message) use ($usuario, $compra, $nomesProdutos) {
+            $message->to($usuario->email)
+                    ->subject('Confirmação de reserva - Brechó')
+                    ->html("<h3>Olá, {$usuario->name}!</h3>
+                            <p>Sua reserva foi registrada com sucesso.</p>
+                            <p><strong>Itens:</strong> {$nomesProdutos}</p>
+                            <p><strong>Status:</strong> {$compra->status}</p>");
+        });
     }
 
     public function conclusaoReserva()

@@ -10,6 +10,8 @@ use App\Models\Categoria;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class DoacaoController extends Controller
 {
@@ -41,9 +43,9 @@ class DoacaoController extends Controller
             $termo = '%' . $request->input('termo') . '%';
             
             $query->where(function ($q) use ($termo) {
-                $q->where('nome', 'ilike', $termo) // Busca pelo nome do item
+                $q->where('nome', 'ilike', $termo)
                 ->orWhereHas('usuario', function ($subQuery) use ($termo) {
-                    $subQuery->where('name', 'ilike', $termo); // Busca pelo nome do doador
+                    $subQuery->where('name', 'ilike', $termo);
                 });
             });
         }
@@ -104,6 +106,59 @@ class DoacaoController extends Controller
         return $dados;
     }
 
+    private function notificarAdminsNovaDoacao(Doacao $doacao)
+    {
+        $admins = User::where('admin', true)->where('excluido', false)->pluck('email');
+
+        if ($admins->isEmpty()) {
+            return;
+        }
+
+        $nomeDoador = $doacao->usuario->name ?? 'Usuário';
+
+        Mail::send([], [], function ($message) use ($admins, $doacao, $nomeDoador) {
+            $message->to($admins->toArray())
+                    ->subject('Nova doação recebida - Brechó')
+                    ->html("<h3>Uma nova doação foi cadastrada</h3>
+                            <p><strong>Item:</strong> {$doacao->nome}</p>
+                            <p><strong>Doador:</strong> {$nomeDoador}</p>
+                            <p>Acesse o painel administrativo para analisar.</p>");
+        });
+    }
+
+    private function notificarDoadorStatus(Doacao $doacao, bool $aprovada)
+    {
+        $usuario = $doacao->usuario;
+
+        if (!$usuario || !$usuario->receber_avisos) {
+            return;
+        }
+
+        if ($aprovada) {
+            $numeroWhatsapp = env('WHATSAPP_NUMERO', '5514991083780');
+            $mensagem = rawurlencode("Olá! Tenho a doação \"{$doacao->nome}\" aprovada e gostaria de combinar a retirada.");
+            $linkWhatsapp = "https://wa.me/{$numeroWhatsapp}?text={$mensagem}";
+
+            $assunto = 'Sua doação foi aprovada! - Brechó';
+            $corpo = "<h3>Boa notícia, {$usuario->name}!</h3>
+                    <p>Sua doação <strong>{$doacao->nome}</strong> foi aprovada.</p>
+                    <p>Para combinar a retirada, entre em contato pelo WhatsApp:</p>
+                    <a href='{$linkWhatsapp}'>Falar no WhatsApp</a>";
+        } else {
+            $assunto = 'Sobre sua doação - Brechó';
+            $corpo = "<h3>Olá, {$usuario->name}</h3>
+                    <p>Infelizmente sua doação <strong>{$doacao->nome}</strong> não foi aceita desta vez.</p>
+                    <p>Agradecemos muito o seu gesto e a sua vontade de contribuir!</p>
+                    <p>Esperamos contar com você em futuras oportunidades. Caso queira realizar uma reserva ou fazer uma nova doação, acesse o link:</p>
+                    <a href='" . route('produtos.vitrine') . "'>Acessar Vitrine</a>
+                    <a href='" . route('produtos.novaDoacao') . "'>Nova Doação</a>";
+        }
+
+        Mail::send([], [], function ($message) use ($usuario, $assunto, $corpo) {
+            $message->to($usuario->email)->subject($assunto)->html($corpo);
+        });
+    }
+
     public function salvar(Request $req)
     {        
         $req->validate([
@@ -116,7 +171,6 @@ class DoacaoController extends Controller
 
         $dados = $this->ajusteDados($req);
 
-        // Gerencia e cria/reutiliza a categoria dinâmica
         $categoria = Categoria::firstOrCreate([
             'nome' => Str::title(trim($req->input('categoria_nome')))
         ]);
@@ -125,7 +179,10 @@ class DoacaoController extends Controller
         $dados['fk_doacao_id_usuario'] = Auth::id();
         $dados['status'] = 'Em Análise'; 
 
-        Doacao::create($dados);
+        $doacao = Doacao::create($dados);
+
+        $this->notificarAdminsNovaDoacao($doacao);
+
         return redirect()->route('admin.doacoes')->with('sucesso', 'Doação cadastrada para análise!');
     }
 
@@ -151,7 +208,6 @@ class DoacaoController extends Controller
                 ->with('erro', 'Não é possível alterar uma doação concluída.');
         }
 
-        // Mudança rápida de status na tabela
         if ($req->has('status') && !$req->has('nome')) {
             $req->validate([
                 'status' => 'required|in:Em Análise,Aprovada,Integrada ao Estoque,Recusada,Cancelada'
@@ -212,7 +268,6 @@ class DoacaoController extends Controller
             File::copy($caminhoDoacaoFisico, $caminhoProdutoFisico);
         }
 
-        // Cria o produto herdando a chave de categoria dinâmica original da doação!
         Produto::create([
             'nome'             => $doacao->nome,
             'descricao'        => $doacao->descricao,
@@ -231,6 +286,8 @@ class DoacaoController extends Controller
         $doacao = Doacao::findOrFail($id);
         $doacao->update(['status' => 'Aprovada']);
 
+        $this->notificarDoadorStatus($doacao, aprovada: true);
+
         return redirect()->route('admin.doacoes')->with('sucesso', 'Doação aprovada com sucesso!');
     }
 
@@ -238,6 +295,8 @@ class DoacaoController extends Controller
     {
         $doacao = Doacao::findOrFail($id);
         $doacao->update(['status' => 'Recusada']);
+
+        $this->notificarDoadorStatus($doacao, aprovada: false);
 
         return redirect()->route('admin.doacoes')->with('sucesso', 'Doação recusada.');
     }

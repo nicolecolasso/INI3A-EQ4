@@ -56,11 +56,12 @@
                     @foreach($compras as $compra)
                         <tr class="reserva-row">
                             <td data-label="Código (ID)">#{{ $compra->id_compra }}</td>
-                           
+                        
                             <td data-label="Data da Reserva">{{ $compra->created_at->format('d/m/Y') }}</td>
-                           
-                            <td data-label="Valor Total">R$ {{ number_format($compra->valor_total, 2, ',', '.') }}</td>
-                           
+                        
+                            {{-- Usa o valor total calculado dinamicamente --}}
+                            <td data-label="Valor Total">R$ {{ number_format($compra->valor_total_calculado, 2, ',', '.') }}</td>
+                        
                             <td data-label="Status">
                                 @php
                                     $statusLower = strtolower($compra->status);
@@ -74,7 +75,7 @@
                                     {{ $compra->status }}
                                 </span>
                             </td>
-                           
+                        
                             <td data-label="Ações">
                                 <div class="actions-reservas-flex">
                                     <button type="button" 
@@ -82,15 +83,15 @@
                                             data-id="{{ $compra->id_compra }}"
                                             data-data="{{ $compra->created_at->format('d/m/Y') }}"
                                             data-status="{{ $compra->status }}"
-                                            data-total="R$ {{ number_format($compra->valor_total, 2, ',', '.') }}"
-                                            data-produtos="{{ json_encode($compra->itens ?? $compra->produtos ?? []) }}">
+                                            data-total="R$ {{ number_format($compra->valor_total_calculado, 2, ',', '.') }}"
+                                            data-produtos="{{ json_encode($compra->produtos) }}">
                                         <i class="material-icons">visibility</i> Visualizar
                                     </button>
 
                                     @if(strtolower($compra->status) == 'reservado' || strtolower($compra->status) == 'carrinho')
                                         <a href="{{ route('perfil.minhasReservas.cancelar', $compra->id_compra) }}"
-                                           onclick="return confirm('Deseja realmente cancelar esta reserva?')"
-                                           class="link-cancelar-reserva">
+                                        onclick="return confirm('Deseja realmente cancelar esta reserva?')"
+                                        class="link-cancelar-reserva">
                                             <i class="material-icons">cancel</i> Cancelar
                                         </a>
                                     @endif

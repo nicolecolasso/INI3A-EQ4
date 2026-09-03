@@ -24,7 +24,7 @@
             <h5>Contato</h5>
             <p>
                 <a href="https://api.whatsapp.com/send/?phone=5514991083780&text=Ol%C3%A1+C%C3%A1ritas+Bauru.+Gostaria+de+informa%C3%A7%C3%B5es&type=phone_number&app_absent=0" target="_blank" class="footer-link">
-                    (14) 99108-5596
+                    (14) 99108-3780
                 </a>
             </p>
         </div>

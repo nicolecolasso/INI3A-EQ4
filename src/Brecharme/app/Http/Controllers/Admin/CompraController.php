@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Compra;
 use App\Models\Produto;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class CompraController extends Controller
 {
@@ -76,7 +77,48 @@ class CompraController extends Controller
         $statusProduto = $request->status == 'Concluída' ? 'Vendido' : ($request->status == 'Carrinho' ? 'Carrinho' : 'Reservado');
         Produto::whereIn('id_produto', $request->id_produto)->update(['status' => $statusProduto]);
 
+        $usuario = User::find($request->id_usuario);
+        $nomesProdutos = Produto::whereIn('id_produto', $request->id_produto)->pluck('nome')->implode(', ');
+
+        $this->notificarAdminsNovaReserva($compra, $usuario);
+        $this->confirmarReservaUsuario($compra, $usuario, $nomesProdutos);
+
         return redirect()->route('admin.reservas')->with('sucesso', 'Reserva criada com sucesso!');
+    }
+
+    private function notificarAdminsNovaReserva(Compra $compra, ?User $usuario)
+{
+    $admins = User::where('admin', true)->where('excluido', false)->pluck('email');
+
+    if ($admins->isEmpty()) {
+        return;
+    }
+
+    $nomeCliente = $usuario->name ?? 'Cliente';
+
+    Mail::send([], [], function ($message) use ($admins, $compra, $nomeCliente) {
+        $message->to($admins->toArray())
+                ->subject('Nova reserva registrada - Brechó')
+                ->html("<h3>Uma nova reserva foi registrada</h3>
+                        <p><strong>Cliente:</strong> {$nomeCliente}</p>
+                        <p><strong>Status:</strong> {$compra->status}</p>");
+    });
+}
+
+    private function confirmarReservaUsuario(Compra $compra, ?User $usuario, string $nomesProdutos)
+    {
+        if (!$usuario || !$usuario->receber_avisos) {
+            return;
+        }
+
+        Mail::send([], [], function ($message) use ($usuario, $compra, $nomesProdutos) {
+            $message->to($usuario->email)
+                    ->subject('Confirmação de reserva - Brechó')
+                    ->html("<h3>Olá, {$usuario->name}!</h3>
+                            <p>Sua reserva foi registrada com sucesso.</p>
+                            <p><strong>Itens:</strong> {$nomesProdutos}</p>
+                            <p><strong>Status:</strong> {$compra->status}</p>");
+        });
     }
 
     public function editarReserva($id)

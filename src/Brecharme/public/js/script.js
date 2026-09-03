@@ -170,8 +170,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* ==========================================================================
-       8. MODAL DE DETALHES DAS RESERVAS DO PERFIL
-       ========================================================================== */
+    8. MODAL DE DETALHES DAS RESERVAS DO PERFIL
+    ========================================================================== */
     const modalReserva = document.getElementById("modalDetalhesReserva");
     const btnFecharReserva = document.getElementById("btnFecharModal");
     const botoesAbrirReserva = document.querySelectorAll(".btn-abrir-detalhes");
@@ -191,36 +191,61 @@ document.addEventListener("DOMContentLoaded", function () {
                 modalId.textContent = `#${this.getAttribute("data-id")}`;
                 modalData.textContent = this.getAttribute("data-data");
                 modalStatus.textContent = this.getAttribute("data-status");
-                modalTotal.textContent = this.getAttribute("data-total");
 
                 modalListaProdutos.innerHTML = "";
                 let produtos = [];
+                
                 try {
                     produtos = JSON.parse(this.getAttribute("data-produtos"));
                 } catch (err) {
-                    console.error(err);
+                    console.error("Erro ao processar produtos:", err);
                 }
 
-                if (!produtos || Math.max(produtos.length) === 0) {
+                let somaTotalCalculada = 0;
+
+                if (!produtos || produtos.length === 0) {
                     modalListaProdutos.innerHTML = `<p style='color:#888; font-size:0.9rem;'>Nenhum detalhe de peça encontrado.</p>`;
                 } else {
-                    produtos.forEach(item => {
-                        const prod = item.produto ? item.produto : item;
-                        const valor = prod.preco || prod.valor || item.preco || 0;
-                        let imgUrl = prod.caminho_img ? `/${prod.caminho_img.replace(/^\//, '')}` : '/img/fallback-placeholder.png';
+                    produtos.forEach(prod => {
+                        const valorNum = parseFloat(prod.valor || 0);
+                        somaTotalCalculada += valorNum;
+
+                        // Trata o caminho exato salvo na coluna 'caminho_img' da tabela 'produto'
+                        let imgCaminho = prod.caminho_img || '';
+
+                        // Remove a barra inicial se existir para padronizar
+                        if (imgCaminho.startsWith('/')) {
+                            imgCaminho = imgCaminho.substring(1);
+                        }
+
+                        // Pega o caminho base do projeto atual (ex: /26-brecharme/)
+                        const baseUrl = window.location.pathname.split('/')[1] 
+                            ? `/${window.location.pathname.split('/')[1]}/` 
+                            : '/';
+
+                        // Monta a URL completa exatamente igual ao asset() do Blade
+                        let imgUrl = imgCaminho ? `${window.location.origin}${baseUrl}${imgCaminho}` : '';
 
                         modalListaProdutos.insertAdjacentHTML("beforeend", `
                             <div class="modal-produto-row">
-                                <img src="${imgUrl}" class="modal-prod-img" onerror="this.src='/img/fallback-placeholder.png'">
+                                <img src="${imgUrl}" 
+                                    alt="${prod.nome || 'Produto'}" 
+                                    class="modal-prod-img"
+                                    onerror="this.onerror=null; this.style.display='none';">
                                 <div class="modal-prod-info">
-                                    <h5>${prod.nome || 'Peça'}</h5>
-                                    <p>Categoria: ${prod.categoria || 'Geral'}</p>
-                                    <p><strong>R$ ${parseFloat(valor).toFixed(2).replace('.', ',')}</strong></p>
+                                    <h5>${prod.nome || 'Peça do Brechó'}</h5>
+                                    <p><strong>R$ ${valorNum.toFixed(2).replace('.', ',')}</strong></p>
                                 </div>
                             </div>
                         `);
                     });
                 }
+
+                let totalAtributo = this.getAttribute("data-total");
+                modalTotal.textContent = (totalAtributo && totalAtributo !== "R$ 0,00") 
+                    ? totalAtributo 
+                    : `R$ ${somaTotalCalculada.toFixed(2).replace('.', ',')}`;
+
                 modalReserva.classList.add("modal-active");
             });
         });

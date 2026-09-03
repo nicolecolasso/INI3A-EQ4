@@ -19,7 +19,9 @@ class PerfilController extends Controller
     {
         $usuario = User::findOrFail(Auth::id());
 
-        $totalDoacoes = $usuario->doacoes()->where('status', 'Aprovado')->count();
+        $totalDoacoes = $usuario->doacoes()
+        ->whereIn('status', ['Aprovada', 'Integrada ao Estoque'])
+        ->count();
 
         $totalReservas = $usuario->compras()->where('status', 'Concluída')->count();
 
@@ -71,11 +73,17 @@ class PerfilController extends Controller
 
     public function minhasReservas()
     {
-        // O with(['itens.produto']) traz a tabela intermediária e os produtos de uma só vez
-        $compras = Compra::with(['itens.produto'])
+        // Carrega a compra junto com os produtos cadastrados
+        $compras = Compra::with('produtos')
             ->where('fk_compra_id_usuario', Auth::id())
             ->orderBy('id_compra', 'desc')
             ->get();
+
+        // Sumariza o valor dinamicamente usando a coluna 'valor' da tabela 'produto'
+        $compras->transform(function ($compra) {
+            $compra->valor_total_calculado = $compra->produtos->sum('valor');
+            return $compra;
+        });
 
         return view('perfil.minhasReservas', compact('compras'));
     }

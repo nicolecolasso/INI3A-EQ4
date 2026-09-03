@@ -9,6 +9,8 @@ use App\Models\Doacao;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class VitrineController extends Controller
 {
@@ -128,8 +130,30 @@ class VitrineController extends Controller
         $dados['data_doacao'] = now();
         $dados['status']      = 'Em Análise'; 
 
-        Doacao::create($dados);
+        $doacao = Doacao::create($dados);
+
+        $this->notificarAdminsNovaDoacao($doacao);
 
         return redirect()->route('perfil.minhasDoacoes')->with('sucesso', 'Sua proposta de doação foi enviada para análise!');
+    }
+
+    private function notificarAdminsNovaDoacao(Doacao $doacao)
+    {
+        $admins = User::where('admin', true)->where('excluido', false)->pluck('email');
+
+        if ($admins->isEmpty()) {
+            return;
+        }
+
+        $nomeDoador = $doacao->usuario->name ?? Auth::user()->name ?? 'Usuário';
+
+        Mail::send([], [], function ($message) use ($admins, $doacao, $nomeDoador) {
+            $message->to($admins->toArray())
+                    ->subject('Nova doação recebida - Brechó')
+                    ->html("<h3>Uma nova doação foi cadastrada</h3>
+                            <p><strong>Item:</strong> {$doacao->nome}</p>
+                            <p><strong>Doador:</strong> {$nomeDoador}</p>
+                            <p>Acesse o painel administrativo para analisar.</p>");
+        });
     }
 }
