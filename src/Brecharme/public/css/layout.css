@@ -1,20 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
-@font-face {
-    font-family: 'The Season';
-    src: url('../fonts/The Seasons.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-:root {
-    --amarelo-brecho: #EFB810;
-    --branco-fundo:    #F0F0F0;
-    --cinza-detalhe:   #B3B3B3;
-    --preto-puro:      #000000;
-    --fonte-titulo:    'The Season', serif;
-    --fonte-texto:     'Montserrat', sans-serif;
-}
+/* Tokens de design (cores, tipografia, espaçamentos e raios): css/style.css */
 
 /* Reset agressivo para anular interferências de frameworks antigos */
 * {
@@ -24,8 +8,8 @@
 }
 
 body {
-    font-family: var(--fonte-texto);
-    background-color: #F0F0F0;
+    font-family: var(--fonte-corpo);
+    background-color: var(--fundo-da-pagina);
     display: flex;
     flex-direction: column;
     min-height: 100vh; 
@@ -44,8 +28,8 @@ main {
    💻 NAVBAR (CABEÇALHO) - DESKTOP FIRST
    ================================================================== */
 .brecharme-navbar {
-    background-color: var(--cinza-detalhe);
-    border-bottom: 2px solid var(--cinza-detalhe);
+    background-color: var(--cinza-medio);
+    border-bottom: 2px solid var(--cinza-medio);
     padding: 15px 40px;
     display: flex;
     justify-content: space-between;
@@ -68,7 +52,7 @@ main {
 .brand-logo-text {
     font-family: var(--fonte-titulo);
     font-size: 32px;
-    color: #F0F0F0;
+    color: var(--cinza-fundo);
     font-weight: normal;
 }
 
@@ -81,9 +65,9 @@ main {
 }
 
 .navbar-links li a {
-    color: #F0F0F0;
+    color: var(--cinza-fundo);
     text-decoration: none;
-    font-family: var(--fonte-texto);
+    font-family: var(--fonte-corpo);
     font-weight: 500;
     font-size: 14px;
     border: 1.5px solid var(--amarelo-brecho);
@@ -95,7 +79,7 @@ main {
 }
 
 .navbar-links li a:hover {
-    background-color: #F0F0F0;
+    background-color: var(--cinza-fundo);
     border-color: var(--amarelo-brecho);
     color: var(--amarelo-brecho);
 }
@@ -116,11 +100,11 @@ main {
 
 .navbar-links li a.icon-circle .material-icons {
     font-size: 24px;
-    color: #F0F0F0;
+    color: var(--cinza-fundo);
 }
 
 .navbar-links li a.icon-circle:hover {
-    background-color: #F0F0F0;
+    background-color: var(--cinza-fundo);
     border-color: var(--amarelo-brecho);
 }
 
@@ -134,7 +118,7 @@ main {
     padding: 8px 20px;
     display: inline-block;
     background-color: var(--amarelo-brecho);
-    color: #F0F0F0;
+    color: var(--cinza-fundo);
     text-decoration: none;
     font-weight: 500;
     font-size: 14px;
@@ -142,7 +126,7 @@ main {
 }
 
 .navbar-links li a.btn-sair:hover {
-    background-color: #F0F0F0;
+    background-color: var(--cinza-fundo);
     border-color: var(--amarelo-brecho);
     color: var(--amarelo-brecho);
 }
@@ -153,7 +137,7 @@ main {
     background: transparent;
     border: none;
     cursor: pointer;
-    color: #F0F0F0;
+    color: var(--cinza-fundo);
 }
 
 .sidenav-trigger .material-icons {
@@ -224,19 +208,19 @@ main {
 
 .sidenav li a {
     display: block;
-    color: #F0F0F0;
+    color: var(--cinza-fundo);
     text-decoration: none;
     font-weight: 500;
     font-size: 16px;
-    border: 2px solid #F0F0F0;
-    border-radius: 25px; 
+    border: 2px solid var(--cinza-fundo);
+    border-radius: var(--raio-borda-redonda); 
     padding: 12px 20px;
     text-align: center;
     transition: all 0.3s ease;
 }
 
 .sidenav li a:hover {
-    background-color: #F0F0F0;
+    background-color: var(--cinza-fundo);
     color: var(--amarelo-brecho);
 }
 
@@ -254,7 +238,7 @@ main {
 
 /* ESTILIZAÇÃO DO RODAPÉ */
 .brecharme-footer {
-    background-color: var(--cinza-detalhe);
+    background-color: var(--cinza-medio);
     padding: 30px 20px;
     width: 100%;
 }
@@ -277,7 +261,7 @@ main {
 
 .footer-column h5 {
     font-family: var(--fonte-titulo);
-    color: var(--branco-fundo);
+    color: var(--cinza-fundo);
     font-size: 18px;
     margin-bottom: 12px;
     font-weight: normal;
@@ -285,8 +269,8 @@ main {
 
 .footer-column p, 
 .footer-column a {
-    font-family: var(--fonte-texto);
-    color: var(--branco-fundo);
+    font-family: var(--fonte-corpo);
+    color: var(--cinza-fundo);
     font-size: 13px;
     line-height: 1.6;
     text-decoration: none;

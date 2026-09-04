@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('../fonts/The Seasons.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   /* CORES PRIMITIVAS */
   
@@ -34,8 +43,8 @@
   /* TIPOGRAFIA (FONTES E TAMANHOS) */
   
   /* Famílias de Fontes */
-  --fonte-titulo: 'The Seasons';        /* Para Títulos Principais */
-  --fonte-corpo: 'Montserrat';          /* Para Textos, Botões, Inputs, etc */
+  --fonte-titulo: 'The Seasons', serif;      /* Para Títulos Principais */
+  --fonte-corpo: 'Montserrat', sans-serif;   /* Para Textos, Botões, Inputs, etc */
 
   /* Tamanhos de Texto */
   --texto-pequeno: 0.85rem;             /* Legendas e filtros */

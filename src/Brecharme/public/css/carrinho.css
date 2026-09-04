@@ -1,15 +1,15 @@
 .carrinho-main-container {
     max-width: 1200px;
     margin: 2rem auto;
-    padding: 0 1.5rem;
-    font-family: var(--fonte-texto);
+    padding: 0 var(--espaco-g);
+    font-family: var(--fonte-corpo);
 }
 
 .carrinho-title {
     font-family: var(--fonte-titulo);
     font-size: 2rem;
     font-weight: normal;
-    color: var(--preto-puro);
+    color: var(--preto-abs);
     margin-bottom: 2rem;
 }
 
@@ -22,7 +22,7 @@
 .carrinho-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
+    gap: var(--espaco-gg);
     align-items: start;
 }
 
@@ -30,9 +30,9 @@
 .alert-success {
     background: #e6f4ea;
     color: #137333;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+    padding: var(--espaco-m);
+    border-radius: var(--raio-borda-suave);
+    margin-bottom: var(--espaco-g);
     font-size: 0.95rem;
 }
 
@@ -40,10 +40,10 @@
 .carrinho-item-card {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    background: #ffffff;
+    gap: var(--espaco-g);
+    background: var(--branco-puro);
     padding: 1.25rem;
-    border: 2px solid var(--branco-fundo);
+    border: 2px solid var(--cinza-fundo);
     border-radius: 16px; /* Aumentado para o padrão arredondado do TCC */
     position: relative;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
@@ -55,7 +55,7 @@
     height: 90px;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid var(--branco-fundo);
+    border: 1px solid var(--cinza-fundo);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -78,7 +78,7 @@
 .carrinho-item-info h4 {
     margin: 0 0 0.35rem 0;
     font-size: 1.1rem;
-    color: var(--preto-puro);
+    color: var(--preto-abs);
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
@@ -87,7 +87,7 @@
 
 .carrinho-item-info p {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     color: #777777;
 }
 
@@ -95,7 +95,7 @@
 .carrinho-item-preco {
     font-size: 1.15rem;
     font-weight: 600;
-    color: var(--preto-puro);
+    color: var(--preto-abs);
     text-align: right;
     white-space: nowrap;
 }
@@ -111,7 +111,7 @@
     right: 12px;
     background: transparent;
     border: none;
-    color: var(--cinza-detalhe);
+    color: var(--cinza-medio);
     cursor: pointer;
     padding: 4px;
     transition: color 0.2s ease, transform 0.2s ease;
@@ -133,11 +133,11 @@
 .btn-confirmar-reserva {
     background-color: #1A1A1A; /* Invertido para preto padrão Brecharme */
     color: var(--amarelo-brecho);
-    font-family: var(--fonte-texto);
+    font-family: var(--fonte-corpo);
     border: none;
     border-radius: 30px; /* Formato pílula elegante */
-    padding: 1rem 3rem;
-    font-size: 1rem;
+    padding: var(--espaco-m) 3rem;
+    font-size: var(--texto-padrao);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -156,7 +156,7 @@
 /* Botão de retorno à Vitrine */
 .btn-voltar-vitrine {
     display: inline-block;
-    margin-top: 1.5rem;
+    margin-top: var(--espaco-g);
     background: transparent;
     border: 2px solid #1A1A1A;
     border-radius: 30px;
@@ -186,24 +186,24 @@
 
 .carrinho-vazio h3 {
     font-family: var(--fonte-titulo);
-    font-size: 1.8rem;
+    font-size: var(--texto-grande);
     color: #333;
     font-weight: normal;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--espaco-pp);
 }
 
 .sucesso-container {
     max-width: 700px;
     margin: 3rem auto;
-    padding: 0 1.5rem;
-    font-family: var(--fonte-texto);
+    padding: 0 var(--espaco-g);
+    font-family: var(--fonte-corpo);
 }
 
 .sucesso-block {
-    background: #ffffff;
-    border: 2px solid var(--branco-fundo);
+    background: var(--branco-puro);
+    border: 2px solid var(--cinza-fundo);
     border-radius: 20px;
-    padding: 2.5rem;
+    padding: var(--espaco-gg);
     margin-bottom: 2rem;
     box-shadow: 0 10px 30px rgba(0,0,0,0.02);
 }
@@ -227,14 +227,14 @@
 }
 
 .sucesso-badge-icon i {
-    font-size: 2.5rem;
+    font-size: var(--texto-gigante);
     color: #1A1A1A;
 }
 
 .sucesso-text-content h2 {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 var(--espaco-pp) 0;
     font-family: var(--fonte-titulo);
-    font-size: 1.8rem;
+    font-size: var(--texto-grande);
     color: #1A1A1A;
     font-weight: normal;
 }
@@ -252,32 +252,32 @@
     font-size: 1.4rem;
     color: #1A1A1A;
     margin-top: 2rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--branco-fundo);
-    padding-bottom: 0.5rem;
+    margin-bottom: var(--espaco-m);
+    border-bottom: 2px solid var(--cinza-fundo);
+    padding-bottom: var(--espaco-pp);
     font-weight: normal;
 }
 
 .detalhes-lista-produtos {
-    margin-top: 1.5rem;
+    margin-top: var(--espaco-g);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--espaco-m);
 }
 
 .detalhe-produto-linha {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--branco-fundo);
+    padding: var(--espaco-p) 0;
+    border-bottom: 1px solid var(--cinza-fundo);
     font-size: 0.95rem;
 }
 
 .texto-sub-detalhe { color: #555555; font-weight: 500; }
-.status-badge-inline { color: #888888; font-size: 0.85rem; margin-left: 10px; }
+.status-badge-inline { color: #888888; font-size: var(--texto-pequeno); margin-left: 10px; }
 .texto-vazio { color: #999999; font-style: italic; }
-.container-botao-voltar { text-align: center; margin-top: 2.5rem; }
+.container-botao-voltar { text-align: center; margin-top: var(--espaco-gg); }
 
 
 
@@ -285,7 +285,7 @@
 @media (max-width: 768px) {
     .carrinho-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: var(--espaco-g);
     }
 
     .sucesso-header-flex {
@@ -301,7 +301,7 @@
     
     .btn-confirmar-reserva {
         width: 100%;
-        padding: 1rem;
+        padding: var(--espaco-m);
     }
     
     .carrinho-title {
@@ -316,11 +316,11 @@
         flex-direction: column; /* Transforma a linha em coluna no celular */
         align-items: stretch;
         text-align: center;
-        padding: 2.5rem 1.25rem 1.25rem 1.25rem; /* Abre espaço no topo para o botão excluir */
+        padding: var(--espaco-gg) 1.25rem 1.25rem 1.25rem; /* Abre espaço no topo para o botão excluir */
     }
 
     .carrinho-img-wrapper {
-        margin: 0 auto 0.5rem auto; /* Centraliza a foto no meio do card */
+        margin: 0 auto var(--espaco-pp) auto; /* Centraliza a foto no meio do card */
         width: 100px;
         height: 100px;
     }
@@ -332,10 +332,10 @@
 
     .carrinho-item-preco {
         text-align: center;
-        margin-top: 0.75rem;
+        margin-top: var(--espaco-p);
         font-size: 1.2rem;
-        border-top: 1px dashed var(--branco-fundo);
-        padding-top: 0.75rem;
+        border-top: 1px dashed var(--cinza-fundo);
+        padding-top: var(--espaco-p);
     }
 
     .btn-remover-carrinho {

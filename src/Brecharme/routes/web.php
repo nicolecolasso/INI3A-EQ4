@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => '/26-brecharme'], function () {
+//Route::group(['prefix' => '/26-brecharme'], function () {
 
     Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], function () {
         Route::get('gerenciar', [
@@ -379,4 +379,4 @@ Route::group(['prefix' => '/26-brecharme'], function () {
         'as' => 'institucional.galeria', 
         'uses' => 'App\Http\Controllers\InstitucionalController@galeria'
     ]);
-});
+//});

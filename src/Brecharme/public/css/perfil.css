@@ -6,7 +6,7 @@
     margin: 40px auto;
     padding: 0 20px;
     min-height: 60vh;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fonte-corpo);
 }
 
 .perfil-grid {
@@ -16,7 +16,7 @@
 }
 
 .perfil-card {
-    background: #fff;
+    background: var(--branco-puro);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -30,7 +30,7 @@
 
 .avatar-container .material-icons {
     font-size: 90px;
-    color: #EFB810;
+    color: var(--amarelo-brecho);
 }
 
 .perfil-card-title {
@@ -43,7 +43,7 @@
     margin: 0;
     font-weight: 600;
     font-size: 0.9rem;
-    color: #EFB810;
+    color: var(--amarelo-brecho);
 }
 
 .perfil-separator {
@@ -55,7 +55,7 @@
 /* Estatísticas */
 .user-stats {
     text-align: left;
-    font-size: 1rem;
+    font-size: var(--texto-padrao);
     color: #555;
     display: flex;
     flex-direction: column;
@@ -70,11 +70,11 @@
     background: #f9f9f9;
     padding: 10px;
     border-radius: 6px;
-    border-left: 4px solid #EFB810;
+    border-left: 4px solid var(--amarelo-brecho);
 }
 
 .user-stat i {
-    color: #EFB010;
+    color: var(--amarelo-brecho);
 }
 
 /* Painel Geral (Dashboard) */
@@ -85,8 +85,8 @@
 }
 
 .welcome-box {
-    background: #EFB810;
-    color: #fff;
+    background: var(--amarelo-brecho);
+    color: var(--branco-puro);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(239, 184, 16, 0.2);
@@ -110,7 +110,7 @@
 }
 
 .action-card {
-    background: #fff;
+    background: var(--branco-puro);
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -122,7 +122,7 @@
 
 .action-card-icon {
     font-size: 35px;
-    color: #EFB810;
+    color: var(--amarelo-brecho);
     margin-bottom: 10px;
 }
 
@@ -135,12 +135,12 @@
 .action-card-text {
     margin: 0 0 20px 0;
     color: #777;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     line-height: 1.4;
 }
 
 .action-card-link {
-    color: #EFB810;
+    color: var(--amarelo-brecho);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
@@ -170,7 +170,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #efb810;
+    color: var(--amarelo-brecho);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
@@ -182,7 +182,7 @@
     background-color: #d4edda;
     color: #155724;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -195,7 +195,7 @@
     background-color: #f8d7da;
     color: #721c24;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -247,7 +247,7 @@
     border: 1px solid #999;
     border-radius: 6px;
     padding: 12px;
-    font-size: 1rem;
+    font-size: var(--texto-padrao);
     color: #333;
 }
 
@@ -273,7 +273,7 @@
 }
 
 .doacao-card {
-    background: #ffffff;
+    background: var(--branco-puro);
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     padding: 25px;
@@ -298,7 +298,7 @@
 }
 
 .doacao-meta-value {
-    background: #f0f0f0;
+    background: var(--cinza-fundo);
     border: 1px solid #ccc;
     padding: 6px 14px;
     border-radius: 6px;
@@ -323,7 +323,7 @@
 .status-badge {
     padding: 6px 14px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     font-weight: 600;
     text-transform: uppercase;
     display: inline-block;
@@ -357,7 +357,7 @@
     width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     border: 2px solid #ddd;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
@@ -367,7 +367,7 @@
     height: 80px;
     background: #f5f5f5;
     border: 2px dashed #ccc;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -396,7 +396,7 @@
 }
 
 .reserva-table tr.reserva-row {
-    background: #ffffff;
+    background: var(--branco-puro);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -431,7 +431,7 @@
 .status-badge-reserva {
     padding: 6px 14px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     font-weight: 600;
     text-transform: uppercase;
     display: inline-block;
@@ -459,7 +459,7 @@
 .linha-detalhes {
     display: none;
     background-color: #fcfcfc;
-    border-bottom: 2px solid #efb810;
+    border-bottom: 2px solid var(--amarelo-brecho);
 }
 
 .container-detalhes {
@@ -469,8 +469,8 @@
 .tabela-produtos-interna {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    border-radius: 8px;
+    background: var(--branco-puro);
+    border-radius: var(--raio-borda-suave);
     overflow: hidden;
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
 }
@@ -510,7 +510,7 @@
     gap: 8px;
     margin-top: 25px;
     background: #333;
-    color: #fff;
+    color: var(--branco-puro);
     padding: 12px;
     border-radius: 6px;
     text-decoration: none;
@@ -542,9 +542,9 @@
 }
 
 .btn-salvar-dourado {
-    background-color: #EFB810;
+    background-color: var(--amarelo-brecho);
     color: #333;
-    border: 1px solid #EFB810;
+    border: 1px solid var(--amarelo-brecho);
     border-radius: 6px;
     padding: 14px 60px;
     font-size: 1.1rem;
@@ -554,16 +554,16 @@
 }
 
 .btn-salvar-dourado:hover {
-    background-color: #efb810 !important;
+    background-color: var(--amarelo-brecho) !important;
 }
 
 .btn-cancelar-perfil {
-    background: #fff;
+    background: var(--branco-puro);
     color: #c62828;
     border: 1px solid #c62828;
     padding: 6px 16px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     font-weight: 600;
     text-decoration: none;
     transition: all 0.2s;
@@ -574,7 +574,7 @@
 
 .btn-cancelar-perfil:hover {
     background: #c62828 !important;
-    color: #fff !important;
+    color: var(--branco-puro) !important;
 }
 
 .btn-table-details {
@@ -620,7 +620,7 @@
     border: 1px solid #cca210;
     border-radius: 6px;
     padding: 12px 45px;
-    font-size: 1rem;
+    font-size: var(--texto-padrao);
     font-weight: bold;
     text-decoration: none;
     text-align: center;
@@ -628,11 +628,11 @@
 }
 
 .btn-sair-dourado:hover {
-    background-color: #efb810 !important;
+    background-color: var(--amarelo-brecho) !important;
 }
 
 .btn-nova-doacao-clear:hover {
-    background-color: #efb810 !important;
+    background-color: var(--amarelo-brecho) !important;
     transform: translateY(-1px);
 }
 
@@ -703,7 +703,7 @@
     .reserva-table tr.reserva-row {
         margin-bottom: 20px;
         border: 1px solid #e0e0e0;
-        border-radius: 8px;
+        border-radius: var(--raio-borda-suave);
         padding: 10px;
     }
 
@@ -746,7 +746,7 @@
     margin: 40px auto;
     padding: 0 20px;
     min-height: 60vh;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fonte-corpo);
 }
 
 /* Alertas de Sucesso e Erro */
@@ -754,7 +754,7 @@
     background-color: #d4edda;
     color: #155724;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -766,7 +766,7 @@
     background-color: #f8d7da;
     color: #721c24;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -783,7 +783,7 @@
 
 /* Card Lateral do Usuário */
 .dados-usuario-card {
-    background: #fff !important; /* Força o fundo branco */
+    background: var(--branco-puro) !important; /* Força o fundo branco */
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -797,7 +797,7 @@
 
 .icon-avatar-dourado {
     font-size: 90px;
-    color: #EFB810;
+    color: var(--amarelo-brecho);
 }
 
 .nome-usuario-titulo {
@@ -839,16 +839,16 @@
 
 /* Card Central do Formulário (Onde sumia o Fundo Branco) */
 .dados-dashboard-card {
-    background: #fff !important; /* Restaura o fundo branco da área de dados */
+    background: var(--branco-puro) !important; /* Restaura o fundo branco da área de dados */
     padding: 35px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-/* ✨ AJUSTE DE FONTE: Título em 'The Seasons' */
+/* ✨ AJUSTE DE FONTE: Título em var(--fonte-titulo) */
 .titulo-meus-dados, .page-heading {
-    font-family: 'The Seasons', sans-serif;
-    font-size: 1.8rem;
+    font-family: var(--fonte-titulo);
+    font-size: var(--texto-grande);
     color: #333;
     margin: 0 0 30px 0;
     font-weight: 500;
@@ -885,14 +885,14 @@
     color: #333;
 }
 
-/* ✨ AJUSTE DE FONTE E VISUAL DOS INPUTS: Fonte 'Montserrat' */
+/* ✨ AJUSTE DE FONTE E VISUAL DOS INPUTS: Fonte var(--fonte-corpo) */
 .input-montserrat {
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: var(--fonte-corpo) !important;
     background: #dcdcdc !important;
     border: 1px solid #999 !important;
     border-radius: 6px !important;
     padding: 12px !important;
-    font-size: 1rem !important;
+    font-size: var(--texto-padrao) !important;
     color: #333 !important;
 }
 
@@ -904,9 +904,9 @@
 }
 
 .btn-salvar-custom-dados {
-    background-color: #EFB810 !important;
+    background-color: var(--amarelo-brecho) !important;
     color: #333 !important;
-    border: 1px solid #EFB810 !important;
+    border: 1px solid var(--amarelo-brecho) !important;
     border-radius: 6px !important;
     padding: 14px 60px !important;
     font-size: 1.1rem !important;
@@ -924,7 +924,7 @@
     margin: 40px auto;
     padding: 0 20px;
     min-height: 60vh;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fonte-corpo);
 }
 
 /* Título e Topo */
@@ -938,7 +938,7 @@
 }
 
 .titulo-doacoes-seasons {
-    font-family: 'The Seasons', sans-serif;
+    font-family: var(--fonte-titulo);
     font-size: 2rem;
     color: #333;
     margin: 0;
@@ -949,7 +949,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #efb810;
+    color: var(--amarelo-brecho);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
@@ -960,7 +960,7 @@
     background-color: #d4edda;
     color: #155724;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -972,7 +972,7 @@
     background-color: #f8d7da;
     color: #721c24;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -990,7 +990,7 @@
 
 /* Card de Lista Vazia */
 .doacoes-vazia-card {
-    background: #fff;
+    background: var(--branco-puro);
     padding: 40px;
     text-align: center;
     border-radius: 12px;
@@ -1012,7 +1012,7 @@
 
 /* Card do Item de Doação */
 .shadow-card-doacao {
-    background: #ffffff;
+    background: var(--branco-puro);
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     padding: 25px;
@@ -1043,7 +1043,7 @@
 }
 
 .badge-meta-dados {
-    background: #f0f0f0;
+    background: var(--cinza-fundo);
     border: 1px solid #ccc;
     padding: 6px 14px;
     border-radius: 6px;
@@ -1076,14 +1076,14 @@
 .badge-status-dinamico {
     padding: 6px 14px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     font-weight: 600;
     text-transform: uppercase;
 }
 
 /* Classes e Cores dos Badges Dinâmicos */
 .status-default {
-    background: #f0f0f0;
+    background: var(--cinza-fundo);
     color: #444;
     border: 1px solid #ccc;
 }
@@ -1114,12 +1114,12 @@
 
 /* Botão Cancelar Perfil */
 .btn-cancelar-perfil-action {
-    background: #fff;
+    background: var(--branco-puro);
     color: #c62828;
     border: 1px solid #c62828;
     padding: 6px 16px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     font-weight: 600;
     text-decoration: none;
     transition: all 0.2s;
@@ -1143,7 +1143,7 @@
     width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     border: 2px solid #ddd;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
@@ -1153,7 +1153,7 @@
     height: 80px;
     background: #f5f5f5;
     border: 2px dashed #ccc;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1168,10 +1168,10 @@
 }
 
 .btn-footer-dourado {
-    background-color: #efb810;
+    background-color: var(--amarelo-brecho);
     color: #333;
-    border: 1px solid #efb810;
-    border-radius: 8px;
+    border: 1px solid var(--amarelo-brecho);
+    border-radius: var(--raio-borda-suave);
     padding: 14px 50px;
     font-size: 1.1rem;
     font-weight: bold;
@@ -1233,7 +1233,7 @@
     margin: 40px auto;
     padding: 0 20px;
     min-height: 60vh;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fonte-corpo);
 }
 
 .header-reservas-flex {
@@ -1246,7 +1246,7 @@
 }
 
 .titulo-reservas-seasons {
-    font-family: 'The Seasons', sans-serif;
+    font-family: var(--fonte-titulo);
     font-size: 2rem;
     color: #333;
     margin: 0;
@@ -1257,7 +1257,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #efb810;
+    color: var(--amarelo-brecho);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
@@ -1268,7 +1268,7 @@
     background-color: #d4edda;
     color: #155724;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -1280,7 +1280,7 @@
     background-color: #f8d7da;
     color: #721c24;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -1292,7 +1292,7 @@
 .tabela-perfil-custom {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
+    background: var(--branco-puro);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
@@ -1308,8 +1308,8 @@
 .btn-abrir-detalhes {
     background: none;
     border: none;
-    color: #efb810;
-    font-family: 'Montserrat', sans-serif;
+    color: var(--amarelo-brecho);
+    font-family: var(--fonte-corpo);
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -1352,7 +1352,7 @@
 }
 
 .modal-reservas-content {
-    background: #fff;
+    background: var(--branco-puro);
     width: 90%;
     max-width: 600px;
     border-radius: 12px;
@@ -1377,7 +1377,7 @@
 
 .modal-reservas-header h3 {
     margin: 0;
-    font-family: 'The Seasons', sans-serif;
+    font-family: var(--fonte-titulo);
     font-size: 1.4rem;
     color: #333;
 }
@@ -1385,7 +1385,7 @@
 .modal-reservas-close {
     background: none;
     border: none;
-    font-size: 1.8rem;
+    font-size: var(--texto-grande);
     cursor: pointer;
     color: #aaa;
     line-height: 1;
@@ -1428,8 +1428,8 @@
     align-items: center;
     gap: 15px;
     padding: 10px;
-    border: 1px solid #f0f0f0;
-    border-radius: 8px;
+    border: 1px solid var(--cinza-fundo);
+    border-radius: var(--raio-borda-suave);
 }
 
 .modal-prod-img {
@@ -1452,7 +1452,7 @@
 
 .modal-prod-info p {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     color: #777;
 }
 
@@ -1482,7 +1482,7 @@
     margin: 40px auto;
     padding: 0 20px;
     min-height: 60vh;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--fonte-corpo);
     width: 100%;
     overflow: hidden; /* Evita vazamentos horizontais */
 }
@@ -1498,7 +1498,7 @@
 }
 
 .titulo-reservas-seasons {
-    font-family: 'The Seasons', sans-serif;
+    font-family: var(--fonte-titulo);
     font-size: 2rem;
     color: #333;
     margin: 0;
@@ -1509,7 +1509,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #efb810;
+    color: var(--amarelo-brecho);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
@@ -1520,7 +1520,7 @@
     background-color: #d4edda;
     color: #155724;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -1533,7 +1533,7 @@
     background-color: #f8d7da;
     color: #721c24;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     margin-bottom: 25px;
     display: flex;
     align-items: center;
@@ -1544,7 +1544,7 @@
 
 /* Card Estado Vazio */
 .card-vazio-reservas {
-    background: #fff;
+    background: var(--branco-puro);
     padding: 40px;
     text-align: center;
     border-radius: 12px;
@@ -1567,7 +1567,7 @@
 }
 
 .link-vazio-reserva {
-    color: #efb810;
+    color: var(--amarelo-brecho);
     text-decoration: none;
     font-weight: 600;
 }
@@ -1576,7 +1576,7 @@
 .table-responsive-wrapper {
     width: 100%;
     overflow-x: auto; /* Fallback de rolagem se algo der muito errado */
-    background: #fff;
+    background: var(--branco-puro);
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
@@ -1585,7 +1585,7 @@
 .tabela-perfil-custom {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
+    background: var(--branco-puro);
 }
 
 .tabela-perfil-custom th {
@@ -1614,7 +1614,7 @@
 .status-badge-reserva {
     padding: 6px 14px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: var(--texto-pequeno);
     font-weight: 600;
     display: inline-block;
 }
@@ -1633,8 +1633,8 @@
 .btn-abrir-detalhes {
     background: none;
     border: none;
-    color: #efb810;
-    font-family: 'Montserrat', sans-serif;
+    color: var(--amarelo-brecho);
+    font-family: var(--fonte-corpo);
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -1686,7 +1686,7 @@
         border: 1px solid #e5e5e5 !important;
         border-radius: 12px;
         padding: 10px 15px;
-        background: #ffffff;
+        background: var(--branco-puro);
         box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     }
 
@@ -1709,7 +1709,7 @@
         content: attr(data-label);
         font-weight: 600;
         color: #666;
-        font-size: 0.85rem;
+        font-size: var(--texto-pequeno);
         float: left;
         text-align: left;
     }
@@ -1747,7 +1747,7 @@
 }
 
 .modal-reservas-content {
-    background: #fff;
+    background: var(--branco-puro);
     width: 100%;
     max-width: 550px;
     border-radius: 12px;
@@ -1772,7 +1772,7 @@
 
 .modal-reservas-header h3 {
     margin: 0;
-    font-family: 'The Seasons', sans-serif;
+    font-family: var(--fonte-titulo);
     font-size: 1.3rem;
     color: #333;
 }
@@ -1780,7 +1780,7 @@
 .modal-reservas-close {
     background: none;
     border: none;
-    font-size: 1.8rem;
+    font-size: var(--texto-grande);
     cursor: pointer;
     color: #aaa;
     line-height: 1;
@@ -1805,7 +1805,7 @@
 
 .modal-subtitulo-itens {
     margin: 0 0 12px 0;
-    font-size: 1rem;
+    font-size: var(--texto-padrao);
     color: #444;
 }
 
@@ -1820,8 +1820,8 @@
     align-items: center;
     gap: 12px;
     padding: 10px;
-    border: 1px solid #f0f0f0;
-    border-radius: 8px;
+    border: 1px solid var(--cinza-fundo);
+    border-radius: var(--raio-borda-suave);
 }
 
 .modal-prod-img {
@@ -1858,7 +1858,7 @@
     width: 18px;
     height: 18px;
     cursor: pointer;
-    accent-color: #EFB810;
+    accent-color: var(--amarelo-brecho);
 }
 
 .label-checkbox {

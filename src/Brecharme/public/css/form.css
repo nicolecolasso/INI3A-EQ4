@@ -3,11 +3,11 @@
     max-width: 700px;
     margin: 40px auto;
     padding: 40px;
-    background: var(--branco-fundo);
-    border: 1px solid var(--cinza-detalhe);
+    background: var(--cinza-fundo);
+    border: 1px solid var(--cinza-medio);
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-    font-family: var(--fonte-texto);
+    font-family: var(--fonte-corpo);
     box-sizing: border-box;
 }
 
@@ -15,11 +15,11 @@
 .form-titulo {
     font-family: var(--fonte-titulo);
     font-size: 26px;
-    color: var(--preto-puro);
+    color: var(--preto-abs);
     margin-top: 0;
     margin-bottom: 30px;
     font-weight: normal;
-    border-bottom: 1px solid var(--cinza-detalhe);
+    border-bottom: 1px solid var(--cinza-medio);
     padding-bottom: 15px;
 }
 
@@ -57,13 +57,13 @@
 .form-container-admin textarea,
 .form-container-admin select {
     width: 100%;
-    padding: 1rem !important;
-    font-size: 1rem !important;
-    color: var(--preto-puro);
-    background: #ffffff !important;
-    border: 1px solid var(--preto-puro) !important;
+    padding: var(--espaco-m) !important;
+    font-size: var(--texto-padrao) !important;
+    color: var(--preto-abs);
+    background: var(--branco-puro) !important;
+    border: 1px solid var(--preto-abs) !important;
     border-radius: 10px !important;
-    font-family: var(--fonte-texto);
+    font-family: var(--fonte-corpo);
     transition: all 0.3s ease;
     box-sizing: border-box;
 }
@@ -78,7 +78,7 @@
 .form-container-admin select[multiple].multiselect-tall {
     height: auto;
     min-height: 160px;
-    padding: 0.5rem !important;
+    padding: var(--espaco-pp) !important;
 }
 
 .form-container-admin select option {
@@ -113,7 +113,7 @@
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    color: var(--preto-puro);
+    color: var(--preto-abs);
 }
 
 /* area de upload de arquivos */
@@ -121,7 +121,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: var(--espaco-m);
     width: 100%;
 }
 
@@ -136,18 +136,18 @@
 .form-container-admin .upload-preview {
     width: 180px;
     height: 180px;
-    border: 1px solid var(--preto-puro);
+    border: 1px solid var(--preto-abs);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: var(--branco-puro);
     overflow: hidden;
 }
 
 .form-container-admin .upload-preview i {
     font-size: 3rem;
-    color: var(--preto-puro);
+    color: var(--preto-abs);
 }
 
 .form-container-admin .upload-preview img {
@@ -157,11 +157,11 @@
 }
 
 .form-container-admin .btn-selecionar {
-    font-family: var(--fonte-texto);
-    padding: 0.5rem 1.5rem;
-    border: 1px solid var(--cinza-detalhe);
+    font-family: var(--fonte-corpo);
+    padding: var(--espaco-pp) var(--espaco-g);
+    border: 1px solid var(--cinza-medio);
     border-radius: 20px;
-    background: #ffffff;
+    background: var(--branco-puro);
     color: #666666;
     font-size: 0.8rem;
     cursor: pointer;
@@ -170,7 +170,7 @@
 }
 
 .form-container-admin .btn-selecionar:hover {
-    background: var(--branco-fundo);
+    background: var(--cinza-fundo);
 }
 
 /* rodape de acoes e botoes */
@@ -181,7 +181,7 @@
     gap: 15px;
     margin-top: 35px;
     padding-top: 20px;
-    border-top: 1px solid var(--cinza-detalhe);
+    border-top: 1px solid var(--cinza-medio);
 }
 
 /* botao de envio estilo premium escuro */
@@ -232,7 +232,7 @@
     margin-bottom: 30px;
     background-color: #f5f5f5;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--raio-borda-suave);
     text-align: left;
 }
 

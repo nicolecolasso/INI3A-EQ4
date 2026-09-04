@@ -4,8 +4,8 @@
     margin: 4rem auto;
     padding: 0 2rem;
     box-sizing: border-box;
-    font-family: var(--fonte-texto);
-    color: #000;
+    font-family: var(--fonte-corpo);
+    color: var(--preto-abs);
 }
 
 .bazar-secao-titulo {
@@ -24,7 +24,7 @@
 }
 
 .bazar-secao-subtitulo{
-    margin-bottom:2.5rem;
+    margin-bottom:var(--espaco-gg);
     font-size:1.05rem;
     line-height:1.5;
 }
@@ -33,7 +33,7 @@
     margin:5rem 0;
     border:none;
     height:2px;
-    background:var(--cinza-detalhe);
+    background:var(--cinza-medio);
 }
 
 /* ==========================================================
@@ -77,7 +77,7 @@
     height:500px;
     width:350px;
     max-width:350px;
-    background:#fff;
+    background:var(--branco-puro);
     border-radius:16px;
     overflow:hidden;
     padding:0;
@@ -181,7 +181,7 @@ position:absolute;
 
 .galeria-item-card{
 
-    background:#fff;
+    background:var(--branco-puro);
 
     border-radius:18px;
 
@@ -241,9 +241,9 @@ position:absolute;
 
 .galeria-item-info span{
 
-    font-size:1rem;
+    font-size:var(--texto-padrao);
 
-    color:#000;
+    color:var(--preto-abs);
 
 }
 
@@ -275,7 +275,7 @@ position:absolute;
 
         max-width:100%;
 
-        padding:0 1.5rem;
+        padding:0 var(--espaco-g);
 
     }
 
@@ -333,7 +333,7 @@ position:absolute;
 
     .bazar-secao-titulo{
 
-        font-size:1.8rem;
+        font-size:var(--texto-grande);
 
     }
 
@@ -384,7 +384,7 @@ position:absolute;
 
         grid-template-columns:1fr;
 
-        gap:1.5rem;
+        gap:var(--espaco-g);
 
     }
 
@@ -398,7 +398,7 @@ position:absolute;
 
     .bazar-container{
 
-        padding:0 1.5rem;
+        padding:0 var(--espaco-g);
 
     }
 
