@@ -139,21 +139,47 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentSlide = index;
             };
 
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => goToSlide(index));
-            });
+            // Fonte única de verdade para o timer de rotação automática
+            let autoSlideTimer = null;
 
-            let autoSlideTimer = setInterval(() => {
-                goToSlide((currentSlide + 1) % slides.length);
-            }, 5000);
-
-            heroCarousel.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
-            heroCarousel.addEventListener('mouseleave', () => {
+            const pararAutoSlide = () => {
                 clearInterval(autoSlideTimer);
+                autoSlideTimer = null;
+            };
+
+            const iniciarAutoSlide = () => {
+                pararAutoSlide();
                 autoSlideTimer = setInterval(() => {
                     goToSlide((currentSlide + 1) % slides.length);
                 }, 5000);
+            };
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    // Reinicia a contagem para não trocar logo em seguida (mouse e touch)
+                    iniciarAutoSlide();
+                });
             });
+
+            // Pausa apenas para mouse real; em telas touch o carrossel continua rodando
+            heroCarousel.addEventListener('pointerenter', (e) => {
+                if (e.pointerType === 'mouse') pararAutoSlide();
+            });
+            heroCarousel.addEventListener('pointerleave', (e) => {
+                if (e.pointerType === 'mouse') iniciarAutoSlide();
+            });
+
+            // Pausa quando a aba fica em segundo plano e retoma ao voltar
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    pararAutoSlide();
+                } else {
+                    iniciarAutoSlide();
+                }
+            });
+
+            iniciarAutoSlide();
         }
     }
 

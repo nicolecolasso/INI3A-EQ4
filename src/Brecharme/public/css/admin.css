@@ -65,7 +65,12 @@
    👑 PAINEL GERAL DE TABELAS ADMINISTRATIVAS
    ================================================================== */
 .admin-table-container {
+    width: 100%;
     max-width: 1200px;
+    /* min-width: 0 impede que a tabela larga (ex.: Doações, com 9 colunas)
+       "empurre" este container além da largura do <main> flex e quebre o
+       layout da página. Assim o scroll horizontal fica contido em .table-responsive */
+    min-width: 0;
     margin: 40px auto;
     padding: 0 20px;
     font-family: var(--fonte-corpo);
@@ -119,6 +124,8 @@
 /* Estrutura Responsiva da Tabela */
 .table-responsive {
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     background: var(--cinza-fundo);
@@ -203,23 +210,23 @@
 
 /* Rejeitar (Vermelho) */
 .btn-action.delete {
-    background-color: #FFEAEA;
-    color: #D32F2F;
+    background-color: var(--status-negado-fundo);
+    color: var(--status-negado-texto);
 }
 
 .btn-action.delete:hover {
-    background-color: #D32F2F;
+    background-color: var(--status-negado-texto);
     color: var(--cinza-fundo);
 }
 
 /* Aprovar (Verde) */
 .btn-action-approve {
-    background-color: #E8F5E9;
-    color: #2E7D32;
+    background-color: var(--status-sucesso-fundo);
+    color: var(--status-sucesso-texto);
 }
 
 .btn-action-approve:hover {
-    background-color: #C8E6C9;
+    background-color: var(--status-sucesso-borda);
 }
 
 /* Confirmar Retirada (Carga/Transporte) */
@@ -247,42 +254,49 @@
 }
 
 .badge.badge-user {
-    background-color: #E8F5E9;
-    color: #1B5E20;
+    background-color: var(--status-sucesso-fundo);
+    color: var(--status-sucesso-texto);
 }
 
 .badge.badge-inactive {
-    background-color: #EEEEEE;
-    color: #616161;
+    background-color: var(--status-inativo-fundo);
+    color: var(--status-inativo-texto);
 }
 
 .badge-analise {
-    background-color: #FFF3E0;
-    color: #E65100;
+    background-color: var(--status-andamento-fundo);
+    color: var(--status-andamento-texto);
     font-weight: 700;
-    border: 1px solid #FFE0B2;
+    border: 1px solid var(--status-andamento-borda);
 }
 
 .badge-aprovada {
-    background-color: #E8F5E9;
-    color: #2E7D32;
+    background-color: var(--status-sucesso-fundo);
+    color: var(--status-sucesso-texto);
     font-weight: 700;
-    border: 1px solid #C8E6C9;
+    border: 1px solid var(--status-sucesso-borda);
 }
 
 .badge-recusado {
-    background-color: #FFEAEA;
-    color: #D32F2F;
+    background-color: var(--status-negado-fundo);
+    color: var(--status-negado-texto);
     font-weight: 700;
-    border: 1px solid #EF9A9A;
+    border: 1px solid var(--status-negado-borda);
 }
 
 .badge-reserva-pendente,
 .badge-reservado {
-    background-color: #FFF9E6 !important;
-    color: #B38F00 !important;
-    border: 1px solid #FFE0B2;
+    background-color: var(--status-pendente-fundo);
+    color: var(--status-pendente-texto);
+    border: 1px solid var(--status-pendente-borda);
 }
+
+/* Selos de status que não tinham cor própria (produtos / reservas).
+   O formato arredondado vem da classe base .badge */
+.badge-disponivel { background-color: var(--status-sucesso-fundo);   color: var(--status-sucesso-texto); }
+.badge-carrinho   { background-color: var(--status-andamento-fundo); color: var(--status-andamento-texto); }
+.badge-vendido    { background-color: var(--status-inativo-fundo);   color: var(--status-inativo-texto); }
+.badge-concluida  { background-color: var(--status-sucesso-fundo);   color: var(--status-sucesso-texto); }
 
 /* Estilização de textos dentro da célula */
 .admin-strong-text {
@@ -311,10 +325,10 @@
     align-items: center;
     gap: 6px;
     font-size: 12px;
-    color: #2e7d32;
+    color: var(--status-sucesso-texto);
     font-weight: 600;
     margin-top: 6px;
-    background: #e8f5e9;
+    background: var(--status-sucesso-fundo);
     padding: 4px 10px;
     border-radius: 6px;
 }
@@ -370,13 +384,13 @@
 }
 
 .badge-arquivado {
-    background-color: #6c757d;
-    color: white;
+    background-color: var(--status-arquivado-fundo);
+    color: var(--status-arquivado-texto);
 }
 
 .badge-user-arquivado {
-    background-color: #6c757d;
-    color: white;
+    background-color: var(--status-arquivado-fundo);
+    color: var(--status-arquivado-texto);
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 0.8rem;
@@ -592,7 +606,7 @@
 
 .reservation-total {
     font-size: 12px;
-    color: #b39012;
+    color: var(--status-pendente-texto);
     font-weight: 600;
     border-top: 1px dashed #ddd;
     margin-top: 6px;
@@ -634,32 +648,56 @@
         border-bottom: 1px solid #F5F5F5;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 6px 12px;
+        text-align: right;
     }
-    
+
     .admin-table td:last-child { border-bottom: none; }
-    
+
     .admin-table td::before {
         content: attr(data-label);
-        display: inline-block;
+        flex: 0 0 auto;
+        margin-right: auto;
+        max-width: 55%;
         font-size: 11px;
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: #777777;
-        width: 38%;
-        max-width: 38%;
-        margin-right: 12px;
-        flex: 0 0 38%;
+        text-align: left;
     }
-    
-    .admin-table td > * { flex: 1; }
+
+    /* Valores: largura natural, sempre encostados à direita */
+    .admin-table td > * {
+        flex: 0 1 auto;
+        max-width: 100%;
+        margin-left: 0;
+        text-align: right;
+    }
+
+    /* Blocos complementares ocupam a linha inteira (continuam à direita) */
+    .admin-table td .admin-subtext,
+    .admin-table td .admin-item-row,
+    .admin-table td .reservation-total,
+    .admin-table td .text-danger-bold,
+    .admin-table td .text-muted-bold {
+        flex-basis: 100%;
+    }
+
+    .admin-table td br { display: none; }
+
     .admin-table td .action-buttons-flex { justify-content: flex-end; }
-    .admin-table td .product-img-thumbnail { margin-left: auto; }
-    .admin-table td .badge { margin-left: auto; }
-    .admin-table td strong, .admin-table td span, .admin-table td .admin-subtext, .admin-table td .admin-description-text { text-align: right; }
+
+    /* Foto do item: quadrada, sem esticar nem achatar */
+    .admin-table td .product-img-thumbnail {
+        flex: 0 0 auto;
+        width: 120px;
+        height: 120px;
+        margin-left: auto;
+        border-radius: 12px;
+    }
 }
 
 @media (max-width: 640px) {

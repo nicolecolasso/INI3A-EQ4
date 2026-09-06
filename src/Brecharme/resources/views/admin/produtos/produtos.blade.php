@@ -128,7 +128,7 @@
                             @if($linha->excluido)
                                 <span class="badge badge-arquivado">Inativo</span>
                             @else
-                                <span class="badge badge-{{ strtolower($linha->status) }}">{{ $linha->status }}</span>
+                                <span class="badge badge-{{ \Illuminate\Support\Str::slug($linha->status) }}">{{ $linha->status }}</span>
                             @endif
                         </td>
                         <td data-label="Ações">

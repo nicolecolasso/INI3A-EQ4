@@ -20,6 +20,28 @@
   --color-neutral-300: #b3b3b3;         /* Cinza Médio */
   --color-neutral-900: #000000;         /* Preto Absoluto */
 
+  /* Paleta de Feedback / Estados (usada nos selos de status) */
+  --color-green-surface:  #e8f5e9;      /* Fundo verde suave */
+  --color-green-border:   #c8e6c9;      /* Borda verde */
+  --color-green-text:     #2e7d32;      /* Texto verde */
+
+  --color-orange-surface: #fff3e0;      /* Fundo laranja suave */
+  --color-orange-border:  #ffe0b2;      /* Borda laranja */
+  --color-orange-text:    #e65100;      /* Texto laranja */
+
+  --color-yellow-surface: #fff9e6;      /* Fundo amarelo suave */
+  --color-yellow-border:  #ffe0b2;      /* Borda amarela */
+  --color-yellow-text:    #b38f00;      /* Texto amarelo/dourado */
+
+  --color-red-surface:    #ffeaea;      /* Fundo vermelho suave */
+  --color-red-border:     #ef9a9a;      /* Borda vermelha */
+  --color-red-text:       #d32f2f;      /* Texto vermelho */
+
+  --color-slate-surface:  #eeeeee;      /* Fundo cinza neutro */
+  --color-slate-border:   #e0e0e0;      /* Borda cinza neutra */
+  --color-slate-text:     #616161;      /* Texto cinza neutro */
+  --color-slate-solid:    #6c757d;      /* Cinza sólido (selo preenchido) */
+
   /* Atalhos para o Projeto */
   --amarelo-brecho: var(--color-brand-primary);
   --vermelho-caritas: var(--color-brand-secondary);
@@ -38,6 +60,38 @@
   
   --borda-principal: var(--preto-abs);   /* Bordas marcantes em preto */
   --borda-suave: var(--cinza-medio);     /* Linhas divisórias em cinza */
+
+  /* Cores semânticas de mudança de status
+     (selos das telas de produtos, doações e reservas) */
+
+  /* Sucesso: aprovada, disponível, concluída, usuário ativo, integrada ao estoque */
+  --status-sucesso-fundo:  var(--color-green-surface);
+  --status-sucesso-borda:  var(--color-green-border);
+  --status-sucesso-texto:  var(--color-green-text);
+
+  /* Em andamento: em análise, no carrinho */
+  --status-andamento-fundo: var(--color-orange-surface);
+  --status-andamento-borda: var(--color-orange-border);
+  --status-andamento-texto: var(--color-orange-text);
+
+  /* Pendente: reservado, aguardando retirada */
+  --status-pendente-fundo:  var(--color-yellow-surface);
+  --status-pendente-borda:  var(--color-yellow-border);
+  --status-pendente-texto:  var(--color-yellow-text);
+
+  /* Negado: recusada, cancelada */
+  --status-negado-fundo:    var(--color-red-surface);
+  --status-negado-borda:    var(--color-red-border);
+  --status-negado-texto:    var(--color-red-text);
+
+  /* Inativo / encerrado: inativo, vendido, cancelada */
+  --status-inativo-fundo:   var(--color-slate-surface);
+  --status-inativo-borda:   var(--color-slate-border);
+  --status-inativo-texto:   var(--color-slate-text);
+
+  /* Arquivado: selo cinza preenchido */
+  --status-arquivado-fundo: var(--color-slate-solid);
+  --status-arquivado-texto: var(--branco-puro);
 
 
   /* TIPOGRAFIA (FONTES E TAMANHOS) */

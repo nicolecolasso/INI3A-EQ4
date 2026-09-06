@@ -330,27 +330,27 @@
 }
 
 .status-badge-analise {
-    background: #fff3e0;
-    color: #e65100;
-    border: 1px solid #ffcc80;
+    background: var(--status-andamento-fundo);
+    color: var(--status-andamento-texto);
+    border: 1px solid var(--status-andamento-borda);
 }
 
 .status-badge-aprovado {
-    background: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #a5d6a7;
+    background: var(--status-sucesso-fundo);
+    color: var(--status-sucesso-texto);
+    border: 1px solid var(--status-sucesso-borda);
 }
 
 .status-badge-recusado {
-    background: #ffebee;
-    color: #c62828;
-    border: 1px solid #ef9a9a;
+    background: var(--status-negado-fundo);
+    color: var(--status-negado-texto);
+    border: 1px solid var(--status-negado-borda);
 }
 
 .status-badge-cancelada {
-    background: #e0e0e0;
-    color: #666;
-    border: 1px solid #bbb;
+    background: var(--status-inativo-fundo);
+    color: var(--status-inativo-texto);
+    border: 1px solid var(--status-inativo-borda);
 }
 
 .doacao-thumb {
@@ -438,21 +438,21 @@
 }
 
 .status-carrinho {
-    background: #fff3e0;
-    color: #e65100;
-    border: 1px solid #ffcc80;
+    background: var(--status-andamento-fundo);
+    color: var(--status-andamento-texto);
+    border: 1px solid var(--status-andamento-borda);
 }
 
 .status-reservado {
-    background: #e3f2fd;
-    color: #0d47a1;
-    border: 1px solid #90caf9;
+    background: var(--status-pendente-fundo);
+    color: var(--status-pendente-texto);
+    border: 1px solid var(--status-pendente-borda);
 }
 
 .status-concluida {
-    background: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #a5d6a7;
+    background: var(--status-sucesso-fundo);
+    color: var(--status-sucesso-texto);
+    border: 1px solid var(--status-sucesso-borda);
 }
 
 /* Detalhes Expandidos (Dropdown Interno) */
@@ -1089,27 +1089,27 @@
 }
 
 .status-analise-custom {
-    background: #fff3e0;
-    color: #e65100;
-    border: 1px solid #ffcc80;
+    background: var(--status-andamento-fundo);
+    color: var(--status-andamento-texto);
+    border: 1px solid var(--status-andamento-borda);
 }
 
 .status-aprovado-custom {
-    background: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #a5d6a7;
+    background: var(--status-sucesso-fundo);
+    color: var(--status-sucesso-texto);
+    border: 1px solid var(--status-sucesso-borda);
 }
 
 .status-rejeitado-custom {
-    background: #ffebee;
-    color: #c62828;
-    border: 1px solid #ef9a9a;
+    background: var(--status-negado-fundo);
+    color: var(--status-negado-texto);
+    border: 1px solid var(--status-negado-borda);
 }
 
 .status-cancelada-custom {
-    background: #e0e0e0;
-    color: #666;
-    border: 1px solid #bbb;
+    background: var(--status-inativo-fundo);
+    color: var(--status-inativo-texto);
+    border: 1px solid var(--status-inativo-borda);
 }
 
 /* Botão Cancelar Perfil */
@@ -1619,9 +1619,9 @@
     display: inline-block;
 }
 
-.status-reservado { background: #fff3e0; color: #e65100; }
-.status-carrinho { background: #e8f5e9; color: #2e7d32; }
-.status-concluida { background: #e0f7fa; color: #006064; }
+.status-reservado { background: var(--status-pendente-fundo); color: var(--status-pendente-texto); }
+.status-carrinho { background: var(--status-andamento-fundo); color: var(--status-andamento-texto); }
+.status-concluida { background: var(--status-sucesso-fundo); color: var(--status-sucesso-texto); }
 
 .actions-reservas-flex {
     display: flex;

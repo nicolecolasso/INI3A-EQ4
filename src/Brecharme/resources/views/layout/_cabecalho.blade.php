@@ -75,7 +75,7 @@
     @auth
         @if(Auth::user()->admin)
             <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
-            <li><a href="{{ route('admin.gerenciar') }}">Admin Panel</a></li>
+            <li><a href="{{ route('admin.gerenciar') }}">Admin Painel</a></li>
         @else
             <li><a href="{{ route('produtos.novaDoacao') }}">Doe Já</a></li>
             <li><a href="{{ route('perfil.meuPerfil') }}">Perfil</a></li>

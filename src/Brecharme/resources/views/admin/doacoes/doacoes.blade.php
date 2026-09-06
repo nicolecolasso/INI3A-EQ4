@@ -110,9 +110,8 @@
                         <td data-label="Categoria">{{ $linha->categoria->nome ?? 'Sem Categoria' }}</td>
                         <td data-label="Data">{{ \Carbon\Carbon::parse($linha->data_doacao)->format('d/m/Y') }}</td>
                         <td data-label="Localização">{{ $linha->localizacao ?? 'Entrega no Brechó' }}</td>
-                        </td>
                         <td data-label="Status">
-                            <span class="badge-status 
+                            <span class="badge
                                 @if($linha->status === 'Em Análise') badge-analise
                                 @elseif($linha->status === 'Aprovada') badge-aprovada
                                 @elseif($linha->status === 'Integrada ao Estoque' || $linha->status === 'Cancelada') badge-inactive
