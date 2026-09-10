@@ -4,9 +4,7 @@
 
 ---
 
-<video src="video.mp4" controls width="100%">
-  Seu navegador não suporta a exibição deste vídeo.
-</video>
+https://github.com/user-attachments/assets/20d95fb6-d09f-4bde-8190-fccb45ac30a7
 
 ## 📌 Sobre o Projeto
 O Brecharme é uma plataforma web desenvolvida para modernizar e otimizar os processos de doação, triagem e reserva de peças do brechó solidário mantido pela instituição Cáritas Bauru.
