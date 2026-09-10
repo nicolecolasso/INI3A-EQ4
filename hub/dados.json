@@ -14,7 +14,7 @@
     "CSS3"
   ],
   "objetivo": "O Brecharme é uma plataforma web desenvolvida para otimizar o gerenciamento e a intermediação de doações de peças de vestuário para brechós sociais. O projeto resolve a falta de praticidade e a baixa visibilidade no processo de doação tradicional, permitindo que doadores realizem o cadastro dos itens de forma simples, enquanto os administradores gerenciam a triagem, precificação social e disponibilização na vitrine virtual.\n\nDestinado tanto a pessoas que desejam desapegar e doar roupas em bom estado quanto à comunidade consumidora do brechó, a plataforma promove o consumo consciente, a moda circular e o reaproveitamento de recursos, facilitando a reserva de produtos e garantindo transparência em cada etapa.",
-  "video_url": "https://www.youtube.com/watch?v=exemplo-video-comercial",
+  "video_url": "https://raw.githubusercontent.com/nicolecolasso/INI3A-EQ4/main/hub/video.mp4",
   "repositorio_url": "https://github.com/nicolecolasso/INI3A-EQ4",
   "deploy_url": "https://eq.projetoscti.com.br/26-brecharme/",
   "url_atual": null,
