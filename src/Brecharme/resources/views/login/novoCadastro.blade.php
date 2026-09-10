@@ -74,7 +74,9 @@
                         id="telefone"
                         name="telefone"
                         value="{{ old('telefone') }}"
-                        placeholder="(14) 99999-9999">
+                        placeholder="(14) 99999-9999"
+                        maxlength="15"
+                        inputmode="numeric">
                 </div>
             </div>
 

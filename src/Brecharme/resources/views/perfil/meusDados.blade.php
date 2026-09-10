@@ -77,7 +77,7 @@
 
                         <div class="input-block bloco-input-layout">
                             <label for="telefone" class="label-dados-form">Telefone:</label>
-                            <input type="text" id="telefone" name="telefone" value="{{ old('telefone', $usuario->telefone) }}" class="input-field input-montserrat" placeholder="(14) 99999-9999">
+                            <input type="text" id="telefone" name="telefone" value="{{ old('telefone', $usuario->telefone) }}" class="input-field input-montserrat" placeholder="(14) 99999-9999" maxlength="15" inputmode="numeric">
                         </div>
 
                         <div class="input-block bloco-input-layout checkbox-container">

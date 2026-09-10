@@ -10,7 +10,7 @@
 
 <div class="input-field">
     <label for="telefone">Telefone / WhatsApp</label>
-    <input type="text" name="telefone" id="telefone" value="{{ isset($linha->telefone) ? $linha->telefone : '' }}" placeholder="(00) 00000-0000">
+    <input type="text" name="telefone" id="telefone" value="{{ isset($linha->telefone) ? $linha->telefone : '' }}" placeholder="(00) 00000-0000" maxlength="15" inputmode="numeric">
 </div>
 
 <div class="input-field">

@@ -319,6 +319,54 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.banner-bg-img[data-bg-image]').forEach(el => {
         el.style.backgroundImage = `url(${el.dataset.bgImage})`;
     });
+
+    /* ==========================================================================
+       13. MÁSCARA E VALIDAÇÃO DO CAMPO TELEFONE (SOMENTE NÚMEROS)
+       ========================================================================== */
+    function mascararTelefone(valor) {
+        valor = valor.replace(/\D/g, '').slice(0, 11);
+
+        if (valor.length > 10) {
+            valor = valor.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
+        } else if (valor.length > 6) {
+            valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+        } else if (valor.length > 2) {
+            valor = valor.replace(/^(\d{2})(\d{0,4}).*/, '($1) $2');
+        } else if (valor.length > 0) {
+            valor = valor.replace(/^(\d*)/, '($1');
+        }
+
+        return valor;
+    }
+
+    document.querySelectorAll('input[name="telefone"]').forEach(input => {
+        input.addEventListener('input', function () {
+            this.value = mascararTelefone(this.value);
+        });
+
+        input.addEventListener('paste', function (e) {
+            e.preventDefault();
+            const texto = (e.clipboardData || window.clipboardData).getData('text');
+            this.value = mascararTelefone(texto);
+        });
+    });
+
+    /* ==========================================================================
+       14. VALIDAÇÃO DO CAMPO NOME (SOMENTE LETRAS)
+       ========================================================================== */
+    document.querySelectorAll('input[name="name"]').forEach(input => {
+        input.addEventListener('input', function () {
+            this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s'-]/g, '');
+        });
+
+        input.addEventListener('paste', function (e) {
+            e.preventDefault();
+            const texto = (e.clipboardData || window.clipboardData).getData('text');
+            const cursor = this.selectionStart;
+            const limpo = texto.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s'-]/g, '');
+            this.value = this.value.slice(0, cursor) + limpo + this.value.slice(this.selectionEnd);
+        });
+    });
 });
 
 /* ==========================================================================
