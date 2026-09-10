@@ -17,8 +17,8 @@
             @include('admin.comunicados._form')
             
             <div class="form-actions">
-                <button class="btn-submit dark-style"> Disparar Comunicado</button>
-                <a href="{{ route('admin.gerenciar') }}" class="btn-cancel">Voltar</a>
+                <button class="btn-primary"> Disparar Comunicado</button>
+                <a href="{{ route('admin.gerenciar') }}" class="btn-secondary">Voltar</a>
             </div>
         </form>
     </div>

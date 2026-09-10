@@ -70,12 +70,10 @@
                 </div>
             </div>
 
-            <div class="remember-me-wrapper">
-                <label class="remember-me-label">
-                    <input type="checkbox" name="remember" id="remember" value="1">
-                    <span>Manter-me conectado</span>
-                </label>
-            </div>
+            <label class="checkbox-row">
+                <input type="checkbox" name="remember" id="remember" value="1">
+                <span>Manter-me conectado</span>
+            </label>
 
             <button type="submit" class="btn-login-premium">
                 Entrar

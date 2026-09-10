@@ -11,7 +11,7 @@
     
     <header class="table-header-box">
         <h2>Gerenciamento de Reservas / Compras</h2>
-        <a href="{{ route('admin.reservas.novaReserva') }}" class="btn-add-table">
+        <a href="{{ route('admin.reservas.novaReserva') }}" class="btn-primary">
             <i class="material-icons">shopping_bag</i> Nova Reserva/Compra
         </a>
     </header>
@@ -64,11 +64,11 @@
             </div>
 
             <div class="filter-actions">
-                <button type="submit" class="btn-filter-submit" title="Filtrar Resultados">
+                <button type="submit" class="btn-primary" title="Filtrar Resultados">
                     <i class="material-icons">search</i> Filtrar
                 </button>
                 @if(request()->filled('termo') || request()->filled('status') || request()->filled('data'))
-                    <a href="{{ route('admin.reservas') }}" class="btn-filter-clear" title="Limpar Filtros">
+                    <a href="{{ route('admin.reservas') }}" class="btn-icon-circle" title="Limpar Filtros">
                         <i class="material-icons">clear</i>
                     </a>
                 @endif
@@ -132,7 +132,7 @@
                         </td>
                         <td data-label="Ações">
                             <div class="action-buttons-flex">
-                                <a href="{{ route('admin.reservas.editarReserva', $linha->id_compra) }}" class="btn-action edit" title="Mudar Status / Editar">
+                                <a href="{{ route('admin.reservas.editarReserva', $linha->id_compra) }}" class="btn-icon-circle" title="Mudar Status / Editar">
                                     <i class="material-icons">edit</i>
                                 </a>
                             </div>

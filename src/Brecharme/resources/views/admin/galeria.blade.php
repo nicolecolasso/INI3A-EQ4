@@ -36,7 +36,7 @@
             @csrf
             <div class="input-grupo">
                 <input type="url" name="link_post" placeholder="Cole o link do post aqui..." required>
-                <button type="submit" class="btn-pilula-preta">Vincular Post</button>
+                <button type="submit" class="btn-primary">Vincular Post</button>
             </div>
         </form>
 
@@ -75,7 +75,7 @@
                 </label>
             </div>
             
-            <button type="submit" class="btn-pilula-preta btn-bloco">Salvar na Galeria</button>
+            <button type="submit" class="btn-primary btn-bloco">Salvar na Galeria</button>
         </form>
 
         <h3 class="subtitulo-lista">Fotos na Galeria</h3>

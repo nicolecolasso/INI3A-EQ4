@@ -111,17 +111,15 @@
                 </div>
             </div>
 
-            <div class="remember-me-wrapper">
-                <label for="receber_avisos" class="remember-me-label">
-                    <input 
-                        type="checkbox" 
-                        id="receber_avisos" 
-                        name="receber_avisos" 
-                        value="1" 
-                        checked>
-                    <span>Deseja receber avisos e novidades?</span>
-                </label>
-            </div>
+            <label class="checkbox-row">
+                <input
+                    type="checkbox"
+                    id="receber_avisos"
+                    name="receber_avisos"
+                    value="1"
+                    checked>
+                <span>Deseja receber avisos e novidades?</span>
+            </label>
 
 
             <button type="submit" class="btn-login-premium">

@@ -27,8 +27,8 @@
             @include('admin.doacoes._form')
             
             <div class="form-actions">
-                <button class="btn-submit dark-style">Salvar Doação</button>
-                <a href="{{ route('admin.doacoes') }}" class="btn-cancel">Voltar</a>
+                <button class="btn-primary">Salvar Doação</button>
+                <a href="{{ route('admin.doacoes') }}" class="btn-secondary">Voltar</a>
             </div>
         </form>
     </div>

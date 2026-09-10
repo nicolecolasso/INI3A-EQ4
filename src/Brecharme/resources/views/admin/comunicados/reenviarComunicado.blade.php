@@ -31,8 +31,8 @@
             @include('admin.comunicados._form')
             
             <div class="form-actions section-spacing">
-                <button class="btn-submit dark-style">Disparar Mensagem Editada</button>
-                <a href="{{ route('admin.gerenciar') }}" class="btn-cancel">Cancelar</a>
+                <button class="btn-primary">Disparar Mensagem Editada</button>
+                <a href="{{ route('admin.gerenciar') }}" class="btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>

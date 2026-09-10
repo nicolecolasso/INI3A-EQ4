@@ -7,11 +7,10 @@
 }
 
 .gerenciar-titulo {
-    color: var(--amarelo-brecho) !important;
-    font-family: var(--fonte-titulo);
-    font-size: 36px;
-    font-weight: normal;
     color: var(--preto-abs);
+    font-family: var(--fonte-titulo);
+    font-size: var(--texto-gigante);
+    font-weight: normal;
     margin-bottom: 40px;
     letter-spacing: 0.5px;
 }
@@ -91,34 +90,10 @@
 
 .table-header-box h2 {
     font-family: var(--fonte-titulo);
-    font-size: 28px;
-    color: #1A1A1A;
+    font-size: var(--texto-gigante);
+    color: var(--preto-abs);
     margin: 0;
     font-weight: normal;
-}
-
-/* Botão Superior "Nova Doação" (Padrão Sólido Escuro) */
-.btn-add-table {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #1A1A1A;
-    color: var(--amarelo-brecho);
-    text-decoration: none;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-}
-
-.btn-add-table:hover {
-    background-color: var(--amarelo-brecho);
-    color: #1A1A1A;
-    box-shadow: 0 6px 18px rgba(239, 184, 16, 0.25);
 }
 
 /* Estrutura Responsiva da Tabela */
@@ -129,8 +104,8 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     background: var(--cinza-fundo);
-    border: 1px solid #EAEAEA;
-    border-radius: 16px;
+    border: 1px solid var(--cinza-medio);
+    border-radius: var(--raio-borda-suave);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
@@ -179,67 +154,9 @@
     gap: 10px;
 }
 
-.btn-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-}
-
-.btn-action i {
-    font-size: 18px;
-}
-
-/* Editar/Ver Detalhes */
-.btn-action.edit {
-    background-color: #F4F4F4;
-    color: #444444;
-}
-
-.btn-action.edit:hover {
-    background-color: var(--preto-abs);
-    color: var(--amarelo-brecho);
-}
-
-/* Rejeitar (Vermelho) */
-.btn-action.delete {
-    background-color: var(--status-negado-fundo);
-    color: var(--status-negado-texto);
-}
-
-.btn-action.delete:hover {
-    background-color: var(--status-negado-texto);
-    color: var(--cinza-fundo);
-}
-
-/* Aprovar (Verde) */
-.btn-action-approve {
-    background-color: var(--status-sucesso-fundo);
-    color: var(--status-sucesso-texto);
-}
-
-.btn-action-approve:hover {
-    background-color: var(--status-sucesso-borda);
-}
-
-/* Confirmar Retirada (Carga/Transporte) */
-.btn-action-ship {
-    background-color: #E0F7FA;
-    color: #006064;
-}
-
-.btn-action.disabled,
-.btn-action.disabled:hover {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
+/* Botões de ação de tabela: ver .btn-icon-circle em style.css (sistema
+   global de botões). Ações específicas de tabela usam essa classe direto
+   nas views (edit = base neutra, delete/check/inventory = variantes de cor). */
 
 /* ==================================================================
    🏷️ BADGES DE STATUS E LABELS COMPLEMENTARES
@@ -373,54 +290,9 @@
     opacity: 0.6 !important;
 }
 
-.text-danger-bold {
-    color: #e71d36;
-    font-size: var(--texto-pequeno);
-}
-
-.text-muted-bold {
-    color: #d90429;
-    font-size: var(--texto-pequeno);
-}
-
 .badge-arquivado {
     background-color: var(--status-arquivado-fundo);
     color: var(--status-arquivado-texto);
-}
-
-.badge-user-arquivado {
-    background-color: var(--status-arquivado-fundo);
-    color: var(--status-arquivado-texto);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-}
-
-.badge-user-admin {
-    background-color: #e3f2fd;
-    color: #1565c0;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 12px;
-}
-
-.badge-user-cliente {
-    background-color: #f3e5f5;
-    color: #6a1b9a;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 12px;
-}
-
-.btn-action.check {
-    background-color: #2ec4b6;
-    color: white;
-}
-
-.btn-action.check:hover {
-    background-color: #1fa89c;
 }
 
 .empty-table {
@@ -447,10 +319,10 @@
 }
 
 .modal-conteudo {
-    background-color: var(--branco-puro); 
-    padding: 30px; 
-    border-radius: 20px; /* Bordas suaves combinando com o layout */
-    width: 90%; 
+    background-color: var(--branco-puro);
+    padding: 30px;
+    border-radius: var(--raio-borda-suave);
+    width: 90%;
     max-width: 420px; 
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     font-family: var(--fonte-corpo);
@@ -479,13 +351,13 @@
     letter-spacing: 0.5px;
 }
 
-.modal-conteudo input { 
-    width: 100%; 
-    padding: 12px 16px; 
-    margin: 8px 0 24px 0; 
-    border: 1.5px solid #EAEAEA; 
-    border-radius: 10px; 
-    box-sizing: border-box; 
+.modal-conteudo input {
+    width: 100%;
+    padding: 12px 16px;
+    margin: 8px 0 24px 0;
+    border: 1.5px solid var(--cinza-medio);
+    border-radius: var(--raio-borda-redonda);
+    box-sizing: border-box;
     font-family: var(--fonte-corpo);
     font-size: 15px;
     transition: border-color 0.2s;
@@ -496,49 +368,12 @@
     outline: none;
 }
 
-/* 🎯 Seção de botões do Modal customizados */
-.modal-botoes { 
-    display: flex; 
-    justify-content: flex-end; 
-    gap: 12px; 
-}
-
-/* Estilo Base dos botões do Modal */
-.modal-botoes .btn {
-    padding: 12px 20px;
-    border-radius: 30px; /* Formato pílula premium */
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease-in-out;
-    font-family: var(--fonte-corpo);
-}
-
-/* Botão Cancelar (Cinza Arredondado) */
-.modal-botoes .btn-secondary {
-    background-color: #EAEAEA;
-    color: #555555;
-}
-
-.modal-botoes .btn-secondary:hover {
-    background-color: #D6D6D6;
-    color: #1A1A1A;
-}
-
-/* Botão Confirmar (Preto com escrita Ouro do Brecharme) */
-.modal-botoes .btn-primary {
-    background-color: #1A1A1A;
-    color: var(--amarelo-brecho);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.modal-botoes .btn-primary:hover {
-    background-color: var(--amarelo-brecho);
-    color: #1A1A1A;
-    box-shadow: 0 6px 18px rgba(239, 184, 16, 0.25);
+/* Botões do modal: usam o sistema global .btn-primary / .btn-secondary
+   (style.css); aqui só o layout do rodapé. */
+.modal-botoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
 }
 
 /* ==================================================================
@@ -566,8 +401,8 @@
 .upload-preview {
     width: 180px;
     height: 180px;
-    border: 1px solid #333;
-    border-radius: 10px;
+    border: 1px solid var(--preto-abs);
+    border-radius: var(--raio-borda-suave);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -703,10 +538,11 @@
 @media (max-width: 640px) {
     .admin-table-container { padding: 0 14px; }
     .table-header-box h2 { font-size: 22px; }
-    .btn-add-table { width: 100%; justify-content: center; }
-    .modal-conteudo { width: 94%; padding: 20px; border-radius: 16px; }
+    .table-header-box .btn-primary { width: 100%; }
+    .modal-conteudo { width: 94%; padding: 20px; border-radius: var(--raio-borda-suave); }
     .modal-botoes { flex-direction: column-reverse; align-items: stretch; }
-    .modal-botoes .btn { width: 100%; }
+    .modal-botoes .btn-primary,
+    .modal-botoes .btn-secondary { width: 100%; }
 }
 
 @media (max-width: 360px) {
@@ -715,33 +551,46 @@
 
 /* Indicadores textuais para Soft Delete / Arquivados */
 .text-danger-bold {
-    font-size: 11px;
     display: block;
-    color: #c0392b;
+    color: var(--status-negado-texto);
+    font-size: var(--texto-pequeno);
     font-weight: bold;
 }
 
 .text-muted-bold {
-    font-size: 11px;
     display: block;
-    color: #7f8c8d;
+    color: var(--status-inativo-texto);
+    font-size: var(--texto-pequeno);
     font-weight: bold;
 }
 
-/* Badges de Roles/Tipos de Usuários */
+/* Badges de Roles/Tipos de Usuários (mesmo raio/padding do .badge base) */
+.badge-user-arquivado {
+    background-color: var(--status-arquivado-fundo);
+    color: var(--status-arquivado-texto);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
 .badge-user-admin {
-    background-color: #8e44ad;
-    color: var(--branco-puro);
-    padding: 4px 8px;
-    border-radius: 4px;
+    background-color: var(--status-andamento-fundo);
+    color: var(--status-andamento-texto);
+    border: 1px solid var(--status-andamento-borda);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
     font-size: 12px;
 }
 
 .badge-user-cliente {
-    background-color: #2ecc71;
-    color: var(--branco-puro);
-    padding: 4px 8px;
-    border-radius: 4px;
+    background-color: var(--status-sucesso-fundo);
+    color: var(--status-sucesso-texto);
+    border: 1px solid var(--status-sucesso-borda);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
     font-size: 12px;
 }
 
@@ -799,11 +648,11 @@
     width: 100%;
     height: 42px;
     padding: 0 12px 0 38px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 1px solid var(--cinza-medio);
+    border-radius: var(--raio-borda-redonda);
     font-size: 0.9rem;
     font-family: var(--fonte-corpo);
-    background-color: #ffff;
+    background-color: var(--branco-puro);
     transition: all 0.2s ease;
     box-sizing: border-box;
 }
@@ -815,54 +664,13 @@
     background-color: var(--branco-puro);
 }
 
-/* Alinhamento dos botões de ação */
+/* Alinhamento dos botões de ação: "Filtrar" usa .btn-primary e "Limpar"
+   usa .btn-icon-circle (ambos em style.css) — altura livre, centralizada
+   junto com os inputs de 42px da linha. */
 .filter-actions {
     display: flex;
     align-items: center;
     gap: 10px;
-    height: 42px;
-}
-
-/* Botão filtrar principal */
-.btn-filter-submit {
-    height: 42px;
-    background-color: var(--amarelo-brecho);
-    color: var(--preto-abs);
-    border: 1px solid var(--preto-abs);
-    border-radius: 6px;
-    padding: 0 18px;
-    font-size: 0.9rem;
-    font-family: var(--fonte-corpo);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: transform 0.1s ease;
-}
-
-.btn-filter-submit:hover {
-    transform: translateY(-1px);
-}
-
-/* Botão "X" para limpar filtros ativos */
-.btn-filter-clear {
-    height: 38px;
-    width: 38px;
-    background-color: #f3f3f3;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    color: #555;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.btn-filter-clear:hover {
-    background-color: #e57373;
-    color: var(--branco-puro);
-    border-color: #d32f2f;
 }
 
 /* Responsividade para telas menores */
@@ -889,9 +697,9 @@
 }
 
 .admin-header-title h1 {
-    font-size: 2rem;
+    font-size: var(--texto-gigante);
     font-family: var(--fonte-titulo);
-    color: var(--amarelo-brecho);
+    color: var(--preto-abs);
     margin-bottom: 5px;
     font-weight: normal;
 }
@@ -919,8 +727,8 @@
 
 .banner-admin-card {
     background-color: #fafafa;
-    border: 2px solid var(--preto-abs);
-    border-radius: 16px;
+    border: 1px solid var(--preto-abs);
+    border-radius: var(--raio-borda-suave);
     padding: 20px;
     position: relative;
     display: flex;
@@ -945,8 +753,8 @@
 .banner-preview-box {
     width: 100%;
     height: 180px;
-    border-radius: 10px;
-    border: 1px dashed #777777;
+    border-radius: var(--raio-borda-suave);
+    border: 1px dashed var(--cinza-medio);
     margin: 15px 0;
     background-color: var(--branco-puro);
     overflow: hidden;
@@ -977,28 +785,13 @@
     font-size: var(--texto-pequeno);
 }
 
-.btn-upload-customizado {
+/* Botão de upload dos Banners: usa .btn-primary (style.css). Só o input
+   de arquivo escondido dentro do <label> precisa de regra própria aqui. */
+.banner-card-form-wrapper .btn-primary {
     width: 100%;
-    height: 42px;
-    background-color: var(--preto-abs);
-    color: var(--branco-puro);
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: var(--texto-pequeno);
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    box-sizing: border-box;
 }
 
-.btn-upload-customizado:hover {
-    background-color: #222222;
-}
-
-.btn-upload-customizado input[type="file"] {
+.banner-card-form-wrapper .btn-primary input[type="file"] {
     display: none;
 }
 
@@ -1017,10 +810,10 @@
 }
 
 .admin-header h1 {
-    color: var(--amarelo-brecho);
+    color: var(--preto-abs);
     font-family: var(--fonte-titulo);
     font-weight: normal !important;
-    font-size: 2.2rem;
+    font-size: var(--texto-gigante);
     letter-spacing: -0.03em;
     margin: 0 0 var(--espaco-pp) 0;
 }
@@ -1051,7 +844,7 @@
 .admin-secao-box {
     background: #fafafa;
     border: 1px solid var(--preto-abs);
-    border-radius: 20px;
+    border-radius: var(--raio-borda-suave);
     padding: var(--espaco-gg);
     margin-bottom: 3rem;
 }
@@ -1091,7 +884,7 @@
     flex: 1;
     height: 48px;
     border: 1px solid var(--preto-abs);
-    border-radius: 50px;
+    border-radius: var(--raio-borda-redonda);
     padding: 0 var(--espaco-g);
     font-size: var(--texto-padrao);
     background: var(--branco-puro);
@@ -1110,7 +903,7 @@
     font-style: italic;
 }
 
-.input-grupo button, .btn-pilula-preta, .btn-bloco {
+.input-grupo button, .btn-bloco {
     font-family: var(--fonte-corpo);
     font-style: italic;
 }
@@ -1137,7 +930,7 @@
 .form-campo input[type="text"] {
     height: 48px;
     border: 1px solid var(--preto-abs);
-    border-radius: 14px;
+    border-radius: var(--raio-borda-redonda);
     padding: 0 var(--espaco-m);
     font-size: var(--texto-padrao);
     background: var(--branco-puro);
@@ -1169,27 +962,8 @@
     display: none;
 }
 
-.btn-pilula-preta {
-    height: 48px;
-    background-color: var(--preto-abs);
-    color: var(--branco-puro);
-    border: none;
-    border-radius: 50px;
-    padding: 0 2rem;
-    font-size: 0.95rem;
-    font-weight: 400;
-    cursor: pointer;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-}
-
-.btn-pilula-preta:hover {
-    background-color: #222222;
-}
-
+/* Botões "Vincular Post" / "Salvar na Galeria": usam .btn-primary
+   (style.css) + .btn-bloco quando precisam ocupar a linha inteira. */
 .btn-bloco {
     width: 100%;
 }
@@ -1231,7 +1005,7 @@
 .btn-deletar-icone {
     background: none;
     border: none;
-    color: #ff3b30;
+    color: var(--status-negado-texto);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1241,7 +1015,7 @@
 }
 
 .btn-deletar-icone:hover {
-    background: #ffebe6;
+    background: var(--status-negado-fundo);
 }
 
 /* Listagem da Galeria de Fotos Local */
@@ -1253,7 +1027,7 @@
 
 .galeria-admin-card {
     border: 1px solid var(--preto-abs);
-    border-radius: 12px;
+    border-radius: var(--raio-borda-suave);
     overflow: hidden;
     background: var(--branco-puro);
 }
@@ -1285,7 +1059,7 @@
 .btn-deletar-card {
     background: none;
     border: none;
-    color: #ff3b30;
+    color: var(--status-negado-texto);
     cursor: pointer;
     padding: 4px;
     display: flex;
@@ -1320,7 +1094,7 @@
         font-size: 1.6rem !important; /* Força o tamanho compacto no mobile */
         line-height: 1.3;
         font-weight: normal;
-        color: var(--amarelo-brecho);
+        color: var(--preto-abs);
         margin: 0 0 var(--espaco-pp) 0;
         display: block;
         width: 100%;
@@ -1359,9 +1133,9 @@
     }
 
     /* Faz o botão ocupar a linha de baixo inteira */
-    .btn-pilula-preta {
+    .admin-bazar-container .btn-primary {
         width: 100% !important;
-        display: block !important;
+        display: flex !important;
         text-align: center;
     }
 }

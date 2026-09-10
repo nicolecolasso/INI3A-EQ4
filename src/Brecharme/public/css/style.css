@@ -121,3 +121,148 @@
   --raio-borda-redonda: 25px;          /* Ex.: botões e campos */
   --raio-borda-pilula: 9999px;         /* Ex.: barra de busca redonda */
 }
+
+/* ==========================================================================
+   COMPONENTES: SISTEMA DE BOTÕES PADRÃO
+   Único conjunto de classes de botão para o projeto inteiro: uma ação
+   primária (pílula amarela), uma ação secundária/neutra (pílula cinza) e
+   um ícone circular para ações de linha de tabela. O preto só aparece
+   como estado de hover/ativo, nunca como cor de botão em repouso.
+   ========================================================================== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--amarelo-brecho);
+  color: var(--preto-abs);
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--raio-borda-pilula);
+  font-family: var(--fonte-corpo);
+  font-size: var(--texto-pequeno);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn-primary:hover {
+  background-color: var(--preto-abs);
+  color: var(--amarelo-brecho);
+  box-shadow: 0 6px 18px rgba(239, 184, 16, 0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--cinza-fundo);
+  color: #555555;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--raio-borda-pilula);
+  font-family: var(--fonte-corpo);
+  font-size: var(--texto-pequeno);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--preto-abs);
+  color: var(--branco-puro);
+}
+
+/* Ícone circular de ação em tabelas: a cor base é neutra (editar) e as
+   variantes trocam só a cor, reaproveitando os tokens de status. */
+.btn-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-neutral-100);
+  color: #444444;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-icon-circle i {
+  font-size: 18px;
+}
+
+.btn-icon-circle:hover {
+  background-color: var(--preto-abs);
+  color: var(--amarelo-brecho);
+}
+
+.btn-icon-circle.danger {
+  background-color: var(--status-negado-fundo);
+  color: var(--status-negado-texto);
+}
+
+.btn-icon-circle.danger:hover {
+  background-color: var(--status-negado-texto);
+  color: var(--branco-puro);
+}
+
+.btn-icon-circle.success {
+  background-color: var(--status-sucesso-fundo);
+  color: var(--status-sucesso-texto);
+}
+
+.btn-icon-circle.success:hover {
+  background-color: var(--status-sucesso-texto);
+  color: var(--branco-puro);
+}
+
+.btn-icon-circle.andamento {
+  background-color: var(--status-andamento-fundo);
+  color: var(--status-andamento-texto);
+}
+
+.btn-icon-circle.andamento:hover {
+  background-color: var(--status-andamento-texto);
+  color: var(--branco-puro);
+}
+
+.btn-icon-circle.disabled,
+.btn-icon-circle.disabled:hover {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Checkbox padrão: input e texto sempre na mesma linha, alinhados ao
+   centro, em vez de cada formulário reinventar o alinhamento. */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--amarelo-brecho);
+  cursor: pointer;
+}
+
+.checkbox-row span {
+  font-family: var(--fonte-corpo);
+  font-size: var(--texto-pequeno);
+  color: var(--preto-abs);
+}

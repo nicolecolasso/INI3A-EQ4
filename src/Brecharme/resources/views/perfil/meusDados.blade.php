@@ -80,10 +80,10 @@
                             <input type="text" id="telefone" name="telefone" value="{{ old('telefone', $usuario->telefone) }}" class="input-field input-montserrat" placeholder="(14) 99999-9999" maxlength="15" inputmode="numeric">
                         </div>
 
-                        <div class="input-block bloco-input-layout checkbox-container">
-                            <input type="checkbox" id="receber_avisos" name="receber_avisos" value="1" {{ old('receber_avisos', $usuario->receber_avisos) ? 'checked' : '' }} class="checkbox-field">
-                            <label for="receber_avisos" class="label-dados-form label-checkbox">Desejo receber mensagens</label>
-                        </div>
+                        <label class="checkbox-row">
+                            <input type="checkbox" id="receber_avisos" name="receber_avisos" value="1" {{ old('receber_avisos', $usuario->receber_avisos) ? 'checked' : '' }}>
+                            <span>Desejo receber mensagens</span>
+                        </label>
                     </div>
 
                     {{-- Coluna 2: Alterar Senha (Opcional) --}}

@@ -11,7 +11,7 @@
     
     <header class="table-header-box">
         <h2>Gerenciamento de Produtos</h2>
-        <a href="{{ route('admin.produtos.novoProduto') }}" class="btn-add-table">
+        <a href="{{ route('admin.produtos.novoProduto') }}" class="btn-primary">
             <i class="material-icons">add_shopping_cart</i> Novo Produto
         </a>
     </header>
@@ -83,11 +83,11 @@
             </div>
 
             <div class="filter-actions">
-                <button type="submit" class="btn-filter-submit" title="Aplicar filtros">
+                <button type="submit" class="btn-primary" title="Aplicar filtros">
                     <i class="material-icons">search</i> Filtrar
                 </button>
                 @if(request()->filled('nome') || request()->filled('categoria') || request()->filled('status') || request()->filled('excluido'))
-                    <a href="{{ route('admin.produtos') }}" class="btn-filter-clear" title="Limpar Filtros">
+                    <a href="{{ route('admin.produtos') }}" class="btn-icon-circle" title="Limpar Filtros">
                         <i class="material-icons">clear</i>
                     </a>
                 @endif
@@ -134,20 +134,20 @@
                         <td data-label="Ações">
                             <div class="action-buttons-flex">
                                 @if(!$linha->excluido)
-                                    <a href="{{ route('admin.produtos.editarProduto', $linha->id_produto) }}" class="btn-action edit" title="Editar Produto">
+                                    <a href="{{ route('admin.produtos.editarProduto', $linha->id_produto) }}" class="btn-icon-circle" title="Editar Produto">
                                         <i class="material-icons">edit</i>
                                     </a>
                                     {{-- Botão de Desativar --}}
-                                    <a href="{{ route('admin.produtos.excluir', $linha->id_produto) }}" 
-                                       class="btn-action delete" 
-                                       onclick="return confirm('Tem certeza que deseja desativar este produto do catálogo público?');" 
+                                    <a href="{{ route('admin.produtos.excluir', $linha->id_produto) }}"
+                                       class="btn-icon-circle danger"
+                                       onclick="return confirm('Tem certeza que deseja desativar este produto do catálogo público?');"
                                        title="Desativar Produto">
                                         <i class="material-icons">block</i>
                                     </a>
                                 @else
                                     {{--  Botão de Reativar se o produto estiver oculto --}}
-                                    <a href="{{ route('admin.produtos.ativar', $linha->id_produto) }}" 
-                                       class="btn-action check" 
+                                    <a href="{{ route('admin.produtos.ativar', $linha->id_produto) }}"
+                                       class="btn-icon-circle success"
                                        onclick="return confirm('Deseja reativar este produto e torná-lo visível na vitrine novamente?');" 
                                        title="Reativar Produto / Voltar para Vitrine">
                                         <i class="material-icons">settings_backup_restore</i>

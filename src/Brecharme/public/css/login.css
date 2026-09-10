@@ -389,31 +389,8 @@
     color: #888888;
 }
 
-.remember-me-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: -8px;
-    margin-bottom: 5px;
-}
-
-.remember-me-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-family: var(--fonte-corpo);
-    font-size: 13.5px;
-    color: var(--preto-abs);
-    user-select: none;
-}
-
-.remember-me-label input[type="checkbox"] {
-    accent-color: var(--amarelo-brecho); /* Deixa o quadradinho amarelo ao marcar */
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
+/* Checkbox "Manter-me conectado" / "Deseja receber avisos" usa o
+   componente global .checkbox-row (style.css). */
 
 @keyframes slideDown {
     from {

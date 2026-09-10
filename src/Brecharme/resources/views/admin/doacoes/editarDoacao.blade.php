@@ -29,8 +29,8 @@
             @include('admin.doacoes._form')
             
             <div class="form-actions">
-                <button class="btn-submit dark-style">Atualizar Dados</button>
-                <a href="{{ route('admin.doacoes') }}" class="btn-cancel">Voltar</a>
+                <button class="btn-primary">Atualizar Dados</button>
+                <a href="{{ route('admin.doacoes') }}" class="btn-secondary">Voltar</a>
             </div>
         </form>
     </div>

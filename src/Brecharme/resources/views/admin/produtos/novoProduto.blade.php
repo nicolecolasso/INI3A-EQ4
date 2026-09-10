@@ -27,8 +27,8 @@
             @include('admin.produtos._form')
             
             <div class="form-actions">
-                <button class="btn-submit dark-style">Salvar Produto</button>
-                <a href="{{ route('admin.produtos') }}" class="btn-cancel">Voltar</a>
+                <button class="btn-primary">Salvar Produto</button>
+                <a href="{{ route('admin.produtos') }}" class="btn-secondary">Voltar</a>
             </div>
         </form>
     </div>

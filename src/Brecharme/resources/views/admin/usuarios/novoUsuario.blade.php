@@ -27,8 +27,8 @@
             @endif
             
             <div class="form-actions">
-                <button class="btn-submit dark-style">Salvar Usuário</button>
-                <a href="{{ route('admin.usuarios') }}" class="btn-cancel">Voltar</a>
+                <button class="btn-primary">Salvar Usuário</button>
+                <a href="{{ route('admin.usuarios') }}" class="btn-secondary">Voltar</a>
             </div>
         </form>
     </div>

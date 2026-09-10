@@ -11,7 +11,7 @@
     
     <header class="table-header-box">
         <h2>Gerenciamento de Doações</h2>
-        <a href="{{ route('admin.doacoes.novaDoacao') }}" class="btn-add-table">
+        <a href="{{ route('admin.doacoes.novaDoacao') }}" class="btn-primary">
             <i class="material-icons">add_box</i> Nova Doação
         </a>
     </header>
@@ -68,11 +68,11 @@
             </div>
 
             <div class="filter-actions">
-                <button type="submit" class="btn-filter-submit" title="Filtrar Doações">
+                <button type="submit" class="btn-primary" title="Filtrar Doações">
                     <i class="material-icons">search</i> Filtrar
                 </button>
                 @if(request()->filled('termo') || request()->filled('status') || request()->filled('retirada'))
-                    <a href="{{ route('admin.doacoes') }}" class="btn-filter-clear" title="Limpar Filtros">
+                    <a href="{{ route('admin.doacoes') }}" class="btn-icon-circle" title="Limpar Filtros">
                         <i class="material-icons">clear</i>
                     </a>
                 @endif
@@ -128,9 +128,8 @@
                                 @if($linha->status === 'Em Análise')
                                     <form action="{{ route('admin.doacoes.aceitar', $linha->id_doacao) }}" method="POST" style="display: inline;">
                                         @csrf
-                                        <button type="submit" 
-                                                class="btn-action check" 
-                                                style="border: none; background: lightgreen; cursor: pointer; padding: 0;"
+                                        <button type="submit"
+                                                class="btn-icon-circle success"
                                                 onclick="return confirm('Tem certeza que deseja aprovar esta doação?');"
                                                 title="Aprovar Doação">
                                             <i class="material-icons">done</i>
@@ -139,9 +138,8 @@
 
                                     <form action="{{ route('admin.doacoes.rejeitar', $linha->id_doacao) }}" method="POST" style="display: inline;">
                                         @csrf
-                                        <button type="submit" 
-                                                class="btn-action delete" 
-                                                style="border: none; background: lightcoral; cursor: pointer; padding: 0;"
+                                        <button type="submit"
+                                                class="btn-icon-circle danger"
                                                 onclick="return confirm('Tem certeza que deseja recusar esta doação?');"
                                                 title="Recusar Doação">
                                             <i class="material-icons">close</i>
@@ -150,9 +148,9 @@
 
                                 {{-- Aprovada: Exibir botão para abrir o Modal de Preço e Integrar ao Estoque --}}
                                 @elseif($linha->status === 'Aprovada')
-                                    <button type="button" 
-                                            class="btn-action inventory btn-abrir-modal" 
-                                            data-id="{{ $linha->id_doacao }}" 
+                                    <button type="button"
+                                            class="btn-icon-circle andamento btn-abrir-modal"
+                                            data-id="{{ $linha->id_doacao }}"
                                             data-nome="{{ $linha->nome }}"
                                             data-url="{{ route('admin.doacoes.integrar', ':id') }}"
                                             title="Definir Preço e Mandar para Vitrine">
@@ -162,7 +160,7 @@
 
                                 {{-- Botão de Visualizar/Editar Detalhes (Disponível apenas se não foi finalizada) --}}
                                 @if($linha->status !== 'Integrada ao Estoque')
-                                    <a href="{{ route('admin.doacoes.editarDoacao', ['id' => $linha->id_doacao]) }}" class="btn-action edit" title="Editar / Ver Detalhes">
+                                    <a href="{{ route('admin.doacoes.editarDoacao', ['id' => $linha->id_doacao]) }}" class="btn-icon-circle" title="Editar / Ver Detalhes">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 @endif
@@ -192,8 +190,8 @@
             <input type="number" name="preco" id="preco_venda" step="0.01" min="0" placeholder="0,00" required>
             
             <div class="modal-botoes">
-                <button type="button" class="btn class-secondary btn-close-modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Confirmar e Cadastrar</button>
+                <button type="button" class="btn-secondary btn-close-modal">Cancelar</button>
+                <button type="submit" class="btn-primary">Confirmar e Cadastrar</button>
             </div>
         </form>
     </div>

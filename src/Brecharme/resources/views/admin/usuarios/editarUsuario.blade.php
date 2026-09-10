@@ -29,8 +29,8 @@
             @include('admin.usuarios._form')
             
             <div class="form-actions">
-                <button class="btn-submit dark-style">Atualizar Dados</button>
-                <a href="{{ route('admin.usuarios') }}" class="btn-cancel">Voltar</a>
+                <button class="btn-primary">Atualizar Dados</button>
+                <a href="{{ route('admin.usuarios') }}" class="btn-secondary">Voltar</a>
             </div>
         </form>
     </div>

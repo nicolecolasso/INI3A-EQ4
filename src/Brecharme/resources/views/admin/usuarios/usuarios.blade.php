@@ -11,7 +11,7 @@
     
     <header class="table-header-box">
         <h2>Gerenciamento de Usuários</h2>
-        <a href="{{ route('admin.usuarios.novoUsuario') }}" class="btn-add-table">
+        <a href="{{ route('admin.usuarios.novoUsuario') }}" class="btn-primary">
             <i class="material-icons">person_add</i> Novo Usuário
         </a>
     </header>
@@ -74,11 +74,11 @@
             </div>
 
             <div class="filter-actions">
-                <button type="submit" class="btn-filter-submit" title="Aplicar filtros">
+                <button type="submit" class="btn-primary" title="Aplicar filtros">
                     <i class="material-icons">search</i> Filtrar
                 </button>
                 @if(request()->filled('nome') || request()->filled('email') || request()->filled('status'))
-                    <a href="{{ route('admin.usuarios') }}" class="btn-filter-clear" title="Limpar Filtros">
+                    <a href="{{ route('admin.usuarios') }}" class="btn-icon-circle" title="Limpar Filtros">
                         <i class="material-icons">clear</i>
                     </a>
                 @endif
@@ -123,20 +123,20 @@
                             <div class="action-buttons-flex">
                                 @if(!$linha->excluido)
                                     {{-- Usuário Ativo: Exibe Editar e Desativar --}}
-                                    <a href="{{ route('admin.usuarios.editarUsuario', $linha->id) }}" class="btn-action edit" title="Editar Usuário">
+                                    <a href="{{ route('admin.usuarios.editarUsuario', $linha->id) }}" class="btn-icon-circle" title="Editar Usuário">
                                         <i class="material-icons">edit</i>
                                     </a>
-                                    
-                                    <a href="{{ route('admin.usuarios.excluir', $linha->id) }}" 
-                                       class="btn-action delete" 
-                                       onclick="return confirm('Tem certeza que deseja desativar este usuário? Todos os carrinhos ativos e reservas dele serão cancelados automaticamente.');" 
+
+                                    <a href="{{ route('admin.usuarios.excluir', $linha->id) }}"
+                                       class="btn-icon-circle danger"
+                                       onclick="return confirm('Tem certeza que deseja desativar este usuário? Todos os carrinhos ativos e reservas dele serão cancelados automaticamente.');"
                                        title="Desativar Usuário">
                                         <i class="material-icons">block</i>
                                     </a>
                                 @else
                                     {{-- Usuário Inativo: Esconde Editar e Exibe Reintegrar/Ativar --}}
-                                    <a href="{{ route('admin.usuarios.ativar', $linha->id) }}" 
-                                       class="btn-action check" 
+                                    <a href="{{ route('admin.usuarios.ativar', $linha->id) }}"
+                                       class="btn-icon-circle success"
                                        onclick="return confirm('Deseja reintegrar este usuário ao sistema? Ele voltará a ter permissão de acesso.');" 
                                        title="Reintegrar Usuário">
                                         <i class="material-icons">settings_backup_restore</i>

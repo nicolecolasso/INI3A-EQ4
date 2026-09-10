@@ -29,8 +29,8 @@
             @include('admin.reservas._form')
             
             <div class="form-actions">
-                <button class="btn-submit dark-style">Atualizar Dados</button>
-                <a href="{{ route('admin.reservas') }}" class="btn-cancel">Voltar</a>
+                <button class="btn-primary">Atualizar Dados</button>
+                <a href="{{ route('admin.reservas') }}" class="btn-secondary">Voltar</a>
             </div>
         </form>
     </div>

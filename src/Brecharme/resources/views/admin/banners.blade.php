@@ -51,7 +51,7 @@
                 <div class="banner-card-form-wrapper">
                     <form action="{{ route('admin.banners.update', $i) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <label class="btn-upload-customizado">
+                        <label class="btn-primary">
                             <i class="material-icons">add_a_photo</i>
                             <span>{{ $currentBanner ? 'Substituir Imagem' : 'Escolher Imagem' }}</span>
                             {{-- Nome alterado para caminho_img correspondendo ao validate --}}
