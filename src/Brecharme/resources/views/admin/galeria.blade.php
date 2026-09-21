@@ -27,35 +27,7 @@
         </div>
     @endif
 
-    {{-- INSTAGRAM --}}
-    <section class="admin-secao-box">
-        <h2><i class="material-icons">star</i> Adicionar Post do Instagram</h2>
-        <p class="instrucao">Copie a URL do post (ex: https://www.instagram.com/p/xxxxxx/) e cole abaixo.</p>
-        
-        <form action="{{ route('admin.galeria.salvarInsta') }}" method="POST" class="form-alinhado">
-            @csrf
-            <div class="input-grupo">
-                <input type="url" name="link_post" placeholder="Cole o link do post aqui..." required>
-                <button type="submit" class="btn-primary">Vincular Post</button>
-            </div>
-        </form>
-
-        <h3 class="subtitulo-lista">Posts Vinculados Atualmente</h3>
-        <div class="lista-itens-admin">
-            @forelse($postsInstagram as $post)
-                <div class="item-linha">
-                    <span class="link-truncado">{{ $post->link_post }}</span>
-                    <form action="{{ route('admin.galeria.excluirInsta', $post->id_destaque) }}" method="POST" onsubmit="return confirm('Deseja remover este destaque do Instagram?');">                        @csrf 
-                        <button type="submit" class="btn-deletar-icone"><i class="material-icons">delete</i></button>
-                    </form>
-                </div>
-            @empty
-                <p class="sem-dados">Nenhum post vinculado ainda.</p>
-            @endforelse
-        </div>
-    </section>
-
-    {{-- GALERIA LOCAL --}}
+        {{-- GALERIA LOCAL --}}
     <section class="admin-secao-box">
         <h2><i class="material-icons">collections</i> Enviar Foto para a Galeria</h2>
         <form action="{{ route('admin.galeria.salvarFoto') }}" method="POST" enctype="multipart/form-data" class="form-vertical" >
@@ -93,6 +65,34 @@
                 </div>
             @empty
                 <p class="sem-dados">Nenhuma foto adicionada.</p>
+            @endforelse
+        </div>
+    </section>
+
+    {{-- INSTAGRAM --}}
+    <section class="admin-secao-box">
+        <h2><i class="material-icons">star</i> Adicionar Post do Instagram</h2>
+        <p class="instrucao">Copie a URL do post (ex: https://www.instagram.com/p/xxxxxx/) e cole abaixo.</p>
+        
+        <form action="{{ route('admin.galeria.salvarInsta') }}" method="POST" class="form-alinhado">
+            @csrf
+            <div class="input-grupo">
+                <input type="url" name="link_post" placeholder="Cole o link do post aqui..." required>
+                <button type="submit" class="btn-primary">Vincular Post</button>
+            </div>
+        </form>
+
+        <h3 class="subtitulo-lista">Posts Vinculados Atualmente</h3>
+        <div class="lista-itens-admin">
+            @forelse($postsInstagram as $post)
+                <div class="item-linha">
+                    <span class="link-truncado">{{ $post->link_post }}</span>
+                    <form action="{{ route('admin.galeria.excluirInsta', $post->id_destaque) }}" method="POST" onsubmit="return confirm('Deseja remover este destaque do Instagram?');">                        @csrf 
+                        <button type="submit" class="btn-deletar-icone"><i class="material-icons">delete</i></button>
+                    </form>
+                </div>
+            @empty
+                <p class="sem-dados">Nenhum post vinculado ainda.</p>
             @endforelse
         </div>
     </section>

@@ -8,6 +8,28 @@
 
 @section('conteudo')
 <div class="bazar-container">
+
+    <section class="eventos-galeria-section">
+        <h2 class="bazar-secao-titulo"><i class="material-icons">collections</i> Galeria do Bazar</h2>
+        <p class="bazar-secao-subtitulo">Registros fotográficos dos nossos eventos</p>
+        
+        <div class="galeria-fotos-grid">
+            @forelse($fotosGaleria as $foto)
+                <div class="galeria-item-card">
+                    <div class="galeria-img-wrapper">
+                        <img src="{{ asset($foto->caminho_img) }}" alt="{{ $foto->titulo_evento }}">
+                    </div>
+                    @if($foto->titulo_evento)
+                        <div class="galeria-item-info"><span>{{ $foto->titulo_evento }}</span></div>
+                    @endif
+                </div>
+            @empty
+                <p class="sem-registros">Nenhuma foto adicionada à galeria local.</p>
+            @endforelse
+        </div>
+    </section>
+
+    <hr class="bazar-divisor">
     
     <section class="insta-feed-section">
         <h2 class="bazar-secao-titulo"><i class="material-icons">star</i> Destaques do Instagram</h2>
@@ -37,28 +59,7 @@
             </button>
         </div>
     </section>
-
-    <hr class="bazar-divisor">
-
-    <section class="eventos-galeria-section">
-        <h2 class="bazar-secao-titulo"><i class="material-icons">collections</i> Galeria do Bazar</h2>
-        <p class="bazar-secao-subtitulo">Registros fotográficos dos nossos eventos</p>
-        
-        <div class="galeria-fotos-grid">
-            @forelse($fotosGaleria as $foto)
-                <div class="galeria-item-card">
-                    <div class="galeria-img-wrapper">
-                        <img src="{{ asset($foto->caminho_img) }}" alt="{{ $foto->titulo_evento }}">
-                    </div>
-                    @if($foto->titulo_evento)
-                        <div class="galeria-item-info"><span>{{ $foto->titulo_evento }}</span></div>
-                    @endif
-                </div>
-            @empty
-                <p class="sem-registros">Nenhuma foto adicionada à galeria local.</p>
-            @endforelse
-        </div>
-    </section>
+    
 </div>
 
 {{-- Script nativo do Instagram carregado uma única vez no rodapé da página --}}

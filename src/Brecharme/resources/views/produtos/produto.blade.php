@@ -28,7 +28,7 @@
 
             <form action="{{ route('carrinho.adicionar', $produto->id_produto ?? 0) }}" method="POST" class="form-carrinho">
                 @csrf
-                <button type="submit" class="btn-adicionar-carrinho">
+                <button type="submit" class="btn-primary">
                     Adicionar ao Carrinho
                 </button>
             </form>

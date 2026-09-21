@@ -689,6 +689,7 @@
 }
 
 .produto-nome {
+    font-family: var(--fonte-titulo) !important;
     font-size: 2.2rem;
     color: #333;
     font-weight: 400;
@@ -703,31 +704,7 @@
     text-align: justify;
 }
 
-/* Botão Adicionar ao Carrinho */
-.btn-adicionar-carrinho {
-    background-color: var(--amarelo-brecho);
-    color: #333;
-    border: 2px solid #333;
-    border-radius: 10px;
-    padding: var(--espaco-m) 2rem;
-    font-size: var(--texto-padrao);
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: fit-content;
-    box-shadow: 0 1px 0 #333;
-    font-family: var(--fonte-corpo);
-}
-
-.btn-adicionar-carrinho:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 #333;
-}
-
-.btn-adicionar-carrinho:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #333;
-}
+/* Botão Adicionar ao Carrinho: usa o sistema global .btn-primary (style.css). */
 
 /* Responsividade dos Detalhes do Produto */
 @media (max-width: 992px) {
@@ -757,7 +734,7 @@
     .produto-descricao {
         text-align: center;
     }
-    .btn-adicionar-carrinho {
+    .form-carrinho .btn-primary {
         width: 100%;
     }
     .miniaturas-grid {

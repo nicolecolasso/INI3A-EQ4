@@ -397,30 +397,24 @@ position:absolute;
 @media (max-width:480px){
 
     .bazar-container{
-
         padding:0 var(--espaco-g);
-
     }
 
     .bazar-secao-titulo{
-
         font-size:1.55rem;
+    }
 
+    .insta-feed-section .items-slider{
+        padding:0;
     }
 
     .insta-embed-card.item-card{
-
-        flex:0 0 calc(100vw - 40px);
-
-        width:calc(100vw - 40px);
-
-        max-width:none;
-
+        flex:0 0 100%;
+        width:100%;
+        max-width:100%;
     }
 
     .insta-feed-section .slider-arrow{
-
         display:none;
-
     }
 }

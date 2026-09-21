@@ -136,6 +136,48 @@ class CompraController extends Controller
         return view('admin.reservas.editarReserva', compact('linha', 'usuarios', 'produtos'));
     }
 
+    public function cancelar($id)
+    {
+        $compra = Compra::with('produtos')->findOrFail($id);
+
+        if (in_array($compra->status, ['Concluída', 'Cancelada'])) {
+            return redirect()->route('admin.reservas')->with('erro', 'Esta reserva já foi finalizada.');
+        }
+
+        $compra->status = 'Cancelada';
+        $compra->save();
+
+        foreach ($compra->produtos as $produto) {
+            $produto->status = 'Disponível';
+            $produto->save();
+
+            $compra->produtos()->updateExistingPivot($produto->id_produto, ['status' => 'Cancelado']);
+        }
+
+        return redirect()->route('admin.reservas')->with('sucesso', 'Reserva cancelada com sucesso!');
+    }
+
+    public function concluir($id)
+    {
+        $compra = Compra::with('produtos')->findOrFail($id);
+
+        if (in_array($compra->status, ['Concluída', 'Cancelada'])) {
+            return redirect()->route('admin.reservas')->with('erro', 'Esta reserva já foi finalizada.');
+        }
+
+        $compra->status = 'Concluída';
+        $compra->save();
+
+        foreach ($compra->produtos as $produto) {
+            $produto->status = 'Vendido';
+            $produto->save();
+
+            $compra->produtos()->updateExistingPivot($produto->id_produto, ['status' => 'Concluído']);
+        }
+
+        return redirect()->route('admin.reservas')->with('sucesso', 'Reserva concluída com sucesso!');
+    }
+
     public function atualizar(Request $request, $id)
     {
         $request->validate([
@@ -200,4 +242,6 @@ class CompraController extends Controller
         
         return redirect()->route('admin.reservas')->with('sucesso', 'Reserva e estoque atualizados com sucesso!');
     }
+
+
 }

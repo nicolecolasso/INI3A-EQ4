@@ -135,6 +135,27 @@
                                 <a href="{{ route('admin.reservas.editarReserva', $linha->id_compra) }}" class="btn-icon-circle" title="Mudar Status / Editar">
                                     <i class="material-icons">edit</i>
                                 </a>
+
+                                @if ($linha->status !== 'Concluída' && $linha->status !== 'Cancelada')
+                                    <form action="{{ route('admin.reservas.cancelarReserva', $linha->id_compra) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja cancelar esta reserva/compra?');">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit"
+                                                class="btn-icon-circle danger"
+                                                title="Cancelar Reserva/Compra">
+                                            <i class="material-icons">cancel</i>
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('admin.reservas.concluirReserva', $linha->id_compra) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja concluir esta reserva/compra?');">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit"
+                                                class="btn-icon-circle success"
+                                                title="Concluir Reserva/Compra">
+                                            <i class="material-icons">check_circle</i>
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
                         </td>
                     </tr>

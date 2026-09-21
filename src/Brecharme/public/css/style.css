@@ -17,7 +17,7 @@
   /* Escala de Tons Neutros */
   --color-neutral-0: #ffffff;           /* Branco Puro */
   --color-neutral-100: #f0f0f0;         /* Cinza Claro */
-  --color-neutral-300: #b3b3b3;         /* Cinza Médio */
+  --color-neutral-300: #888787;         /* Cinza Médio */
   --color-neutral-900: #000000;         /* Preto Absoluto */
 
   /* Paleta de Feedback / Estados (usada nos selos de status) */

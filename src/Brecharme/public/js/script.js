@@ -4,14 +4,14 @@ document.addEventListener("DOMContentLoaded", function () {
        1. CONTROLE DO SLIDER / CARROSSEL DE PRODUTOS EM DESTAQUE (HOME)
        ========================================================================== */
     const sliderContainer = document.querySelector('.items-slider');
-    
+
     if (sliderContainer) {
         const grid = sliderContainer.querySelector('.items-grid');
         const prevBtn = sliderContainer.querySelector('.slider-arrow.prev');
         const nextBtn = sliderContainer.querySelector('.slider-arrow.next');
 
         if (grid && prevBtn && nextBtn) {
-            
+
             // Função que calcula e move o grid de itens de forma fluida
             const scrollSlider = (direction) => {
                 const firstCard = grid.querySelector('.item-card');
@@ -30,27 +30,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             };
 
-            // Eventos de clique nas setas
-            nextBtn.addEventListener('click', () => scrollSlider('next'));
-            prevBtn.addEventListener('click', () => scrollSlider('prev'));
+            // Verifica se ainda há espaço pra rolar em cada direção e ativa/desativa as setas
+            const atualizarEstadoSetas = () => {
+                const semScrollNecessario = grid.scrollWidth <= grid.clientWidth;
 
-            // Oculta as setas caso todos os produtos caibam na tela sem precisar de scroll
-            const toggleArrowsVisibility = () => {
-                if (grid.scrollWidth <= grid.clientWidth) {
+                if (semScrollNecessario) {
                     prevBtn.style.opacity = '0';
                     prevBtn.style.pointerEvents = 'none';
                     nextBtn.style.opacity = '0';
                     nextBtn.style.pointerEvents = 'none';
-                } else {
-                    prevBtn.style.opacity = '1';
-                    prevBtn.style.pointerEvents = 'auto';
-                    nextBtn.style.opacity = '1';
-                    nextBtn.style.pointerEvents = 'auto';
+                    return;
                 }
+
+                const margemErro = 2; // tolerância p/ arredondamento de subpixel
+                const noComeco = grid.scrollLeft <= margemErro;
+                const noFim = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - margemErro;
+
+                prevBtn.style.opacity = noComeco ? '0.3' : '1';
+                prevBtn.style.pointerEvents = noComeco ? 'none' : 'auto';
+                nextBtn.style.opacity = noFim ? '0.3' : '1';
+                nextBtn.style.pointerEvents = noFim ? 'none' : 'auto';
             };
 
-            toggleArrowsVisibility();
-            window.addEventListener('resize', toggleArrowsVisibility);
+            // Eventos de clique nas setas
+            nextBtn.addEventListener('click', () => scrollSlider('next'));
+            prevBtn.addEventListener('click', () => scrollSlider('prev'));
+
+            // Reavalia o estado das setas conforme o usuário rola (arrasta ou clica)
+            grid.addEventListener('scroll', atualizarEstadoSetas);
+
+            atualizarEstadoSetas();
+            window.addEventListener('resize', atualizarEstadoSetas);
         }
     }
 

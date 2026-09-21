@@ -164,6 +164,16 @@ use Illuminate\Support\Facades\Route;
             'uses' => 'App\Http\Controllers\Admin\CompraController@atualizar'
         ]);
 
+        Route::patch('reservas/cancelarReserva/{id}', [
+            'as'   => 'admin.reservas.cancelarReserva',
+            'uses' => 'App\Http\Controllers\Admin\CompraController@cancelar'
+        ]);
+
+        Route::patch('reservas/concluirReserva/{id}', [
+            'as'   => 'admin.reservas.concluirReserva',
+            'uses' => 'App\Http\Controllers\Admin\CompraController@concluir'
+        ]);
+
 
         // Usuário - Painel Administrativo
         Route::get('usuarios/usuarios', [
