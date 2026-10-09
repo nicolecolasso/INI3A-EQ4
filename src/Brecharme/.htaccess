@@ -1,5 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    RewriteRule ^(docs|gestao|sprints|hub)(/.*)?$ INI3A-EQ4/$1$2 [END]
+
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
