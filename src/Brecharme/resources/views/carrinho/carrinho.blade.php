@@ -68,9 +68,9 @@
         @if($temProdutos)
             <div class="carrinho-actions">
                 {{-- Envia via POST o ID da compra atrelada ao carrinho --}}
-                <form action="{{ route('carrinho.finalizar', $reservas->first()->id_compra) }}" method="POST">
+                <form action="{{ route('carrinho.finalizar', $reserva->id_compra) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn-confirmar-reserva">Confirmar Reserva</button>
+                    <button type="submit" class="btn-confirmar-reserva">Finalizar Reserva</button>
                 </form>
             </div>
         @endif
