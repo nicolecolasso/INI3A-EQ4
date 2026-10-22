@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Route::group(['prefix' => '/26-brecharme'], function () {
+Route::group(['prefix' => '/26-brecharme'], function () {
 
     Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'checkAdmin']], function () {
         Route::get('gerenciar', [
@@ -335,7 +335,7 @@ use Illuminate\Support\Facades\Route;
             'uses' => 'App\Http\Controllers\CarrinhoController@conclusaoReserva'
         ]);
 
-        Route::get('/remover/{id_produto}', [
+        Route::post('/remover/{id_produto}', [
             'as'   => 'carrinho.remover',
             'uses' => 'App\Http\Controllers\CarrinhoController@remover'
         ]);
@@ -389,4 +389,4 @@ use Illuminate\Support\Facades\Route;
         'as' => 'institucional.galeria', 
         'uses' => 'App\Http\Controllers\InstitucionalController@galeria'
     ]);
-//});
+});
