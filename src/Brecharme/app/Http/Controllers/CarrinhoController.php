@@ -103,7 +103,7 @@ class CarrinhoController extends Controller
 
         if ($compra) {
             // Atualiza a tabela intermediária
-            $compra->produtos()->updateExistingPivotIds([$id_produto], ['status' => 'Cancelado']);            
+            $compra->produtos()->updateExistingPivot($id_produto, ['status' => 'Cancelado']);            
             // Retorna o status do produto para 'Disponível'
             Produto::where('id_produto', $id_produto)->update(['status' => 'Disponível']);
 
