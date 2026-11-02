@@ -97,21 +97,25 @@
                             <div class="admin-subtext">{{ $linha->usuario->email ?? '' }}</div>
                         </td>
                         <td data-label="Produto">
-                            {{-- Modificado para ler diretamente a relação de produtos da compra --}}
-                            @if($linha->produtos->count() > 0)
-                                @foreach($linha->produtos as $produto)
+                            @php
+                                $itensExibir = $linha->status === 'Cancelada'
+                                    ? $linha->produtos
+                                    : $linha->produtos->filter(fn ($p) => $p->pivot->status !== 'Cancelado');
+                            @endphp
+
+                            @if($itensExibir->count() > 0)
+                                @foreach($itensExibir as $produto)
                                     <div class="admin-item-row">
-                                        <strong>{{ $produto->nome }}</strong> 
+                                        <strong>{{ $produto->nome }}</strong>
                                         <span class="admin-subtext admin-inline-note">
                                             (R$ {{ number_format($produto->valor, 2, ',', '.') }})
                                         </span>
                                     </div>
                                 @endforeach
-                                
-                                {{-- Se houver mais de um produto, exibe o total acumulado de forma otimizada --}}
-                                @if($linha->produtos->count() > 1)
+
+                                @if($itensExibir->count() > 1)
                                     <div class="reservation-total">
-                                        Total: R$ {{ number_format($linha->produtos->sum('valor'), 2, ',', '.') }}
+                                        Total: R$ {{ number_format($itensExibir->sum('valor'), 2, ',', '.') }}
                                     </div>
                                 @endif
                             @else
@@ -136,7 +140,16 @@
                                     <i class="material-icons">edit</i>
                                 </a>
 
-                                @if ($linha->status !== 'Concluída' && $linha->status !== 'Cancelada')
+                                @if (in_array($linha->status, ['Carrinho', 'Reservado']))
+                                    @php
+                                        $msgAvancar = $linha->status === 'Carrinho'
+                                            ? 'Marcar esta compra como Reservada?'
+                                            : 'Confirmar que o cliente retirou os itens e concluir?';
+                                        $tituloAvancar = $linha->status === 'Carrinho'
+                                            ? 'Marcar como Reservado'
+                                            : 'Concluir (cliente retirou)';
+                                    @endphp
+
                                     <form action="{{ route('admin.reservas.cancelarReserva', $linha->id_compra) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja cancelar esta reserva/compra?');">
                                         @csrf
                                         @method('PATCH')
@@ -146,12 +159,13 @@
                                             <i class="material-icons">cancel</i>
                                         </button>
                                     </form>
-                                    <form action="{{ route('admin.reservas.concluirReserva', $linha->id_compra) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja concluir esta reserva/compra?');">
+
+                                    <form action="{{ route('admin.reservas.avancarReserva', $linha->id_compra) }}" method="POST" onsubmit="return confirm('{{ $msgAvancar }}');">
                                         @csrf
                                         @method('PATCH')
                                         <button type="submit"
                                                 class="btn-icon-circle success"
-                                                title="Concluir Reserva/Compra">
+                                                title="{{ $tituloAvancar }}">
                                             <i class="material-icons">check_circle</i>
                                         </button>
                                     </form>

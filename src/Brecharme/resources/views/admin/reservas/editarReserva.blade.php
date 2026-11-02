@@ -19,6 +19,12 @@
             </ul>
         </div>
     @endif
+
+    @if(!empty($somenteLeitura))
+        <div class="alert-danger" style="background-color:#fff3cd;color:#856404;padding:12px;border-radius:8px;margin-bottom:20px;border:1px solid #ffeeba;">
+            {{ $motivoLeitura }}
+        </div>
+    @endif
     
     <div class="row-form">
         <form action="{{ route('admin.reservas.atualizar', $linha->id_compra) }}" method="post">
@@ -29,7 +35,9 @@
             @include('admin.reservas._form')
             
             <div class="form-actions">
-                <button class="btn-primary">Atualizar Dados</button>
+                @if(empty($somenteLeitura))
+                    <button class="btn-primary">Atualizar Dados</button>
+                @endif
                 <a href="{{ route('admin.reservas') }}" class="btn-secondary">Voltar</a>
             </div>
         </form>

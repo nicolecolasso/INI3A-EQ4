@@ -76,6 +76,8 @@ class PerfilController extends Controller
         // Carrega a compra junto com os produtos cadastrados
         $compras = Compra::with('produtos')
             ->where('fk_compra_id_usuario', Auth::id())
+            ->where('status', '!=', 'Cancelada')
+            ->where('status', '!=', 'Carrinho')
             ->orderBy('id_compra', 'desc')
             ->get();
 

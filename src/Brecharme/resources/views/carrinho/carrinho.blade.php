@@ -24,11 +24,11 @@
     @endif
 
     <div class="carrinho-grid">
-        @php $temProdutos = false; @endphp
+        @php $itemProdutos = false; @endphp
 
         @foreach($reservas as $reserva)
             @foreach($reserva->produtos as $item)
-                @php $temProdutos = true; @endphp
+                @php $itemProdutos = true; @endphp
                 
                 <div class="carrinho-item-card">
                     <div class="carrinho-img-wrapper">
@@ -58,19 +58,19 @@
             @endforeach
         @endforeach
 
-        @if(!$temProdutos)
+        @if(!$itemProdutos)
             <div class="carrinho-vazio">
                 <h3>Seu carrinho está vazio</h3>
                 <a href="{{ route('produtos.vitrine') }}" class="btn-voltar-vitrine">Ir para a Vitrine</a>
             </div>
         @endif
 
-        @if($temProdutos)
+        @if($itemProdutos)
             <div class="carrinho-actions">
                 {{-- Envia via POST o ID da compra atrelada ao carrinho --}}
                 <form action="{{ route('carrinho.finalizar', $reservas->first()->id_compra) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn-confirmar-reserva">Confirmar Reserva</button>
+                    <button type="submit" class="btn-confirmar-reserva">Finalizar Reserva</button>
                 </form>
             </div>
         @endif

@@ -1,4 +1,6 @@
-{{-- Campo de Usuário/Cliente --}}
+{{-- Cliente --}}
+<fieldset {{ ($somenteLeitura ?? false) ? 'disabled' : '' }} style="border:0;padding:0;margin:0;">
+
 <div class="form-group">
     <label for="id_usuario">Cliente / Usuário</label>
     <select name="id_usuario" id="id_usuario" required>
@@ -11,30 +13,49 @@
     </select>
 </div>
 
-{{-- Campo de Seleção Múltipla de Produtos --}}
+{{-- Produtos --}}
+@if(!($somenteLeitura ?? false) || $produtos->isNotEmpty())
 <div class="form-group">
     <label for="id_produto">Produtos da Reserva (Segure CTRL no Windows ou CMD no Mac para selecionar/desmarcar)</label>
-    <select name="id_produto[]" id="id_produto" multiple required class="multiselect-tall multiselect-reservas">
+    <select name="id_produto[]" id="id_produto" multiple class="multiselect-tall multiselect-reservas">
         @foreach($produtos as $produto)
             @php
-                $jaSelecionado = false;
-                if(isset($linha) && isset($linha->produtos)) {
-                    $jaSelecionado = $linha->produtos->contains('id_produto', $produto->id_produto);
-                }
+                $selecionado = in_array($produto->id_produto, $idsDaCompra ?? []);
+                $voltando    = in_array($produto->id_produto, $recuperaveis ?? []);
             @endphp
-            <option value="{{ $produto->id_produto }}" {{ $jaSelecionado ? 'selected' : '' }}>
-                @if($jaSelecionado)
-                    📌 [RESERVADO NESTA COMPRA] - {{ $produto->nome }} (R$ {{ number_format($produto->valor, 2, ',', '.') }})
+            <option value="{{ $produto->id_produto }}" {{ $selecionado ? 'selected' : '' }}>
+                @if($voltando)
+                    ↩ [ESTAVA NESTA COMPRA] - {{ $produto->nome }} (R$ {{ number_format($produto->valor, 2, ',', '.') }})
+                @elseif($selecionado)
+                    📌 [NESTA COMPRA] - {{ $produto->nome }} (R$ {{ number_format($produto->valor, 2, ',', '.') }})
                 @else
                     {{ $produto->nome }} (R$ {{ number_format($produto->valor, 2, ',', '.') }})
                 @endif
             </option>
         @endforeach
     </select>
+
     <small class="form-text text-muted form-text-helper">
-        Aviso: Itens desmarcados que já pertenciam a esta reserva voltarão automaticamente a ficar disponíveis após salvar.
+        Itens desmarcados que estavam na reserva voltam a ficar disponíveis após salvar.
+        Para cancelar a reserva inteira, use o status "Cancelada".
     </small>
 </div>
+@endif
+
+{{-- Itens antigos que não podem voltar (somente visualização) --}}
+@if(!empty($comprometidos))
+    <div class="form-group">
+        <label>Itens que já estiveram nesta compra e não podem voltar</label>
+        <ul style="margin:0;padding-left:20px;">
+            @foreach($comprometidos as $c)
+                <li>
+                    🔒 {{ $c['nome'] }} (R$ {{ number_format($c['valor'], 2, ',', '.') }})
+                    <span class="admin-subtext"> — {{ $c['motivo'] }}</span>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 @if(isset($linha))
     <div class="form-group">
@@ -46,9 +67,10 @@
 <div class="form-group">
     <label for="status">Status da Reserva/Compra</label>
     <select name="status" id="status" required>
-        <option value="Reservado" {{ (isset($linha) && $linha->status == 'Reservado') ? 'selected' : '' }}>Reservado</option>
-        <option value="Carrinho" {{ (isset($linha) && $linha->status == 'Carrinho') ? 'selected' : '' }}>Carrinho</option>
-        <option value="Concluída" {{ (isset($linha) && $linha->status == 'Concluída') ? 'selected' : '' }}>Concluída</option>
-        <option value="Cancelada" {{ (isset($linha) && $linha->status == 'Cancelada') ? 'selected' : '' }}>Cancelada</option>
+        @foreach(['Reservado' => 'Reservado', 'Carrinho' => 'Carrinho', 'Concluída' => 'Concluída', 'Cancelada' => 'Cancelada'] as $valor => $rotulo)
+            <option value="{{ $valor }}" {{ (isset($linha) && $linha->status == $valor) ? 'selected' : '' }}>{{ $rotulo }}</option>
+        @endforeach
     </select>
 </div>
+
+</fieldset>

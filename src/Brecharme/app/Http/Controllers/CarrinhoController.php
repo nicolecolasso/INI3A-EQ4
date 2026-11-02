@@ -8,12 +8,15 @@ use App\Models\Produto;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class CarrinhoController extends Controller
 {
     public function carrinho()
     {
-        $reservas = Compra::with('produtos')
+        $reservas = Compra::with(['produtos' => function ($query) {
+                $query->wherePivot('status', 'Carrinho');
+            }])
             ->where('fk_compra_id_usuario', Auth::id())
             ->where('status', 'Carrinho')
             ->get();
@@ -28,14 +31,31 @@ class CarrinhoController extends Controller
             ->where('status', 'Carrinho')
             ->firstOrFail();
 
-        $compra->update([
-            'status' => 'Reservado',
-            'data_compra' => now()
-        ]);
+        // Só os itens que continuam no carrinho (ignora os cancelados)
+        $produtosId = $compra->produtos()
+            ->wherePivot('status', 'Carrinho')
+            ->pluck('id_produto')
+            ->toArray();
 
-        $produtosId = $compra->produtos()->pluck('id_produto')->toArray();
-        $compra->produtos()->whereIn('id_produto', $produtosId)->update(['status' => 'Reservado']);
-        Produto::whereIn('id_produto', $produtosId)->update(['status' => 'Reservado']);
+        // Se não sobrou nada, não há o que reservar
+        if (empty($produtosId)) {
+            return redirect()->route('carrinho')->with('erro', 'Seu carrinho está vazio.');
+        }
+
+        DB::transaction(function () use ($compra, $produtosId) {
+            $compra->update([
+                'status'      => 'Reservado',
+                'data_compra' => now()
+            ]);
+
+            // Atualiza o status na tabela intermediária
+            foreach ($produtosId as $id) {
+                $compra->produtos()->updateExistingPivot($id, ['status' => 'Reservado']);
+            }
+
+            // Atualiza o status na tabela de produtos
+            Produto::whereIn('id_produto', $produtosId)->update(['status' => 'Reservado']);
+        });
 
         $usuario = Auth::user();
         $nomesProdutos = Produto::whereIn('id_produto', $produtosId)->pluck('nome')->implode(', ');
@@ -86,36 +106,43 @@ class CarrinhoController extends Controller
         $cliente = Auth::user();
 
         // Busca as compras que mudaram recentemente para "Reservado" deste usuário
-        $produtosReservados = Compra::with('produtos')
-            ->where('fk_compra_id_usuario', $cliente->id)
-            ->where('status', 'Reservado')
-            ->orderBy('data_compra', 'desc')
-            ->get();
+        $produtosReservados = Compra::with(['produtos' => function ($q) {
+            $q->wherePivot('status', 'Reservado');
+        }])
+        ->where('fk_compra_id_usuario', $cliente->id)
+        ->where('status', 'Reservado')
+        ->orderBy('data_compra', 'desc')
+        ->get();
 
         return view('carrinho.conclusaoReserva', compact('cliente', 'produtosReservados'));
     }
 
     public function remover($id_produto)
     {
-        $compra = Compra::where('fk_compra_id_usuario', Auth::id())
+        $item = ProdutoReserva::where('fk_id_produto', $id_produto)
             ->where('status', 'Carrinho')
+            ->whereHas('compra', function ($q) {
+                $q->where('fk_compra_id_usuario', Auth::id())
+                ->where('status', 'Carrinho');
+            })
             ->first();
 
-        if ($compra) {
-            // Atualiza a tabela intermediária
-            $compra->produtos()->updateExistingPivotIds([$id_produto], ['status' => 'Cancelado']);            
-            // Retorna o status do produto para 'Disponível'
-            Produto::where('id_produto', $id_produto)->update(['status' => 'Disponível']);
+        if ($item) {
+            DB::transaction(function () use ($item) {
+                $item->update(['status' => 'Cancelado']);
 
-            // Verifica se o carrinho ficou completamente vazio
-            $itensAtivosNoCarrinho = ProdutoReserva::where('fk_id_compra', $compra->id_compra)
-                ->where('status', 'Carrinho')
-                ->count();
+                Produto::where('id_produto', $item->fk_id_produto)
+                    ->update(['status' => 'Disponível']);
 
-            // Se não restou nenhum item ativo no carrinho muda o status da compra
-            if ($itensAtivosNoCarrinho === 0) {
-                $compra->update(['status' => 'Cancelada']);
-            }
+                $restantes = ProdutoReserva::where('fk_id_compra', $item->fk_id_compra)
+                    ->where('status', 'Carrinho')
+                    ->count();
+
+                if ($restantes === 0) {
+                    Compra::where('id_compra', $item->fk_id_compra)
+                        ->update(['status' => 'Cancelada']);
+                }
+            });
         }
 
         return redirect()->route('carrinho')->with('sucesso', 'Item removido do seu carrinho.');
@@ -125,41 +152,32 @@ class CarrinhoController extends Controller
     {
         $produto = Produto::where('id_produto', $id_produto)
             ->where('status', 'Disponível')
-            ->where('excluido', false) 
+            ->where('excluido', false)
             ->firstOrFail();
 
-        // Procura por um carrinho ativo o usuário
-        $compra = Compra::where('fk_compra_id_usuario', Auth::id())
-            ->where('status', 'Carrinho')
-            ->first();
+        $adicionado = DB::transaction(function () use ($produto, $id_produto) {
+            $compra = Compra::firstOrCreate(
+                ['fk_compra_id_usuario' => Auth::id(), 'status' => 'Carrinho'],
+                ['data_compra' => now()]
+            );
 
-        // Se não existir nenhum carrinho ativo, cria um novo
-        if (!$compra) {
-            $compra = Compra::create([
-                'fk_compra_id_usuario' => Auth::id(),
-                'status'               => 'Carrinho',
-                'data_compra'          => now()
-            ]);
-        }
+            $jaNoCarrinho = $compra->itens()
+                ->where('fk_id_produto', $id_produto)
+                ->where('status', 'Carrinho')
+                ->exists();
 
-        // Verifica se o produto já não está ativo no carrinho atual
-        $jaNoCarrinho = $compra->produtos()
-            ->where('fk_id_produto', $id_produto)
-            ->wherePivot('status', 'Carrinho')
-            ->exists();
+            if ($jaNoCarrinho) {
+                return false;
+            }
 
-
-        if (!$jaNoCarrinho) {
-            // Insere na tabela intermediária 
             $compra->produtos()->attach($id_produto, ['status' => 'Carrinho']);
-            
-            // Atualiza o produto principal
             $produto->update(['status' => 'Carrinho']);
-            return redirect()->route('carrinho')->with('sucesso', 'Produto adicionado ao carrinho!');
 
-        }
-        return redirect()->route('carrinho')->with('erro', 'Este produto já está no seu carrinho.');
+            return true;
+        });
 
-
+        return $adicionado
+            ? redirect()->route('carrinho')->with('sucesso', 'Produto adicionado ao carrinho!')
+            : redirect()->route('carrinho')->with('erro', 'Este produto já está no seu carrinho.');
     }
 }
